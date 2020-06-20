@@ -1,0 +1,56 @@
+--- 
+title: "Mini-Workshop (Structural) Topic Models"
+author: "Marko Bachl"
+date: "Sommersemester 2020 | IJK Hannover"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+description: "Material für den Mini-Workshop (Structural) Topic Models"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+options(scipen = 10, digits = 2)
+```
+
+```{r, echo=FALSE, cache=FALSE}
+knitr::read_chunk("R/packages.R")
+```
+
+# Überblick
+
+## Inhalt des virtuellen Mini-Workshops
+
+XXX
+
+## Welche Inhalte wir nicht behandeln
+
+[@maierApplyingLDATopic2018; @robertsStmPackageStructural2019]
+
+
+
+## Aufbau des Workshops
+
+* Inhaltlicher Aufbau: Siehe Kapitel-Gliederung
+
+### Material {-}
+
+* Dieses Dokument + R Skripte: (Hoffentlich) mehr oder weniger selbsterklärendes Material
+  * Kuratierte Form ist dieses HTML-Dokument
+  * Es gibt auch ein PDF, das ich aber nicht formatiert habe
+
+* Screencast: Ich gehe über das Material und erkläre es auf der Audio-Spur. Mal sehen, wie hilfreich das ist. Die Screencasts stelle ich über das LMS zur Verfügung.
+
+* Übungen: Zu einigen Analysen gibt es Übungsaufgaben.
+  * XXX
+
+### Pakete {-}
+
+Wir verwenden die folgenden Pakete
+
+
+```{r packages, eval=TRUE, tidy=TRUE, message=FALSE}
+
+```

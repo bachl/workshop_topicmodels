@@ -1,0 +1,16 @@
+bookdown::gitbook:
+  css: style.css
+  toc_depth: 2
+  config:
+    toc:
+      before: |
+        <li><a href="./">Topic Models</a></li>
+    download: ["pdf"]
+  split_by: chapter
+  self_contained: no
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes

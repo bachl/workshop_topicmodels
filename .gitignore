@@ -2,3 +2,5 @@
 .Rhistory
 .Ruserdata
 .DS_Store
+*.rds
+*.zip

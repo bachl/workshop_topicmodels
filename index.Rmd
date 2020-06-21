@@ -23,13 +23,39 @@ knitr::read_chunk("R/packages.R")
 
 ## Inhalt des virtuellen Mini-Workshops
 
-XXX
+* In diesem Mini-Workshop erläutere ich das praktische Vorgehen einer Datenanalyse mit *Structural Topic Models*. Wir behandeln die folgenden Schritte im Analyseprozess:
+  * Schätzen eines ersten Modells
+  * Modellvergleich zur Auswahl eines geeigneten Modells
+  * Interpretation der Topics im finalen Modell
+  * Darstellung der Ergebnisse
+  * Weitere Analysen
+    * Identifikation verwandter Themen
+    * Zusammenhänge der Themenprävalenz mit Kovariaten.
 
-## Welche Inhalte wir nicht behandeln
+* Wir verwenden das Paket `{stm}` [@robertsStmPackageStructural2019] zum Schätzen von Topic Models. Für die Variante der *Structural* Topic Models und die Implementation in diesem Paket sprechen *für mich* die folgenden Gründe
+  * Gute Integration mit *R* und Paketen, die ich für die Arbeit mit Text-Daten verwende (insbesondere `{quanteda}` und `{tidytext}`)
+  * Gute ergänzende Pakete zur Arbeit mit den Modellen (insbesondere `{stminsights}`)
+  * Vergleichsweise schnelle Modellschätzung auch mit großen Datensätzen
+  * Direktes Schätzen von Zusammenhängen von Topics mit Kovariaten
+  * Initialisieren der Modellschätzung mit dem Spectral Algorithmus
+  * Recht weit verbreitet in einem Feld, in dem ich viel lese (Politische Kommunkation nach einem weitem Verständnis)
 
-[@maierApplyingLDATopic2018; @robertsStmPackageStructural2019]
+* Die Darstellung basiert auf einer Analyse, die ich gemeinsam mit Elena Link durchgeführt habe. Wir untersuchten, wie das Thema Impfen in Online-Foren für Eltern diskutiert wurde. Wir verwenden aber nur einen *nicht repräsentativen* Ausschnitt aus dem Material, um die notwendige Rechenleistung und -zeit zu verringern.
+  * Einen Preprint zur Analyse könnt ihr hier lesen: [Vaccine-related Discussions in Online Communities for Parents. A Quantitative Overview](https://osf.io/ad9h7/).
+  * Die Dokumentation zur Studie ist hier verfügbar: https://bachl.github.io/vaccine_discussions/. Daten und Analyse-Skripts gibt es im [OSF](https://osf.io/twx38/). In diesem Material werde auch die Datenerhebung mittels Web-Scraping und die Datenaufbereitung erläutert. Diese Inhalte sind *nicht* Teil dieses Workshops. Wenn ihr Fragen dazu habt, dürft ihr sie natürlich stellen.
 
 
+## Welche Inhalte wir *nicht* behandeln
+
+* Auch wenn das im direkten Vergleich mit dem Parallel-Angebot zu [Panel Data Analysis](https://bachl.github.io/workshop_panel/) (meine Ausführlichkeit dort sind ein Grund für die spätere Lieferung dieser Materialien) enttäuschend sein mag: Die Inhalte in diesem Mini-Workshop entsprechen in ihrem Umfang wirklich nur dem, was ich zu Beginn des Digital-Semesters geplant und angekündigt hatte. Der Mini-Workshop ersetzt keine tiefer gehende Einarbeitung in die Methode, sondern ist als ein Einstieg zu verstehen.
+
+* Wir behandeln hier keine theoretischen, statistischen oder auf die Software-Implementierung der Modellschätzung bezogenen Fragen. Die Grundlagen dazu können aus den Texten im LMS entnommen werden [@maierApplyingLDATopic2018; @robertsStmPackageStructural2019].
+
+* Es gibt neben `{stm}` viele andere Implementationen in *R* und ihn anderer Software. Gefühlt gibt es alle 6 Monate eine neue Variante von Topic Models, alle 3 Monate eine neue Implementierung und jeden Monat ein Paket mit zusätzlichen Tools für die Arbeit mit Topic Models. Meine Entscheidung für `{stm}` ist keine informierte Entscheidung gegen andere Varianten, Implementierungen und Tools. Dieser Workshop ist keine Aufforderung, ausschließlich `{stm}` zu nutzen. Informiert euch gegebenenfalls selbst über Software-Lösungen, die für eure Bedürfnisse geeignet sind.
+
+* Dieser Mini-Workshop ist kein *R*-Tutorial. Wenn ihr Interesse habt, *R*-Kenntnisse zu erwerben und zu vertiefen, empfehle ich [R4DS](https://r4ds.had.co.nz/).
+
+* Dieser Mini-Workshop ist keine allgemeine Einführung in die computergestützte Inhaltsanalyse. Wenn ihr allgemein mit *R* arbeiten möchtet, empfehle ich zu diesem Thema die [Einführung von Cornelius Puschmann](http://inhaltsanalyse-mit-r.de/).
 
 ## Aufbau des Workshops
 
@@ -40,8 +66,10 @@ XXX
 * Dieses Dokument + R Skripte: (Hoffentlich) mehr oder weniger selbsterklärendes Material
   * Kuratierte Form ist dieses HTML-Dokument
   * Es gibt auch ein PDF, das ich aber nicht formatiert habe
+  
+* Daten: Ein Ausschnitt auf den Daten der oben genannten Beispielstudie. Eine genauere Beschreibung folgt im nächsten Abschnitt.
 
-* Screencast: Ich gehe über das Material und erkläre es auf der Audio-Spur. Mal sehen, wie hilfreich das ist. Die Screencasts stelle ich über das LMS zur Verfügung.
+* Screencast: Zu einigen Analyseschritten stelle ich Screencasts zur Verfügung. Diese sind größtenteils ergänzend gedacht. Bis auf wenige Ausnahmen sollte das schriftliche Material selbsterklärend sein.
 
 * Übungen: Zu einigen Analysen gibt es Übungsaufgaben.
   * XXX

@@ -1,0 +1,34 @@
+# Beispiel-Daten und Aufbereitung
+
+```{r, include=FALSE}
+source("R/packages.R")
+```
+
+```{r, echo=FALSE, cache=FALSE}
+knitr::read_chunk("R/read_data.R")
+```
+
+## Laden der Daten und Übersicht
+
+* Wir verwenden einen Ausschnitt der Daten aus der Beispielstudie. Konkret handelt es sich um Posts mit dem Suchwort *impf*, die zwischen dem 1. Mai 2016 und dem 8. Juli 2019 im Elternforum [Urbia](https://www.urbia.de/forum) veröffentlicht wurden. Ausgeschlossen wurden unter anderem
+  * sehr kurze Posts (weniger als 19 Wörter)
+  * Posts mit dem Wort *schimpf*
+  * Posts zur Impfung von Haustieren (nach einem kurzen Diktionär)
+* Die Dokumentation zur Studie gibt weitere Informationen zur Erhebung und Bereinigung der Rohdaten.
+* Diese Daten können aus Copyright- und Privacy-Gründen nicht auf GitHub veröffentlicht werden. Ich habe Sie daher im LMS hochgeladen. Bitte ladet die ZIP-Datei herunter.
+  * Wenn ihr sie mit dem Code aus dem Repository integrieren wollt, müsst ihr sie in den Ordner "data" unter "R" entpacken.
+
+```{r read-data, eval=TRUE, message=FALSE}
+
+```
+
+* Der Datensatz besteht aus 12,635 Posts.
+  * Die Variable `post` enthält den vollen Text des Posts.
+  * Die Variable `author` enthält den Accountnamen, von dem der Post abgegeben wurde.
+  * Die Variable `date` enthält den Tag der Veröffentlichung.
+  * Die Variable `wc` enthält die Zahl der Wörter des Posts.
+  * Die Variable `thread_title` enthält den Titel des Diskussions-Threads.
+* Pro Monat sind zwischen ca. 120 und 1.000 Posts in unserer Stichprobe.
+* Typische Posts haben einen Umfang von zwischen 40 und 100 Wörtern (Zur Erinnerung: Sehr kurze Post wurden bereits ausgeschlossen).
+
+

@@ -31,7 +31,7 @@
   
   
 
-
+<link rel="next" href="beispiel-daten-und-aufbereitung.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -132,10 +132,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Topic Models</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="#überblick"><i class="fa fa-check"></i><b>1</b> Überblick</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="#inhalt-des-virtuellen-mini-workshops"><i class="fa fa-check"></i><b>1.1</b> Inhalt des virtuellen Mini-Workshops</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="#welche-inhalte-wir-nicht-behandeln"><i class="fa fa-check"></i><b>1.2</b> Welche Inhalte wir nicht behandeln</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="#aufbau-des-workshops"><i class="fa fa-check"></i><b>1.3</b> Aufbau des Workshops</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Überblick</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#inhalt-des-virtuellen-mini-workshops"><i class="fa fa-check"></i><b>1.1</b> Inhalt des virtuellen Mini-Workshops</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#welche-inhalte-wir-nicht-behandeln"><i class="fa fa-check"></i><b>1.2</b> Welche Inhalte wir <em>nicht</em> behandeln</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#aufbau-des-workshops"><i class="fa fa-check"></i><b>1.3</b> Aufbau des Workshops</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html"><i class="fa fa-check"></i><b>2</b> Beispiel-Daten und Aufbereitung</a><ul>
+<li class="chapter" data-level="2.1" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html#laden-der-daten-und-übersicht"><i class="fa fa-check"></i><b>2.1</b> Laden der Daten und Übersicht</a></li>
 </ul></li>
 </ul>
 
@@ -163,11 +166,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Abschnitt 1</span> Überblick</h1>
 <div id="inhalt-des-virtuellen-mini-workshops" class="section level2">
 <h2><span class="header-section-number">1.1</span> Inhalt des virtuellen Mini-Workshops</h2>
-<p>XXX</p>
+<ul>
+<li>In diesem Mini-Workshop erläutere ich das praktische Vorgehen einer Datenanalyse mit <em>Structural Topic Models</em>. Wir behandeln die folgenden Schritte im Analyseprozess:
+<ul>
+<li>Schätzen eines ersten Modells</li>
+<li>Modellvergleich zur Auswahl eines geeigneten Modells</li>
+<li>Interpretation der Topics im finalen Modell</li>
+<li>Darstellung der Ergebnisse</li>
+<li>Weitere Analysen
+<ul>
+<li>Identifikation verwandter Themen</li>
+<li>Zusammenhänge der Themenprävalenz mit Kovariaten.</li>
+</ul></li>
+</ul></li>
+<li>Wir verwenden das Paket <code>{stm}</code> <span class="citation">(Roberts, Stewart, and Tingley <a href="#ref-robertsStmPackageStructural2019" role="doc-biblioref">2019</a>)</span> zum Schätzen von Topic Models. Für die Variante der <em>Structural</em> Topic Models und die Implementation in diesem Paket sprechen <em>für mich</em> die folgenden Gründe
+<ul>
+<li>Gute Integration mit <em>R</em> und Paketen, die ich für die Arbeit mit Text-Daten verwende (insbesondere <code>{quanteda}</code> und <code>{tidytext}</code>)</li>
+<li>Gute ergänzende Pakete zur Arbeit mit den Modellen (insbesondere <code>{stminsights}</code>)</li>
+<li>Vergleichsweise schnelle Modellschätzung auch mit großen Datensätzen</li>
+<li>Direktes Schätzen von Zusammenhängen von Topics mit Kovariaten</li>
+<li>Initialisieren der Modellschätzung mit dem Spectral Algorithmus</li>
+<li>Recht weit verbreitet in einem Feld, in dem ich viel lese (Politische Kommunkation nach einem weitem Verständnis)</li>
+</ul></li>
+<li>Die Darstellung basiert auf einer Analyse, die ich gemeinsam mit Elena Link durchgeführt habe. Wir untersuchten, wie das Thema Impfen in Online-Foren für Eltern diskutiert wurde. Wir verwenden aber nur einen <em>nicht repräsentativen</em> Ausschnitt aus dem Material, um die notwendige Rechenleistung und -zeit zu verringern.
+<ul>
+<li>Einen Preprint zur Analyse könnt ihr hier lesen: <a href="https://osf.io/ad9h7/">Vaccine-related Discussions in Online Communities for Parents. A Quantitative Overview</a>.</li>
+<li>Die Dokumentation zur Studie ist hier verfügbar: <a href="https://bachl.github.io/vaccine_discussions/" class="uri">https://bachl.github.io/vaccine_discussions/</a>. Daten und Analyse-Skripts gibt es im <a href="https://osf.io/twx38/">OSF</a>. In diesem Material werde auch die Datenerhebung mittels Web-Scraping und die Datenaufbereitung erläutert. Diese Inhalte sind <em>nicht</em> Teil dieses Workshops. Wenn ihr Fragen dazu habt, dürft ihr sie natürlich stellen.</li>
+</ul></li>
+</ul>
 </div>
 <div id="welche-inhalte-wir-nicht-behandeln" class="section level2">
-<h2><span class="header-section-number">1.2</span> Welche Inhalte wir nicht behandeln</h2>
-<p><span class="citation">(Maier et al. <a href="#ref-maierApplyingLDATopic2018" role="doc-biblioref">2018</a>; Roberts, Stewart, and Tingley <a href="#ref-robertsStmPackageStructural2019" role="doc-biblioref">2019</a>)</span></p>
+<h2><span class="header-section-number">1.2</span> Welche Inhalte wir <em>nicht</em> behandeln</h2>
+<ul>
+<li><p>Auch wenn das im direkten Vergleich mit dem Parallel-Angebot zu <a href="https://bachl.github.io/workshop_panel/">Panel Data Analysis</a> (meine Ausführlichkeit dort sind ein Grund für die spätere Lieferung dieser Materialien) enttäuschend sein mag: Die Inhalte in diesem Mini-Workshop entsprechen in ihrem Umfang wirklich nur dem, was ich zu Beginn des Digital-Semesters geplant und angekündigt hatte. Der Mini-Workshop ersetzt keine tiefer gehende Einarbeitung in die Methode, sondern ist als ein Einstieg zu verstehen.</p></li>
+<li><p>Wir behandeln hier keine theoretischen, statistischen oder auf die Software-Implementierung der Modellschätzung bezogenen Fragen. Die Grundlagen dazu können aus den Texten im LMS entnommen werden <span class="citation">(Maier et al. <a href="#ref-maierApplyingLDATopic2018" role="doc-biblioref">2018</a>; Roberts, Stewart, and Tingley <a href="#ref-robertsStmPackageStructural2019" role="doc-biblioref">2019</a>)</span>.</p></li>
+<li><p>Es gibt neben <code>{stm}</code> viele andere Implementationen in <em>R</em> und ihn anderer Software. Gefühlt gibt es alle 6 Monate eine neue Variante von Topic Models, alle 3 Monate eine neue Implementierung und jeden Monat ein Paket mit zusätzlichen Tools für die Arbeit mit Topic Models. Meine Entscheidung für <code>{stm}</code> ist keine informierte Entscheidung gegen andere Varianten, Implementierungen und Tools. Dieser Workshop ist keine Aufforderung, ausschließlich <code>{stm}</code> zu nutzen. Informiert euch gegebenenfalls selbst über Software-Lösungen, die für eure Bedürfnisse geeignet sind.</p></li>
+<li><p>Dieser Mini-Workshop ist kein <em>R</em>-Tutorial. Wenn ihr Interesse habt, <em>R</em>-Kenntnisse zu erwerben und zu vertiefen, empfehle ich <a href="https://r4ds.had.co.nz/">R4DS</a>.</p></li>
+<li><p>Dieser Mini-Workshop ist keine allgemeine Einführung in die computergestützte Inhaltsanalyse. Wenn ihr allgemein mit <em>R</em> arbeiten möchtet, empfehle ich zu diesem Thema die <a href="http://inhaltsanalyse-mit-r.de/">Einführung von Cornelius Puschmann</a>.</p></li>
+</ul>
 </div>
 <div id="aufbau-des-workshops" class="section level2">
 <h2><span class="header-section-number">1.3</span> Aufbau des Workshops</h2>
@@ -182,7 +218,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Kuratierte Form ist dieses HTML-Dokument</li>
 <li>Es gibt auch ein PDF, das ich aber nicht formatiert habe</li>
 </ul></li>
-<li><p>Screencast: Ich gehe über das Material und erkläre es auf der Audio-Spur. Mal sehen, wie hilfreich das ist. Die Screencasts stelle ich über das LMS zur Verfügung.</p></li>
+<li><p>Daten: Ein Ausschnitt auf den Daten der oben genannten Beispielstudie. Eine genauere Beschreibung folgt im nächsten Abschnitt.</p></li>
+<li><p>Screencast: Zu einigen Analyseschritten stelle ich Screencasts zur Verfügung. Diese sind größtenteils ergänzend gedacht. Bis auf wenige Ausnahmen sollte das schriftliche Material selbsterklärend sein.</p></li>
 <li><p>Übungen: Zu einigen Analysen gibt es Übungsaufgaben.</p>
 <ul>
 <li>XXX</li>
@@ -192,12 +229,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="pakete" class="section level3 unnumbered">
 <h3>Pakete</h3>
 <p>Wir verwenden die folgenden Pakete</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(tidyverse, stm, stminsights, tidytext)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">theme_set</span>(<span class="kw">theme_bw</span>())  <span class="co"># ggplot theme</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">tibble</span>(<span class="dt">package =</span> <span class="kw">c</span>(<span class="st">&quot;R&quot;</span>, <span class="kw">sort</span>(pacman<span class="op">::</span><span class="kw">p_loaded</span>()))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">version =</span> <span class="kw">map_chr</span>(package, </span>
-<span id="cb1-6"><a href="#cb1-6"></a>    <span class="op">~</span><span class="kw">as.character</span>(pacman<span class="op">::</span><span class="kw">p_version</span>(<span class="dt">package =</span> .x)))) <span class="op">%&gt;%</span><span class="st"> </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<span id="cb1-2"><a href="index.html#cb1-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(tidyverse, stm, stminsights, tidytext, quanteda, lubridate)</span>
+<span id="cb1-3"><a href="index.html#cb1-3"></a><span class="kw">theme_set</span>(<span class="kw">theme_bw</span>())  <span class="co"># ggplot theme</span></span>
+<span id="cb1-4"><a href="index.html#cb1-4"></a></span>
+<span id="cb1-5"><a href="index.html#cb1-5"></a><span class="kw">tibble</span>(<span class="dt">package =</span> <span class="kw">c</span>(<span class="st">&quot;R&quot;</span>, <span class="kw">sort</span>(pacman<span class="op">::</span><span class="kw">p_loaded</span>()))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">version =</span> <span class="kw">map_chr</span>(package, </span>
+<span id="cb1-6"><a href="index.html#cb1-6"></a>    <span class="op">~</span><span class="kw">as.character</span>(pacman<span class="op">::</span><span class="kw">p_version</span>(<span class="dt">package =</span> .x)))) <span class="op">%&gt;%</span><span class="st"> </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -223,12 +260,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">3.3.1</td>
 </tr>
 <tr class="odd">
+<td align="left">lubridate</td>
+<td align="left">1.7.4</td>
+</tr>
+<tr class="even">
 <td align="left">pacman</td>
 <td align="left">0.5.1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">purrr</td>
 <td align="left">0.3.3</td>
+</tr>
+<tr class="even">
+<td align="left">quanteda</td>
+<td align="left">2.0.0</td>
 </tr>
 <tr class="odd">
 <td align="left">readr</td>
@@ -265,14 +310,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 
-<div id="refs" class="references">
-<div>
-<p>Maier, Daniel, A. Waldherr, P. Miltner, G. Wiedemann, A. Niekler, A. Keinert, B. Pfetsch, et al. 2018. “Applying LDA Topic Modeling in Communication Research: Toward a Valid and Reliable Methodology.” <em>Communication Methods and Measures</em> 12 (2-3): 93–118. <a href="https://doi.org/10.1080/19312458.2018.1430754">https://doi.org/10.1080/19312458.2018.1430754</a>.</p>
-</div>
-<div>
-<p>Roberts, Margaret E., Brandon M. Stewart, and Dustin Tingley. 2019. “Stm: An R Package for Structural Topic Models.” <em>Journal of Statistical Software</em> 91 (1): 1–40. <a href="https://doi.org/10.18637/jss.v091.i02">https://doi.org/10.18637/jss.v091.i02</a>.</p>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -291,7 +328,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 
-
+<a href="beispiel-daten-und-aufbereitung.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

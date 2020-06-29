@@ -299,3 +299,9 @@ run_stminsights()
 
 <!--chapter:end:02_model.Rmd-->
 
+`r if (knitr::is_html_output()) '
+# Literatur {-}
+'`
+
+<!--chapter:end:09-references.Rmd-->
+

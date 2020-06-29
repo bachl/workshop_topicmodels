@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Abschnitt 3 Modellschätzung, Modellvergleich und Modellauswahl | Mini-Workshop (Structural) Topic Models</title>
+  <title>Literatur | Mini-Workshop (Structural) Topic Models</title>
   <meta name="description" content="Material für den Mini-Workshop (Structural) Topic Models" />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Abschnitt 3 Modellschätzung, Modellvergleich und Modellauswahl | Mini-Workshop (Structural) Topic Models" />
+  <meta property="og:title" content="Literatur | Mini-Workshop (Structural) Topic Models" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Abschnitt 3 Modellschätzung, Modellvergleich und Modellauswahl | Mini-Workshop (Structural) Topic Models" />
+  <meta name="twitter:title" content="Literatur | Mini-Workshop (Structural) Topic Models" />
   
   <meta name="twitter:description" content="Material für den Mini-Workshop (Structural) Topic Models" />
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="beispiel-daten-und-aufbereitung.html"/>
+<link rel="prev" href="modellspezifikation-modellvergleich-und-modellauswahl.html"/>
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -141,9 +141,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html#laden-der-daten-und-übersicht"><i class="fa fa-check"></i><b>2.1</b> Laden der Daten und Übersicht</a></li>
 <li class="chapter" data-level="2.2" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html#aufbereitung-für-das-schätzen-der-topic-models"><i class="fa fa-check"></i><b>2.2</b> Aufbereitung für das Schätzen der Topic Models</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="modellschätzung-modellvergleich-und-modellauswahl.html"><a href="modellschätzung-modellvergleich-und-modellauswahl.html"><i class="fa fa-check"></i><b>3</b> Modellschätzung, Modellvergleich und Modellauswahl</a><ul>
-<li class="chapter" data-level="3.1" data-path="modellschätzung-modellvergleich-und-modellauswahl.html"><a href="modellschätzung-modellvergleich-und-modellauswahl.html#modellschätzung"><i class="fa fa-check"></i><b>3.1</b> Modellschätzung</a></li>
+<li class="chapter" data-level="3" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html"><i class="fa fa-check"></i><b>3</b> Modellspezifikation, Modellvergleich und Modellauswahl</a><ul>
+<li class="chapter" data-level="3.1" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#modellspezifikation"><i class="fa fa-check"></i><b>3.1</b> Modellspezifikation</a></li>
+<li class="chapter" data-level="3.2" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#modellvergleich"><i class="fa fa-check"></i><b>3.2</b> Modellvergleich</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="literatur.html"><a href="literatur.html"><i class="fa fa-check"></i>Literatur</a></li>
 </ul>
 
       </nav>
@@ -161,51 +163,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="modellschätzung-modellvergleich-und-modellauswahl" class="section level1">
-<h1><span class="header-section-number">Abschnitt 3</span> Modellschätzung, Modellvergleich und Modellauswahl</h1>
-<div id="modellschätzung" class="section level2">
-<h2><span class="header-section-number">3.1</span> Modellschätzung</h2>
-<ul>
-<li><p>Die Funktion <code>stm()</code> aus dem gleichnamigen Paket bietet zahlreiche Möglichkeiten, Details der Modellspezifikation und -schätzung anzupassen. Wir beschränken uns im Folgenden auf drei wesentliche Einstellungen:</p>
-<ul>
-<li><code>K</code>: Die Zahl der Topics.</li>
-<li><code>prevalence</code>: Eine Formel zur Vorhersage der Topic-Prävalenzen</li>
-<li><code>init.type</code>: Wie soll der Startpunkt für die Modellschätzung gewählt werden?</li>
-</ul></li>
-<li><p>Zu weiteren Details siehe für einen Überblick <code>?stm</code> und <span class="citation">Roberts, Stewart, and Tingley (<a href="#ref-robertsStmPackageStructural2019" role="doc-biblioref">2019</a>)</span> für eine ausführliche Erläuterung.</p></li>
-<li><p>Eine Modell-Spezifikation könnte z.B. so aussehen:</p></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="modellschätzung-modellvergleich-und-modellauswahl.html#cb1-1"></a>modelfit =<span class="st"> </span><span class="kw">stm</span>(<span class="dt">documents =</span> impf_stm<span class="op">$</span>documents,</span>
-<span id="cb1-2"><a href="modellschätzung-modellvergleich-und-modellauswahl.html#cb1-2"></a>               <span class="dt">vocab =</span> impf_stm<span class="op">$</span>vocab,</span>
-<span id="cb1-3"><a href="modellschätzung-modellvergleich-und-modellauswahl.html#cb1-3"></a>               <span class="dt">data =</span> impf_stm<span class="op">$</span>meta, </span>
-<span id="cb1-4"><a href="modellschätzung-modellvergleich-und-modellauswahl.html#cb1-4"></a>               <span class="dt">K =</span> <span class="dv">10</span>, </span>
-<span id="cb1-5"><a href="modellschätzung-modellvergleich-und-modellauswahl.html#cb1-5"></a>               <span class="dt">prevalence =</span> <span class="op">~</span><span class="kw">s</span>(date_num), </span>
-<span id="cb1-6"><a href="modellschätzung-modellvergleich-und-modellauswahl.html#cb1-6"></a>               <span class="dt">init.type =</span> <span class="st">&quot;Spectral&quot;</span>)</span></code></pre></div>
-<ul>
-<li>Mit den ersten drei Inputs übergeben wir die Daten aus der im letzten Abschnitt erstellten Dokument-Feature-Matrix.</li>
-<li>Mit <code>K</code> geben wir an, wie viele Themen es geben soll. Mit dieser Syntax würde ein Modell mit <span class="math inline">\(k = 10\)</span> Themen geschätzt. Wie wir bei der Wahl eines geeigneten <span class="math inline">\(k\)</span> vorgehen können, ist Thema des folgenden Unterabschnitts.</li>
-<li>Mit der Formel zu <code>prevalence</code> geben wir an, welche Dokument-Variablen mit dem Auftreten der Topics zusammenhängen.
-<ul>
-<li>In der Formel wird die abhängige Variable vor der Tilde (~) frei gelassen. Es wird immer der Zusammenhang mit dem Auftreten von allen <span class="math inline">\(k\)</span> Topics geschätzt.</li>
-<li>Nach der Tilde folgen die Prädiktoren. Sie werden mit den Variablennamen angesprochen, die sie in den Metadaten der Dokument-Feature-Matrix (hier: <code>impf_stm$meta</code>) haben.
-<ul>
-<li>In diesem Fall haben wir nur einen Prädiktor, das Datum des Posts als numerische Variable. Wir interessieren uns dafür, ob</li>
-<li></li>
-</ul></li>
-</ul></li>
-</ul>
+<div id="literatur" class="section level1 unnumbered">
+<h1>Literatur</h1>
 
 <div id="refs" class="references">
 <div>
+<p>Denny, Matthew J., and Arthur Spirling. 2018. “Text Preprocessing for Unsupervised Learning: Why It Matters, When It Misleads, and What to Do About It.” <em>Political Analysis</em> 26 (2): 168–89. <a href="https://doi.org/10.1017/pan.2017.44">https://doi.org/10.1017/pan.2017.44</a>.</p>
+</div>
+<div>
+<p>Maier, Daniel, A. Waldherr, P. Miltner, G. Wiedemann, A. Niekler, A. Keinert, B. Pfetsch, et al. 2018. “Applying LDA Topic Modeling in Communication Research: Toward a Valid and Reliable Methodology.” <em>Communication Methods and Measures</em> 12 (2-3): 93–118. <a href="https://doi.org/10.1080/19312458.2018.1430754">https://doi.org/10.1080/19312458.2018.1430754</a>.</p>
+</div>
+<div>
+<p>Mimno, David, Hanna M. Wallach, Edmund Talley, Miriam Leenders, and Andrew McCallum. 2011. “Optimizing Semantic Coherence in Topic Models.” <em>Proceedings of the 2011 Conference on Empirical Methods in Natural Language Processing</em>, 262–72.</p>
+</div>
+<div>
 <p>Roberts, Margaret E., Brandon M. Stewart, and Dustin Tingley. 2019. “Stm: An R Package for Structural Topic Models.” <em>Journal of Statistical Software</em> 91 (1): 1–40. <a href="https://doi.org/10.18637/jss.v091.i02">https://doi.org/10.18637/jss.v091.i02</a>.</p>
 </div>
+<div>
+<p>Roberts, Margaret E., Brandon M. Stewart, Dustin Tingley, Christopher Lucas, Jetson Leder-Luis, Shana Kushner Gadarian, Bethany Albertson, and David G. Rand. 2014. “Structural Topic Models for Open-Ended Survey Responses.” <em>American Journal of Political Science</em> 58 (4): 1064–82. <a href="https://doi.org/10.1111/ajps.12103">https://doi.org/10.1111/ajps.12103</a>.</p>
 </div>
+<div>
+<p>Schofield, Alexandra, and David Mimno. 2016. “Comparing Apples to Apple: The Effects of Stemmers on Topic Models.” <em>Transactions of the Association for Computational Linguistics</em> 4 (December): 287–300. <a href="https://doi.org/10.1162/tacl_a_00099">https://doi.org/10.1162/tacl_a_00099</a>.</p>
 </div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-robertsStmPackageStructural2019">
-<p>Roberts, Margaret E., Brandon M. Stewart, and Dustin Tingley. 2019. “Stm: An R Package for Structural Topic Models.” <em>Journal of Statistical Software</em> 91 (1): 1–40. <a href="https://doi.org/10.18637/jss.v091.i02">https://doi.org/10.18637/jss.v091.i02</a>.</p>
 </div>
 </div>
             </section>
@@ -213,7 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="beispiel-daten-und-aufbereitung.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modellspezifikation-modellvergleich-und-modellauswahl.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

@@ -15,6 +15,7 @@ source("R/model_compare.R")
 ```{r, echo=FALSE, cache=FALSE}
 knitr::read_chunk("R/model_compare.R")
 knitr::read_chunk("R/model_qualihelper.R")
+knitr::read_chunk("R/model_compare2.R")
 ```
 
 ## Modellspezifikation
@@ -49,7 +50,7 @@ modelfit = stm(documents = impf_stm$documents,
 
 ## Modellvergleich
 
-### Allgemeines Vorgehen {-}
+### Allgemeines Vorgehen
 
 * Eine zentrale Frage ist die Wahl eines geeigneten $k$, also der Zahl von Topics, die in den Dokumenten identifiziert werden sollen. Wichtig ist zuerst die Feststellung, dass es in der angewandten Analyse kein *per se* richtiges oder falsches $k$ gibt.
 * Wie viele Topics nützlich sind, hängt von Umfang von Zusammensetzung des Materials und vom substantiellen Forschungsinteresse ab.
@@ -67,11 +68,11 @@ modelfit = stm(documents = impf_stm$documents,
   1) Um eine allgemeine Orientierung zu erhalten, in welcher Range Modelle zu finden sind, die gut zu den Daten passen, schätzen wir 10 Modelle von $k = 10$ bis $k = 100$ mit einem Abstand von jeweils 10 Topics. Diese Modelle vergleichen wir anhand von einigen statistischen Maßen, um die Zahl der Kandidatenmodelle einzuschränken.
   1) Wir interpretieren die besten Modelle substantiell und entscheiden, welche Topic-Anzahl für das Forschungsinteresse hilfreicher scheint.
   1) Wir schätzen weitere Modelle basierend auf den Ergebnissen aus 2) mit kleineren Abständen zwischen den $k$. Wir prüfen, wie sich die Topics verändern. Zudem achten wir darauf, ob bei Modellen mit größeren $k$ interessante Topics hinzukommen oder ob sich mehr Ambivalenzen zeigen.
-  1) Wir entscheiden uns für ein Modell. Dieses beschreiben wir dann ausführlich.
+  1) Wir entscheiden uns für ein Modell.
   
 * Da das Schätzen der Modelle recht lange dauert, parallelisieren wir die Berechnung. Dazu nutze ich das Paket `furrr`. Es sei an dieser Stelle darauf hingewiesen, dass das Paket vor allem unter Windows mit RStudio für Probleme sorgen kann. Es ist daher empfehlenswert, das Skript zum Schätzen und Speichern der Modelle in der Konsole oder im Terminal auszuführen. Noch schneller geht es für diesen Workshop, die bereits geschätzten Modelle aus dem LMS zu laden.
 
-### Quantitativer Vergleich der ersten Modelle {-}
+### Quantitativer Vergleich der ersten Modelle
 
 ```{r model-compare, eval=TRUE, message=FALSE}
 
@@ -94,7 +95,7 @@ modelfit = stm(documents = impf_stm$documents,
   * Wenn man besonders detailliertere Lösungen sucht, sind auch die Modelle mit $k \ge 80$ nicht ausgeschlossen. Hier müsste man dann die Differenzierungen zwischen den Topics in der Tiefe untersuchen und klarstellen.
 * Im nächsten Schritt vergleichen wir die Modelle mit 30 und mit 60 Topics, um zu verstehen, welche Konsequenzen es für die inhaltliche Interpretation hat, ein eher sparsames oder ein eher detailliertes Modell zu wählen. Nach dieser Entscheidung können wir dann weiter überlegen, welches der eher sparsamen bzw. detaillierten Modelle für unser Forschungsinteresse besser geeignet ist.
 
-### Qualitativer Vergleich der Modelle mit 30 und 60 Topics {-}
+### Qualitativer Vergleich der Modelle mit 30 und 60 Topics
 
 * Um die Ergebnisse eines Topic Model interpretieren zu können, müssen wir zuerst verstehen, wie das Ergebnis eines Topic Models aussieht. Es enthält im wesentlichen zwei zweidimensionale Vektoren von Koeffizienten.
   * beta: Für jedes Topic die Wahrscheinlichkeit, dass ein Dokument, in dem das Feature vorkommt, das Topic hat. Jedes Topic erhält für jedes Feature einen beta-Koeffizienten zwischen 0 und 1, die zusammen 1 ergeben.
@@ -120,7 +121,7 @@ m30 %>%
 
 > You can download and install the latest development version of stminsights by running devtools::install_github('cschwem2er/stminsights') --- https://github.com/cschwem2er/stminsights
 
-* Zur Vorbereitung der Analyse mit `{stminsights}` müssen die Objekte der geschätzten Modelle (hier: `m30` und `m70`) und die Daten, die zur Modellschätzung verwendet wurden (hier: `out = ìmpf_stm`), als `.rdata` Datei gespeichert werden. Dabei muss das Daten-Objekt unbedingt den Namen `out` haben. Damit der Text der Dokumente in `{stminsights}` angezeigt werden kann, muss dieser zusätzlich als Variable in den Meta-Daten enthalten sein (siehe Abschnitt zur Datenaufbereitung).
+* Zur Vorbereitung der Analyse mit `{stminsights}` müssen die Objekte der geschätzten Modelle (hier: `m30`, `m40` [brauchen wir etwas später] und `m60`) und die Daten, die zur Modellschätzung verwendet wurden (hier: `out = ìmpf_stm`), als `.rdata` Datei gespeichert werden. Dabei muss das Daten-Objekt *unbedingt* den Namen `out` haben. Damit der Text der Dokumente in `{stminsights}` angezeigt werden kann, muss dieser zusätzlich als Variable in den Meta-Daten enthalten sein (siehe Abschnitt zur Datenaufbereitung).
 * Durch das ausführen der Funktion `run_stminsights()` wird eine grafische Benutzeroberfläche im Browser gestartet, mit dem die qualitative Analyse durchgeführt wird. Eine Beschreibung der Oberfläche findet ihr als Video im LMS [kommt nach Fertigstellen des Textmaterials].
 
 ```{r, eval=FALSE}
@@ -141,4 +142,20 @@ run_stminsights()
 
 ```
 
+* Die Labels aus meiner vorläufigen Interpretation finden sich in `R/topic_labels.R` (hier nicht dargestellt).
+  * Die meisten Topics des Modells mit $k = 30$ erwiesen sich als gut interpretierbar. An der einen oder anderen Stelle schien es aber so, als seien mehrere Aspekte der Impfdiskussionen in einem Topic vermischt. Dies könnte auf eine etwas größere Topic-Anzahl hindeuten.
+  * Die Interpretation der Topics des Modells mit $k = 60$ fiel mir wesentlich schwerer. Die typischen Features vieler Topics waren zwar exklusiv für das jeweilige Topic, waren aber nicht direkt als ein Aspekt Diskussionen zum Thema impfen zu interpretieren. Häufig scheinen hier auch Terme, die z.B. aus Gründen der Formulierung häufiger zusammen auftauchen, ein Topic zu bilden.
+  * Der qualitative Vergleich der beiden Modelle legt für mich nahe, dass ein nützliches Modell eher in der Region etwas über $k = 30$ zu finden ist als bei $k = 60$. Der Grund dafür ist, dass ich meist Modelle mit möglichst vielen interpretierbare Topics bevorzuge.  Wenn --- wie in diesem Beispiel --- die  Dokumente bereits so ausgewählt wurden, dass die meisten Dokumente prinzipiell für das Forschungsinteresse relevant sind, halte ich es für sinnvoll, über einen möglichst großen Anteil der inhaltlichen Varianz in diesen Dokumenten etwas auszusagen. Topics, die aus der Analyse ausgeschlossen werden müssen, helfen nicht dabei, die Inhalte der Dokumente zu beschreiben und zu verstehen.
+  * Beachtet aber, dass das nicht die einzige sinnvolle Vorgehensweise ist. Topic Models enthalten fast immer einige Topics, die sich nicht mit Blick auf das Forschungsinteresse interpretieren lassen [@maierApplyingLDATopic2018]. Diese werden dann häufig von den weiteren Analysen ausgeschlossen. Die Analysen der interpretierbaren Topics sind davon nicht weiter beeinträchtigt, solange die nicht interpretierbaren Topics keine relevanten Informationen aus den interpretierbaren Topic entfernen. Wir könnten nach dieser Logik also auch das Modell mit $k = 60$ zum Ausgangspunkt der Suche nach dem nützlichsten Modell machen und viele Topics ausschließen. Die Argumentation wäre dann, dass die verbliebenen Topics besonders klar herausstechen, da die nicht relevanten Charakteristika der Dokumente in den nicht relevanten Topics stecken.
+  * Aus diesem Grund habe ich als nächsten Schritt das Modell mit $k = 40$ zum Vergleich herangezogen. Dabei bestätigt sich nach meiner Wahrnehmung die Vermutung, dass (etwas) mehr als 30 Topics eine geeignete Wahl sein könnten.
+  
+### Schätzen und Vergleich von weiteren Modellen zwischen $k = 30$ und $k = 40$
 
+* Die Spezifikation und er quantitative Vergleich erfolgt nach demselben Prinzip wie zuvor. Der Code ist daher hier nicht dargestellt, kann aber in `R/model_compare2.R` gefunden werden. Wir vergleichen alle Modelle zwischen $k = 30$ und $k = 40$.
+
+```{r model-compare2, echo=FALSE}
+
+```
+
+* Ein Blick auf die Skalierung der Achsen zeigt, dass die Modelle sich untereinander nur wenig unterscheiden. Die quantitativen Metriken helfen uns bei der Entscheidung zwischen diesen Modellen nicht weiter.
+* Es folgt ein recht aufwändiger qualitativer Prozess, in dem wir entscheiden, ob die zusätzlichen Themen die Beschreibung der Dokumentinhalte substantiell verbessern.

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2020.2.27)  29 JUN 2020 14:19
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2020.2.27)  29 JUN 2020 22:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1860,11 +1860,8 @@ File: workshop_topicmodels_files/figure-latex/model-compare-1.pdf Graphic file
 (type pdf)
 <use workshop_topicmodels_files/figure-latex/model-compare-1.pdf>
 
-Underfull \vbox (badness 3471) detected at line 1106
+Underfull \vbox (badness 3471) detected at line 1104
  []
-
-
-Underfull \vbox (badness 1688) has occurred while \output is active []
 
 [25]
 File: workshop_topicmodels_files/figure-latex/model-compare-2.pdf Graphic file 
@@ -1885,17 +1882,17 @@ ICH UND MODELLAUSWAHL
 [26]
 
 Package natbib Warning: Citation `robertsStructuralTopicModels2014' on page 27 
-undefined on input line 1136.
+undefined on input line 1135.
 
 
 Package natbib Warning: Citation `davidmimnoOptimizingSemanticCoherence2011' on
- page 27 undefined on input line 1136.
+ page 27 undefined on input line 1135.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [27]
-Underfull \hbox (badness 1565) in paragraph at lines 1143--1145
+Underfull \hbox (badness 1565) in paragraph at lines 1142--1144
 \TU/lmr/m/n/10 könnte vielleicht infrage kommen, wenn wir Sparsamkeit sehr
  []
 
@@ -1906,19 +1903,14 @@ ICH UND MODELLAUSWAHL
  []
 
 [28]
-Underfull \hbox (badness 1337) in paragraph at lines 1191--1192
+Underfull \hbox (badness 1337) in paragraph at lines 1189--1190
 \TU/lmr/m/n/10 die Wahrscheinlichkeit, dass das Dokument das Topic enthält.
  []
 
-
-Overfull \hbox (26.91pt too wide) in paragraph at lines 1214--1215
+[29]
+Overfull \hbox (26.91pt too wide) in paragraph at lines 1212--1213
 \TU/lmr/m/n/10 stminsights by running devtools::install_github(‘cschwem2er/stmi
 nsights’)
- []
-
-[29]
-Underfull \hbox (badness 2426) in paragraph at lines 1250--1252
-\TU/lmr/m/n/10 lichkeit, dass ein Feature in einem beliebigen Dokument
  []
 
 
@@ -1928,38 +1920,43 @@ ICH UND MODELLAUSWAHL
  []
 
 [30]
-Underfull \hbox (badness 2903) in paragraph at lines 1255--1257
+Underfull \hbox (badness 2426) in paragraph at lines 1248--1250
+\TU/lmr/m/n/10 lichkeit, dass ein Feature in einem beliebigen Dokument
+ []
+
+
+Underfull \hbox (badness 2903) in paragraph at lines 1253--1255
 []\TU/lmr/m/n/10 Mit den Auszügen aus dem Datensatz typischer Dokumente
  []
 
 
-Overfull \hbox (6.75pt too wide) in paragraph at lines 1288--1288
+Overfull \hbox (6.75pt too wide) in paragraph at lines 1286--1286
 []\TU/lmtt/m/n/10 ##       Highest Prob: 2, 3, 1, monate, erst, monaten, 4, 6, 
 alt, 5[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 1288--1288
+Overfull \hbox (48.75pt too wide) in paragraph at lines 1286--1286
 []\TU/lmtt/m/n/10 ##       Lift: österreich, zecken, monat, fach, 3, 2, monate,
  6, +, monaten[] 
  []
 
 
-Overfull \hbox (1.5pt too wide) in paragraph at lines 1288--1288
+Overfull \hbox (1.5pt too wide) in paragraph at lines 1286--1286
 []\TU/lmtt/m/n/10 ##       Score: österreich, 2, 3, monate, 1, monaten, 4, alt,
  6, +[] 
  []
 
-
-Overfull \hbox (904.5pt too wide) in paragraph at lines 1322--1322
+[31]
+Overfull \hbox (904.5pt too wide) in paragraph at lines 1320--1320
 []\TU/lmtt/m/n/10 ## 0.62: da fängt der 12 lebensmonat an, ein Jahr alt ist dei
 n Baby dann erst mit vollendetem 12. Lebensmonat.... meine Tochter wird jetzt a
 m 24.07 12 Monate alt, und am 24.08 wird sie 1 Jahr....da ist also der 12 leben
 smonat vollendet :)[] 
  []
 
-[31]
-Overfull \hbox (2458.5pt too wide) in paragraph at lines 1322--1322
+
+Overfull \hbox (2458.5pt too wide) in paragraph at lines 1320--1320
 []\TU/lmtt/m/n/10 ## 0.59: Man spricht erst sobald der Monat vollendet ist vom 
 z.B. 12. Monat. Deine Tochter ist also einen Monat vor ihrem 1. Geburtstag ELF 
 Monate alt und nicht 12... Klar, sie befindet sich ab dem 24.07. im zwölften Le
@@ -1971,7 +1968,7 @@ nd befinde mich somit in meinem 31. Lebensjahr. So wird das immer gerechnet :)[
  []
 
 
-Overfull \hbox (1734.0pt too wide) in paragraph at lines 1322--1322
+Overfull \hbox (1734.0pt too wide) in paragraph at lines 1320--1320
 []\TU/lmtt/m/n/10 ## 0.59: In Österreich wird im 3., 5. und 12. Monat geimpft. 
 Ich bin auf einer anderen Seite auch fündig geworden. Dieses Schema nennt sich 
 2+1. Das in Deutschland von der Stiko empfohlene Schema nennt sich 3+1. Beide S
@@ -1981,7 +1978,7 @@ alt das 3+1 Schema.[]
  []
 
 
-Overfull \hbox (1886.25pt too wide) in paragraph at lines 1322--1322
+Overfull \hbox (1886.25pt too wide) in paragraph at lines 1320--1320
 []\TU/lmtt/m/n/10 ## 0.53: so mein ich ja :) sie befindet sich ab dem Tag ihrer
  Geburt ja im erst Lebensmonat und nicht im nullsten Lebensmonat :D und ab dem 
 24.07 ist sie im 12. Öebensmonat.... wenn mich jemand Frägt wie alt sie ist sag
@@ -1991,7 +1988,7 @@ zipiell, so wird es auch bei Urbia angezeigt ist sie ab 24.07 im 12 lebensmonat
  []
 
 
-Overfull \hbox (972.75pt too wide) in paragraph at lines 1322--1322
+Overfull \hbox (972.75pt too wide) in paragraph at lines 1320--1320
 []\TU/lmtt/m/n/10 ## 0.51: Wir mussten 2 Monate auf den Termin beim Kardiologen
  warten. Hatten den Termin dann als er jetzt 6 Monate alt war. Das Herzgeräusch
  sind 2 Sehnenfäden, aber er hat auch ein Mini Loch. Wir müssen erst wieder zur
@@ -1999,7 +1996,7 @@ Overfull \hbox (972.75pt too wide) in paragraph at lines 1322--1322
  []
 
 
-Overfull \hbox (1193.25pt too wide) in paragraph at lines 1322--1322
+Overfull \hbox (1193.25pt too wide) in paragraph at lines 1320--1320
 []\TU/lmtt/m/n/10 ## 0.5: Korrektur: Bei der 2+1 Impfung sind ca 84% nach der 2
  . Impfung immun. Bei der 3+1 Impfung sind ca 95 % nach der 3. Impfung immun. U
 nd die ersten beiden bzw. 3 Impfungen werden ja in einen Zeitraum von 2 Monaten
@@ -2007,7 +2004,7 @@ nd die ersten beiden bzw. 3 Impfungen werden ja in einen Zeitraum von 2 Monaten
  []
 
 
-Overfull \hbox (2101.5pt too wide) in paragraph at lines 1322--1322
+Overfull \hbox (2101.5pt too wide) in paragraph at lines 1320--1320
 []\TU/lmtt/m/n/10 ## 0.47: hallo rebecca es gibt auch "Mittelwege", zB das 2+1-
 Schema. Man beginnt erst mit 3 Monaten und spart sich eine Impfdosis. (Normaler
 weise ist ja 3 x innerhalb des 1. Lebensjahres und 1 x zur Auffrischung). Die I
@@ -2018,7 +2015,7 @@ das größte Risiko hier der Keuchhusten ist. Das 2+1-Schema ist zB in Österrei
  []
 
 
-Overfull \hbox (1639.5pt too wide) in paragraph at lines 1322--1322
+Overfull \hbox (1639.5pt too wide) in paragraph at lines 1320--1320
 []\TU/lmtt/m/n/10 ## 0.47: Unter 2 Jahren muss 2x geimpft werden. Mein Sohn ist
  6 Monate. Wird am Freitag geimpft und dann in 2 Monaten wieder. Die Dritte erf
 olgt wenn er 2 Jahre alt ist oder 3 Jahre. Du musst alle 3 Impfungen bezahlen j
@@ -2028,14 +2025,14 @@ ungen jeweils mit 80% mir erstatten. Die AOK Sachsen anscheinend alle 3 zu 100%
  []
 
 
-Overfull \hbox (405.75pt too wide) in paragraph at lines 1322--1322
+Overfull \hbox (405.75pt too wide) in paragraph at lines 1320--1320
 []\TU/lmtt/m/n/10 ## 0.44: Dann wär er aber 1 Monat vor Geburtstag 12 Monate : 
 Wenn du die Wochen zählst darfst du halt nicht 4 Wochen mit 1 Monat gleich setz
 en.[] 
  []
 
 
-Overfull \hbox (1303.5pt too wide) in paragraph at lines 1322--1322
+Overfull \hbox (1303.5pt too wide) in paragraph at lines 1320--1320
 []\TU/lmtt/m/n/10 ## 0.43: Darf ich über die Fragestellung hinaus fragen, wie g
 enau der Ablauf dann genau ist. Befasse mich in den ersten Zügen mit dem Thema 
 Impfen. Es wird also in den ersten 12 Monaten 2x 5fach geimpft und dann 1x bis 
@@ -2043,11 +2040,12 @@ zum 24 Monat? Kann man das system 2+1 auch auf 6fach-impfung übertragen? Und au
 f +pneumokokken?[] 
  []
 
-No file workshop_topicmodels.bbl.
 
-Package natbib Warning: There were undefined citations.
+Underfull \hbox (badness 4060) in paragraph at lines 1338--1339
+[]\TU/lmr/m/n/10 Die Labels aus meiner vorläufigen Interpretation finden sich i
+n
+ []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1339.
 
 Overfull \hbox (85.30782pt too wide) has occurred while \output is active
 \TU/lmr/m/n/10 32 \TU/lmr/m/sl/10 CHAPTER 3.  MODELLSPEZIFIKATION, MODELLVERGLE
@@ -2055,21 +2053,47 @@ ICH UND MODELLAUSWAHL
  []
 
 [32]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1339.
+
+Package natbib Warning: Citation `maierApplyingLDATopic2018' on page 33 undefin
+ed on input line 1349.
+
+File: workshop_topicmodels_files/figure-latex/model-compare2-1.pdf Graphic file
+ (type pdf)
+<use workshop_topicmodels_files/figure-latex/model-compare2-1.pdf>
+File: workshop_topicmodels_files/figure-latex/model-compare2-2.pdf Graphic file
+ (type pdf)
+<use workshop_topicmodels_files/figure-latex/model-compare2-2.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[33]
+No file workshop_topicmodels.bbl.
+
+Package natbib Warning: There were undefined citations.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1376.
+
+Overfull \hbox (85.30782pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 34 \TU/lmr/m/sl/10 CHAPTER 3.  MODELLSPEZIFIKATION, MODELLVERGLE
+ICH UND MODELLAUSWAHL
+ []
+
+[34]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1376.
 (./workshop_topicmodels.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1339.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1339.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1376.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1376.
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 27920 strings out of 492916
- 509085 string characters out of 6133345
+ 27929 strings out of 492916
+ 509615 string characters out of 6133345
  754226 words of memory out of 5000000
- 31699 multiletter control sequences out of 15000+600000
+ 31706 multiletter control sequences out of 15000+600000
  538772 words of font info for 82 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  58i,6n,115p,9343b,516s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on workshop_topicmodels.pdf (32 pages).
+Output written on workshop_topicmodels.pdf (34 pages).

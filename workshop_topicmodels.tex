@@ -977,8 +977,7 @@ arzt & 1411\\
 \section{Modellvergleich}\label{modellvergleich}}
 
 \hypertarget{allgemeines-vorgehen}{%
-\subsection*{Allgemeines Vorgehen}\label{allgemeines-vorgehen}}
-\addcontentsline{toc}{subsection}{Allgemeines Vorgehen}
+\subsection{Allgemeines Vorgehen}\label{allgemeines-vorgehen}}
 
 \begin{itemize}
 \tightlist
@@ -1023,15 +1022,14 @@ The most important user input in parametric topic models is the number of topics
   \item
     Wir schätzen weitere Modelle basierend auf den Ergebnissen aus 2) mit kleineren Abständen zwischen den \(k\). Wir prüfen, wie sich die Topics verändern. Zudem achten wir darauf, ob bei Modellen mit größeren \(k\) interessante Topics hinzukommen oder ob sich mehr Ambivalenzen zeigen.
   \item
-    Wir entscheiden uns für ein Modell. Dieses beschreiben wir dann ausführlich.
+    Wir entscheiden uns für ein Modell.
   \end{enumerate}
 \item
   Da das Schätzen der Modelle recht lange dauert, parallelisieren wir die Berechnung. Dazu nutze ich das Paket \texttt{furrr}. Es sei an dieser Stelle darauf hingewiesen, dass das Paket vor allem unter Windows mit RStudio für Probleme sorgen kann. Es ist daher empfehlenswert, das Skript zum Schätzen und Speichern der Modelle in der Konsole oder im Terminal auszuführen. Noch schneller geht es für diesen Workshop, die bereits geschätzten Modelle aus dem LMS zu laden.
 \end{itemize}
 
 \hypertarget{quantitativer-vergleich-der-ersten-modelle}{%
-\subsection*{Quantitativer Vergleich der ersten Modelle}\label{quantitativer-vergleich-der-ersten-modelle}}
-\addcontentsline{toc}{subsection}{Quantitativer Vergleich der ersten Modelle}
+\subsection{Quantitativer Vergleich der ersten Modelle}\label{quantitativer-vergleich-der-ersten-modelle}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1125,8 +1123,9 @@ The most important user input in parametric topic models is the number of topics
 \CommentTok{# Benennung und Datenstruktur für stminsights}
 \NormalTok{out =}\StringTok{ }\NormalTok{impf_stm}
 \NormalTok{m30 =}\StringTok{ }\NormalTok{many_models}\OperatorTok{$}\NormalTok{topic_model[[}\DecValTok{3}\NormalTok{]]}
+\NormalTok{m40 =}\StringTok{ }\NormalTok{many_models}\OperatorTok{$}\NormalTok{topic_model[[}\DecValTok{4}\NormalTok{]]}
 \NormalTok{m60 =}\StringTok{ }\NormalTok{many_models}\OperatorTok{$}\NormalTok{topic_model[[}\DecValTok{6}\NormalTok{]]}
-\CommentTok{# save(out, m30, m60, file = "R/data/models30_60.rdata")}
+\CommentTok{# save(out, m30, m40, m60, file = "R/data/models30_40_60.rdata")}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1175,8 +1174,7 @@ The most important user input in parametric topic models is the number of topics
 \end{itemize}
 
 \hypertarget{qualitativer-vergleich-der-modelle-mit-30-und-60-topics}{%
-\subsection*{Qualitativer Vergleich der Modelle mit 30 und 60 Topics}\label{qualitativer-vergleich-der-modelle-mit-30-und-60-topics}}
-\addcontentsline{toc}{subsection}{Qualitativer Vergleich der Modelle mit 30 und 60 Topics}
+\subsection{Qualitativer Vergleich der Modelle mit 30 und 60 Topics}\label{qualitativer-vergleich-der-modelle-mit-30-und-60-topics}}
 
 \begin{itemize}
 \tightlist
@@ -1217,7 +1215,7 @@ You can download and install the latest development version of stminsights by ru
 \begin{itemize}
 \tightlist
 \item
-  Zur Vorbereitung der Analyse mit \texttt{\{stminsights\}} müssen die Objekte der geschätzten Modelle (hier: \texttt{m30} und \texttt{m70}) und die Daten, die zur Modellschätzung verwendet wurden (hier: \texttt{out\ =\ ìmpf\_stm}), als \texttt{.rdata} Datei gespeichert werden. Dabei muss das Daten-Objekt unbedingt den Namen \texttt{out} haben. Damit der Text der Dokumente in \texttt{\{stminsights\}} angezeigt werden kann, muss dieser zusätzlich als Variable in den Meta-Daten enthalten sein (siehe Abschnitt zur Datenaufbereitung).
+  Zur Vorbereitung der Analyse mit \texttt{\{stminsights\}} müssen die Objekte der geschätzten Modelle (hier: \texttt{m30}, \texttt{m40} {[}brauchen wir etwas später{]} und \texttt{m60}) und die Daten, die zur Modellschätzung verwendet wurden (hier: \texttt{out\ =\ ìmpf\_stm}), als \texttt{.rdata} Datei gespeichert werden. Dabei muss das Daten-Objekt \emph{unbedingt} den Namen \texttt{out} haben. Damit der Text der Dokumente in \texttt{\{stminsights\}} angezeigt werden kann, muss dieser zusätzlich als Variable in den Meta-Daten enthalten sein (siehe Abschnitt zur Datenaufbereitung).
 \item
   Durch das ausführen der Funktion \texttt{run\_stminsights()} wird eine grafische Benutzeroberfläche im Browser gestartet, mit dem die qualitative Analyse durchgeführt wird. Eine Beschreibung der Oberfläche findet ihr als Video im LMS {[}kommt nach Fertigstellen des Textmaterials{]}.
 \end{itemize}
@@ -1261,7 +1259,7 @@ You can download and install the latest development version of stminsights by ru
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Laden der Modelle}
-\KeywordTok{load}\NormalTok{(}\StringTok{"R/data/models30_60.rdata"}\NormalTok{)}
+\KeywordTok{load}\NormalTok{(}\StringTok{"R/data/models30_40_60.rdata"}\NormalTok{)}
 
 \CommentTok{# Beispiel für das Modell mit k = 30}
 \CommentTok{# Erstellen eines Datensatzes mit den typischsten Dokumenten}
@@ -1325,7 +1323,7 @@ You can download and install the latest development version of stminsights by ru
 \begin{Highlighting}[]
 \CommentTok{# Datensatz für Topic Labels}
 \CommentTok{# Bis Topic 30 weiterführen}
-\NormalTok{topic_labels =}\StringTok{ }\KeywordTok{tribble}\NormalTok{(}
+\NormalTok{m30_topic_labels =}\StringTok{ }\KeywordTok{tribble}\NormalTok{(}
   \OperatorTok{~}\NormalTok{topic, }\OperatorTok{~}\NormalTok{label,}
   \DecValTok{1}\NormalTok{,      }\StringTok{"Alter von Babies"}\NormalTok{,}
   \DecValTok{2}\NormalTok{,      }\StringTok{"label B"}\NormalTok{,}
@@ -1333,6 +1331,45 @@ You can download and install the latest development version of stminsights by ru
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Die Labels aus meiner vorläufigen Interpretation finden sich in \texttt{R/topic\_labels.R} (hier nicht dargestellt).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Die meisten Topics des Modells mit \(k = 30\) erwiesen sich als gut interpretierbar. An der einen oder anderen Stelle schien es aber so, als seien mehrere Aspekte der Impfdiskussionen in einem Topic vermischt. Dies könnte auf eine etwas größere Topic-Anzahl hindeuten.
+  \item
+    Die Interpretation der Topics des Modells mit \(k = 60\) fiel mir wesentlich schwerer. Die typischen Features vieler Topics waren zwar exklusiv für das jeweilige Topic, waren aber nicht direkt als ein Aspekt Diskussionen zum Thema impfen zu interpretieren. Häufig scheinen hier auch Terme, die z.B. aus Gründen der Formulierung häufiger zusammen auftauchen, ein Topic zu bilden.
+  \item
+    Der qualitative Vergleich der beiden Modelle legt für mich nahe, dass ein nützliches Modell eher in der Region etwas über \(k = 30\) zu finden ist als bei \(k = 60\). Der Grund dafür ist, dass ich meist Modelle mit möglichst vielen interpretierbare Topics bevorzuge. Wenn --- wie in diesem Beispiel --- die Dokumente bereits so ausgewählt wurden, dass die meisten Dokumente prinzipiell für das Forschungsinteresse relevant sind, halte ich es für sinnvoll, über einen möglichst großen Anteil der inhaltlichen Varianz in diesen Dokumenten etwas auszusagen. Topics, die aus der Analyse ausgeschlossen werden müssen, helfen nicht dabei, die Inhalte der Dokumente zu beschreiben und zu verstehen.
+  \item
+    Beachtet aber, dass das nicht die einzige sinnvolle Vorgehensweise ist. Topic Models enthalten fast immer einige Topics, die sich nicht mit Blick auf das Forschungsinteresse interpretieren lassen \citep{maierApplyingLDATopic2018}. Diese werden dann häufig von den weiteren Analysen ausgeschlossen. Die Analysen der interpretierbaren Topics sind davon nicht weiter beeinträchtigt, solange die nicht interpretierbaren Topics keine relevanten Informationen aus den interpretierbaren Topic entfernen. Wir könnten nach dieser Logik also auch das Modell mit \(k = 60\) zum Ausgangspunkt der Suche nach dem nützlichsten Modell machen und viele Topics ausschließen. Die Argumentation wäre dann, dass die verbliebenen Topics besonders klar herausstechen, da die nicht relevanten Charakteristika der Dokumente in den nicht relevanten Topics stecken.
+  \item
+    Aus diesem Grund habe ich als nächsten Schritt das Modell mit \(k = 40\) zum Vergleich herangezogen. Dabei bestätigt sich nach meiner Wahrnehmung die Vermutung, dass (etwas) mehr als 30 Topics eine geeignete Wahl sein könnten.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{schuxe4tzen-und-vergleich-von-weiteren-modellen-zwischen-k-30-und-k-40}{%
+\subsection{\texorpdfstring{Schätzen und Vergleich von weiteren Modellen zwischen \(k = 30\) und \(k = 40\)}{Schätzen und Vergleich von weiteren Modellen zwischen k = 30 und k = 40}}\label{schuxe4tzen-und-vergleich-von-weiteren-modellen-zwischen-k-30-und-k-40}}
+
+\begin{itemize}
+\tightlist
+\item
+  Die Spezifikation und er quantitative Vergleich erfolgt nach demselben Prinzip wie zuvor. Der Code ist daher hier nicht dargestellt, kann aber in \texttt{R/model\_compare2.R} gefunden werden. Wir vergleichen alle Modelle zwischen \(k = 30\) und \(k = 40\).
+\end{itemize}
+
+\includegraphics{workshop_topicmodels_files/figure-latex/model-compare2-1.pdf} \includegraphics{workshop_topicmodels_files/figure-latex/model-compare2-2.pdf}
+
+\begin{itemize}
+\tightlist
+\item
+  Ein Blick auf die Skalierung der Achsen zeigt, dass die Modelle sich untereinander nur wenig unterscheiden. Die quantitativen Metriken helfen uns bei der Entscheidung zwischen diesen Modellen nicht weiter.
+\item
+  Es folgt ein recht aufwändiger qualitativer Prozess, in dem wir entscheiden, ob die zusätzlichen Themen die Beschreibung der Dokumentinhalte substantiell verbessern.
+\end{itemize}
 
   \bibliography{book.bib}
 

@@ -1,7 +1,7 @@
 ## ---- model-quali
 
 # Laden der Modelle
-load("R/data/models30_60.rdata")
+load("R/data/models30_40_60.rdata")
 
 # Beispiel für das Modell mit k = 30
 # Erstellen eines Datensatzes mit den typischsten Dokumenten
@@ -26,7 +26,7 @@ top_docs %>%
 
 # Datensatz für Topic Labels
 # Bis Topic 30 weiterführen
-topic_labels = tribble(
+m30_topic_labels = tribble(
   ~topic, ~label,
   1,      "Alter von Babies",
   2,      "label B",

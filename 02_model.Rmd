@@ -1,0 +1,144 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# Modellspezifikation, Modellvergleich und Modellauswahl
+
+```{r, include=FALSE}
+source("R/packages.R")
+source("R/read_data.R") # am Ende entfernen, nur für temp knit
+source("R/prepare_data.R")
+source("R/model_compare.R")
+```
+
+```{r, echo=FALSE, cache=FALSE}
+knitr::read_chunk("R/model_compare.R")
+knitr::read_chunk("R/model_qualihelper.R")
+```
+
+## Modellspezifikation
+
+* Die Funktion `stm()` aus dem gleichnamigen Paket bietet zahlreiche Möglichkeiten, Details der Modellspezifikation und -schätzung anzupassen. Wir beschränken uns im Folgenden auf drei wesentliche Einstellungen:
+  * `K`: Die Zahl der Topics.
+  * `prevalence`: Eine Formel zur Vorhersage der Topic-Prävalenzen
+  * `init.type`: Wie soll der Startpunkt für die Modellschätzung gewählt werden?
+* Zu weiteren Details siehe für einen Überblick `?stm` und @robertsStmPackageStructural2019 für eine ausführliche Erläuterung.
+
+* Eine Modell-Spezifikation könnte z.B. so aussehen:
+
+```{r, echo=TRUE, eval=FALSE}
+modelfit = stm(documents = impf_stm$documents,
+               vocab = impf_stm$vocab,
+               data = impf_stm$meta, 
+               K = 10, 
+               prevalence = ~s(date_num), 
+               init.type = "Spectral")
+```
+
+* Mit den ersten drei Inputs übergeben wir die Daten aus der im letzten Abschnitt erstellten Dokument-Feature-Matrix.
+* Mit `K` geben wir an, wie viele Themen es geben soll. Mit dieser Syntax würde ein Modell mit $k = 10$ Themen geschätzt. Wie wir bei der Wahl eines geeigneten $k$ vorgehen können, ist Thema des folgenden Unterabschnitts.
+* Mit der Formel zu `prevalence` geben wir an, welche Dokument-Variablen mit dem Auftreten der Topics zusammenhängen.
+  * In der Formel wird die abhängige Variable vor der Tilde (~) frei gelassen. Es wird immer der Zusammenhang mit dem Auftreten von allen $k$ Topics geschätzt. In diesem Beispiel schätzen wir, wie sich das Auftreten der Topics über den Untersuchungszeitraum hinweg verändert. Details zum Schätzen von Zusammenhängen mit Kovariaten folgen später in diesem Workshop.
+  * Mit `init.type` wird angegeben, wie `stm()` die Ausgangswerte für die Modellschätzung bestimmen soll. Die Default-Einstellung ist "Spectral". Ich empfehle diese Einstellung aus folgenden Gründen:
+    * Sie ist deterministisch, d.h., sie führt gegeben derselben Daten und desselben Modells immer zu derselben Lösung. So wird die Reproduzierbarkeit sichergestellt.
+    * Sie ist effizient, d.h., dass von diesem Startpunkt aus relativ schnell die finale Lösung gefunden wird.
+    * Wenn eine andere Einstellung für die Ausgangswerte gewählt wird, müssen mehrere Schätzungen für eine Spezifikation durchgeführt werden. Nur so kann geprüft werden, ob die Ausgangswerte das Ergebnis beeinflussen.
+
+* Allgemein muss beachtet werden, dass die Schätzung eines Structural Topic Model mit `stm()` trotz der Effizienz der Implementierung sehr rechenintensiv ist. Die Schätzung des oben beschriebenen Modells dauert auf meinem recht leistungsfähigen Notebook bereits ca. eine Minute. Es empfiehlt sich daher, die Modelle immer in neue Objekte zu speichern und diese ggf. direkt auf der Festplatte zu sichern. Um die Berechnungszeiten in diesem Workshop kurz zu halten, stelle ich die Ergebnisse der Modellschätzungen über das LMS zur Verfügung. Wenn ihr diese herunterladet und in den Ordner "data" kopiert, muss das Modell nicht neu geschätzt werden.
+
+## Modellvergleich
+
+### Allgemeines Vorgehen {-}
+
+* Eine zentrale Frage ist die Wahl eines geeigneten $k$, also der Zahl von Topics, die in den Dokumenten identifiziert werden sollen. Wichtig ist zuerst die Feststellung, dass es in der angewandten Analyse kein *per se* richtiges oder falsches $k$ gibt.
+* Wie viele Topics nützlich sind, hängt von Umfang von Zusammensetzung des Materials und vom substantiellen Forschungsinteresse ab.
+* Um ein geeignetes $k$ zu finden, gehen wir in der Regel modellvergleichend vor. Wir schätzen Modelle mit unterschiedlich vielen Topics und prüfen dann, welche Modelle besser zu den Daten und zum Forschungsinteresse passen.
+* Hinweise für einen allgemeinen Ausgangspunkt, in welchem Bereich nützliche $k$ zu finden sein könnten, liefert die Paket-Hilfe:
+
+> The most important user input in parametric topic models is the number of topics. There is no right answer to the appropriate number of topics. More topics will give more fine-grained representations of the data at the potential cost of being less precisely estimated. [...] For short corpora focused on very specific subject matter (such as survey experiments) 3-10 topics is a useful starting range. For small corpora (a few hundred to a few thousand) 5-50 topics is a good place to start. Beyond these rough guidelines it is application specific. Previous applications in political science with medium sized corpora (10k to 100k documents) have found 60-100 topics to work well. For larger corpora 100 topics is a useful default size. Of course, your mileage may vary. --- ?stm
+
+* Hier werden zwei wichtige Kriterien, die unser Nachdenken über die Spannweite von zu Berücksichtigten $k$ leiten können, deutlich:
+  * Quantität des Materials: Je mehr Dokumente, desto mehr Topics.
+  * Varianz im Inhalt: Je mehr inhaltliche Varianz, desto mehr Topics (an einem Beispiel: für 10k Nachrichtenbeiträge aus dem Wirtschaftsteil brauchen wir weniger Topics als für 10k Nachrichtenbeiträge, die aus allen Ressorts kommen).
+
+* Im vorliegenden Fall haben wir einen kleinen bis mittleren Korpus (ca. 13k Dokumente, die größtenteils recht kurz sind). Wir können von einer mittleren inhaltlichen Varianz ausgehen. Einerseits haben wir Posts bewusst danach ausgewählt, dass sie sich mit dem Thema Impfen beschäftigen, was die Varianz einschränkt. Andererseits wissen wir, dass in Online-Foren die verschiedensten Perspektiven auf dieses Thema vorkommen können, was für Varianz sorgt.
+* Wir gehen im Folgenden in mehreren Schritten vor:
+  1) Um eine allgemeine Orientierung zu erhalten, in welcher Range Modelle zu finden sind, die gut zu den Daten passen, schätzen wir 10 Modelle von $k = 10$ bis $k = 100$ mit einem Abstand von jeweils 10 Topics. Diese Modelle vergleichen wir anhand von einigen statistischen Maßen, um die Zahl der Kandidatenmodelle einzuschränken.
+  1) Wir interpretieren die besten Modelle substantiell und entscheiden, welche Topic-Anzahl für das Forschungsinteresse hilfreicher scheint.
+  1) Wir schätzen weitere Modelle basierend auf den Ergebnissen aus 2) mit kleineren Abständen zwischen den $k$. Wir prüfen, wie sich die Topics verändern. Zudem achten wir darauf, ob bei Modellen mit größeren $k$ interessante Topics hinzukommen oder ob sich mehr Ambivalenzen zeigen.
+  1) Wir entscheiden uns für ein Modell. Dieses beschreiben wir dann ausführlich.
+  
+* Da das Schätzen der Modelle recht lange dauert, parallelisieren wir die Berechnung. Dazu nutze ich das Paket `furrr`. Es sei an dieser Stelle darauf hingewiesen, dass das Paket vor allem unter Windows mit RStudio für Probleme sorgen kann. Es ist daher empfehlenswert, das Skript zum Schätzen und Speichern der Modelle in der Konsole oder im Terminal auszuführen. Noch schneller geht es für diesen Workshop, die bereits geschätzten Modelle aus dem LMS zu laden.
+
+### Quantitativer Vergleich der ersten Modelle {-}
+
+```{r model-compare, eval=TRUE, message=FALSE}
+
+```
+
+* Wir betrachten zuerst die *semantische Kohärenz* und die *Exklusivität* der Topics in den Modellen. Beide Metriken sind Eigenschaften der einzelnen Themen. In der ersten Grafik sind daher der Mittelwerte und die Mediane aller Themen in einem Modell dargestellt. Die absoluten Werte beider Metriken haben keine substantielle Bedeutung. Von Interesse ist der Vergleich der Modelle. Je höher die Exklusivität, desto geringer ist die Wahrscheinlichkeit, dass die typischsten Terme eines Topics in anderen Topics vorkommen [@robertsStructuralTopicModels2014]. Je höher die semantische Kohärenz, desto wahrscheinlicher kommen die typischsten Wörter eines Topics gemeinsam in einem Dokument mit diesem Topic vor [@davidmimnoOptimizingSemanticCoherence2011]. Zwischen den beiden Metriken besteht in der Regel ein negativer Zusammenhang. Daher ist es notwendig, eine Balance zwischen beiden zu finden.
+  * Im vorliegenden Beispiel können wir zuerst die Modelle mit $k \ge 80$ ausschließen. Obwohl sie mehr Topics benötigen, sind ihre Topics im Mittel weniger exklusiv und weniger kohärent als die Topics der Modelle $k = 60$ oder $k = 70$. Eine Erklärung dafür kann sein, irgendwann zwischen dem 70. und dem 80. Topic keine substantiell neuen Aspekte mehr im Korpus zu finden sind. Die neuen Topics sind dann redundant zu schon bestehenden Topics.
+  * Ebenso können wir für die meisten Zwecke die Modelle mit $k \le 20$ vernachlässigen, da die mittlere Exklusivität ihrer Topics wesentlich geringer ist als die der übrigen Modelle. Das Modell mit $k = 20$ könnte vielleicht infrage kommen, wenn wir Sparsamkeit sehr hoch gewichten, also den Korpus durch möglichst wenige Topics beschreiben wollen.
+  * Schließlich ist das Modell mit $k = 50$ nicht besonders attraktiv. Die Topics sind im Mittel nur weniger kohärent, aber nicht exklusiver, als die Topics des Modells mit $k = 40$. Der Detailvergleich der beiden Modelle in der nächsten Abbildung, in der jedes Topic mit einem Punkt dargestellt ist, zeigt, dass dies vor allem auf vier Topics zurück geht, die weniger kohärent sind, ohne eine besonders gute Exklusivität aufzuweisen.
+  * Gegeben der Metriken *semantische Kohärenz* und *Exklusivität* spricht einiges dafür, entweder Modelle mit ca. 60-70 Topics oder Modelle mit 30-40 Topics weiter zu verfolgen.
+
+* Die *held-out likelihood* und die *Dispersion der multinomialen Residuen* sind zwei Metriken, die die Abweichung des Modells von den Daten quantifizieren. Auch sie sind wieder im relativen Modellvergleich zu interpretieren. Die held-out likelihood gibt Auskunft darüber, wie gut das Vorkommen von Wörter in einem Dokument, das nicht zum Schätzen des Modells genutzt wurde, vorhergesagt werden kann. Mit der Dispersion der multinomialen Residuen wird die Abweichung der durch das Modell vorhergesagten von den beobachteten Wörtern in den Dokumenten auf Basis des gesamten Datensatzes quantifiziert. Ein Wert von 1 wäre ideal, wird in angewandten Beispielen mit echten Texten aber kaum erreicht. Beide Metriken sind eng verwandt und legen in der Regel ähnliche Entscheidungen nahe.
+  * Das Modell mit $k = 50$ ist nach beiden Metriken gut geeignet.
+  * Nach der held-out likelihood sind die Modelle mit $k \ge 80$ noch etwas besser - diese haben sich aber in der semantischer Kohärenz und Exklusivität nicht sonderlich gut bewährt.
+  * Die nach semantischer Kohärenz und Exklusivität besten Modelle liegen nach diesen beiden Metriken etwa gleich auf.
+
+* Die Befunde sind auch für die didaktischen Zwecke dieses Workshops gut geeignet. Es wird klar, dass die Modellwahl sich nicht einfach automatisieren lässt. Die quantitativen Kriterien helfen und lediglich, den Raum möglicher Modelle einzuschränken.
+  * Für mich kommen auf Basis der berichteten Metriken Modelle mit zwischen 30 und 70 Topics infrage.
+  * Wenn man an einer besonders sparsamen Lösung interessiert ist, könnte man auch $k = 20$ in Erwägung ziehen.
+  * Wenn man besonders detailliertere Lösungen sucht, sind auch die Modelle mit $k \ge 80$ nicht ausgeschlossen. Hier müsste man dann die Differenzierungen zwischen den Topics in der Tiefe untersuchen und klarstellen.
+* Im nächsten Schritt vergleichen wir die Modelle mit 30 und mit 60 Topics, um zu verstehen, welche Konsequenzen es für die inhaltliche Interpretation hat, ein eher sparsames oder ein eher detailliertes Modell zu wählen. Nach dieser Entscheidung können wir dann weiter überlegen, welches der eher sparsamen bzw. detaillierten Modelle für unser Forschungsinteresse besser geeignet ist.
+
+### Qualitativer Vergleich der Modelle mit 30 und 60 Topics {-}
+
+* Um die Ergebnisse eines Topic Model interpretieren zu können, müssen wir zuerst verstehen, wie das Ergebnis eines Topic Models aussieht. Es enthält im wesentlichen zwei zweidimensionale Vektoren von Koeffizienten.
+  * beta: Für jedes Topic die Wahrscheinlichkeit, dass ein Dokument, in dem das Feature vorkommt, das Topic hat. Jedes Topic erhält für jedes Feature einen beta-Koeffizienten zwischen 0 und 1, die zusammen 1 ergeben.
+  * theta bzw. gamma (uneinheitlich benannt): Für jedes Dokument die Wahrscheinlichkeit, dass das Dokument das Topic enthält. Jedes Dokument erhält für jedes Topic einen theta- bzw. gamma-Koeffizienten zwischen 0 und 1, die zusammen 1 ergeben.
+
+```{r, eval=FALSE, include=FALSE}
+m30 %>% 
+  tidy("beta") %>% 
+  spread(term, beta)
+m30 %>% 
+  tidy("gamma") %>% 
+  spread(topic, gamma)
+```
+
+* Um die Bedeutung der Topics zu interpretieren, betrachten wir daher zwei Modell-Outputs.
+  * Die Features, die am typischsten für Dokumente mit einem Topic sind, also die höchsten beta-Koeffizienten (ggf. nach Korrekturen für die Verteilung der Features im gesamten Korpus).
+  * Die Dokumente, die mit der größten Wahrscheinlichkeit ein Thema enthalten (manchmal auch interpretiert als zum größten Anteil aus einem Thema bestehen), also die Dokumente mit den höchsten gamma- bzw. theta-Koeffizienten.
+
+* Zur qualitativen Interpretation der Modelle anhand dieser Outputs kann ich das Paket `{stminsights}` empfehlen --- vor allem denjenigen, die lieber mit einer intuitiven grafischen Benutzeroberfläche als direkt mit *R* arbeiten. Aber auch ich selbst schätze das Tool für einen schnellen Überblick über mehrere Modelle.
+* Leider ist es zurzeit nicht einfach, `{stminsights}` direkt zum Laufen zu bringen, da einige Pakete, auf denen es aufbaut, Bugs bzw. Kompabilitätsprobleme haben. Eine Anleitung, wie das Paket zurzeit installiert werden kann, gibt es hier:
+
+> Important note: The shiny app for the CRAN release of stminsights does currently not work properly due to bugs introduced by recent changes in the Shiny package [...]. Please use the Github version of stminsights for now. This will require the development version of Shiny which can be installed by running devtools::install_github('rstudio/shiny').
+
+> You can download and install the latest development version of stminsights by running devtools::install_github('cschwem2er/stminsights') --- https://github.com/cschwem2er/stminsights
+
+* Zur Vorbereitung der Analyse mit `{stminsights}` müssen die Objekte der geschätzten Modelle (hier: `m30` und `m70`) und die Daten, die zur Modellschätzung verwendet wurden (hier: `out = ìmpf_stm`), als `.rdata` Datei gespeichert werden. Dabei muss das Daten-Objekt unbedingt den Namen `out` haben. Damit der Text der Dokumente in `{stminsights}` angezeigt werden kann, muss dieser zusätzlich als Variable in den Meta-Daten enthalten sein (siehe Abschnitt zur Datenaufbereitung).
+* Durch das ausführen der Funktion `run_stminsights()` wird eine grafische Benutzeroberfläche im Browser gestartet, mit dem die qualitative Analyse durchgeführt wird. Eine Beschreibung der Oberfläche findet ihr als Video im LMS [kommt nach Fertigstellen des Textmaterials].
+
+```{r, eval=FALSE}
+run_stminsights()
+```
+
+* Wer die Interpretation der Topics lieber in R durchführt, kann z.B. den folgenden Code verwenden und anpassen.
+  * Wir sammeln zuerst die 20 typischsten Texte für jedes Topic in einem Datensatz. Dabei bereiten wir die Texte auch für eine Ausgabe in der Konsole vor. Der Parameter "gamma" oder "theta" (uneinheitlich benannt, aber derselbe Parameter) kann mit `tidytext::tidy()` extrahiert werden. Dann werden die Texte aus den Ursprungsdaten zugespielt.
+  * Mit `stm::labelTopics()` können wird die typischsten Features für ein Topic anzeigen. `n` bestimmt die Zahl der Features, `topics` das Topic, das wir gerade beschreiben möchten. Es werden die typischsten Features nach vier verschiedenen Kriterien ausgegeben (Diese werden auch in `{stminsights}` angezeigt):
+    * *Highest Prob* zeigt die Features, die mit der größten Wahrscheinlichkeit in Dokumenten mit einem Topic vorkommen (= Features mit den höchsten beta-Koeffizienten für das Topic). Dabei wird die Gesamthäufigkeit der Features im Korpus *nicht* berücksichtigt. Wörter, die allgemein sehr häufig vorkommen, sind nach dieser Metrik typisch für verschiedene Topics. Die anderen drei Metriken versuchen, diese Schwäche auf verschiedene Art und Weise zu korrigieren.
+    * *FREX* steht für *most frequent and exclusive* Features. Hier werden die Features aufgelistet, die möglichst typisch für ein Dokument mit einem Topic, aber möglichst nicht sehr typisch für Dokumente mit anderen Topics sind. Siehe `?calcfrex` für technische Details.
+    * Die *Lift*-Metrik setzt die Wahrscheinlichkeit, dass ein Feature in einem Dokument mit einem Topic vorkommt, zur Wahrscheinlichkeit, dass ein Feature in einem beliebigen Dokument vorkommt, ins Verhältnis. Siehe `?calclift` für technische Details.
+    * *Score* gewichtet für die Wahrscheinlichkeit, mit der ein Feature in Dokumenten mit einem anderen Topics vorkommt. Siehe `?calcscore` für technische Details.
+  * Mit den Auszügen aus dem Datensatz typischer Dokumente (gefiltert nach Topic) können wir diese Features zudem im Kontext der gesamten Texte sehen.
+  * Im abschließenden Datensatz `topic_labels` halten wir für jedes Topic ein aussagekräftiges, möglichst kurzes Label fest, das wir jetzt zur eigenen Übersicht und später auch zur Ergebnisdarstellung verwenden. Zusätzlich empfehle ich, eine kurze Zusammenfassung für jedes Topic auf einem Medium eigener Wahl (präferierte analoger oder digitaler Notizzettel) festzuhalten.
+
+```{r model-quali}
+
+```
+
+

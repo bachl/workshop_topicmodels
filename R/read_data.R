@@ -1,7 +1,7 @@
 ## ---- read-data
 
 # Laden der Daten
-d = read_rds("R/data/exampe_data.rds")
+d = read_rds("R/data/example_data.rds")
 d %>% 
   print(n = 5)
 

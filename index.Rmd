@@ -24,7 +24,7 @@ knitr::read_chunk("R/packages.R")
 ## Inhalt des virtuellen Mini-Workshops
 
 * In diesem Mini-Workshop erläutere ich das praktische Vorgehen einer Datenanalyse mit *Structural Topic Models*. Wir behandeln die folgenden Schritte im Analyseprozess:
-  * Schätzen eines ersten Modells
+  * Modellspezifikation
   * Modellvergleich zur Auswahl eines geeigneten Modells
   * Interpretation der Topics im finalen Modell
   * Darstellung der Ergebnisse
@@ -42,7 +42,7 @@ knitr::read_chunk("R/packages.R")
 
 * Die Darstellung basiert auf einer Analyse, die ich gemeinsam mit Elena Link durchgeführt habe. Wir untersuchten, wie das Thema Impfen in Online-Foren für Eltern diskutiert wurde. Wir verwenden aber nur einen *nicht repräsentativen* Ausschnitt aus dem Material, um die notwendige Rechenleistung und -zeit zu verringern.
   * Einen Preprint zur Analyse könnt ihr hier lesen: [Vaccine-related Discussions in Online Communities for Parents. A Quantitative Overview](https://osf.io/ad9h7/).
-  * Die Dokumentation zur Studie ist hier verfügbar: https://bachl.github.io/vaccine_discussions/. Daten und Analyse-Skripts gibt es im [OSF](https://osf.io/twx38/). In diesem Material werde auch die Datenerhebung mittels Web-Scraping und die Datenaufbereitung erläutert. Diese Inhalte sind *nicht* Teil dieses Workshops. Wenn ihr Fragen dazu habt, dürft ihr sie natürlich stellen.
+  * Die Dokumentation zur Studie ist hier verfügbar: https://bachl.github.io/vaccine_discussions/. Daten und Analyse-Skripts gibt es im [OSF](https://osf.io/twx38/). Dort werden auch die Datenerhebung mittels Web-Scraping und die Datenaufbereitung erläutert. Diese Inhalte sind *nicht* Teil dieses Workshops. Wenn ihr Fragen dazu habt, dürft ihr sie natürlich stellen.
 
 
 ## Welche Inhalte wir *nicht* behandeln

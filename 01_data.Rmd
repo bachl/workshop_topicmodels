@@ -6,6 +6,7 @@ source("R/packages.R")
 
 ```{r, echo=FALSE, cache=FALSE}
 knitr::read_chunk("R/read_data.R")
+knitr::read_chunk("R/prepare_data.R")
 ```
 
 ## Laden der Daten und Übersicht
@@ -22,7 +23,7 @@ knitr::read_chunk("R/read_data.R")
 
 ```
 
-* Der Datensatz besteht aus 12,635 Posts.
+* Der Datensatz besteht aus 12,369 Posts.
   * Die Variable `post` enthält den vollen Text des Posts.
   * Die Variable `author` enthält den Accountnamen, von dem der Post abgegeben wurde.
   * Die Variable `date` enthält den Tag der Veröffentlichung.
@@ -31,4 +32,33 @@ knitr::read_chunk("R/read_data.R")
 * Pro Monat sind zwischen ca. 120 und 1.000 Posts in unserer Stichprobe.
 * Typische Posts haben einen Umfang von zwischen 40 und 100 Wörtern (Zur Erinnerung: Sehr kurze Post wurden bereits ausgeschlossen).
 
+## Aufbereitung für das Schätzen der Topic Models
 
+* Grundsätzlich gilt: Die verschiedenen Schritte bei der Aufbereitung des Text-Korpus kann die Ergebnisse wesentlich beeinflussen [@dennyTextPreprocessingUnsupervised2018; @maierApplyingLDATopic2018]. Aber ist es häufig sehr schwierig, theoretisch informierte Entscheidungen zu treffen, da
+  * unsere Theorien fast immer zu vage sind, um etwas über konkrete, manifeste Eigenschaften der Texte auszusagen
+  * es schwer ist, die Folge einer Entscheidung für das technische Schätzen der Modelle und für die substanzielle Interpretation der Ergebnisse vorherzusagen,
+  * Entscheidungen *post hoc* auf Basis der Ergebnisse wissenschaftstheoretisch und -praktisch problematisch sein können (*overfitting*, *harking* bzw. *hindsight bias*, etc.).
+
+* In der zugrunde liegenden Studie habe ich versucht, diese Entscheidungen *a priori* zu treffen. Die Entscheidungen basieren aber zugegebenermaßen mehr auf vagen Vermutungen und für mich plausiblen und pragmatischen Überlegungen als auf einer konsistenten Theorie.
+  * Entfernen von Stoppwörtern: Stoppwörter sind Wörter, die in einer Sprache häufig vorkommen und nicht wesentlich zur Bedeutung eines Texts beitragen. Hier habe ich auf Basis der deutschen Liste im Paket `{stopwords}` und der Worthäufigkeiten im Korpus eine Liste erstellt. Durch das *Pruning* der Dokument-Feature-Matrix (siehe unten) ist die Auswahl der Stoppwörter aber weniger entscheidend, da Wörter, die in sehr vielen Texten des Korpus vorkommen, ohnehin entfernt werden.
+  * Zusätzliche Berücksichtigung von Bi- und Tri-Grammen: Ich habe die Kombinationen von zwei oder drei Wörtern, die häufig im Korpus vorkamen, daraufhin gesichtet, ob sie für das Thema Impfen und gesundheitsrelevante Diskussionen zusätzliche Informationen enthalten, die jedes einzelne Wort alleine nicht enthält. Diese Kombinationen wurden als zusätzliche Features aufgenommen.
+  * Der Argumentation und den empirischen Ergebnissen von @schofieldComparingApplesApple2016 (deren Aufsatz übrigens einen großartigen Titel hat, großer NLP Nerd Humor) folgend habe ich auf Stemming oder Lemmatisierung verzichtet. In der Tat zeigt sich, dass Wörter mit dem gleichen Wortstamm, wie von @schofieldComparingApplesApple2016 beschrieben, häufig im selben Topic landen.
+  * Üblichen Standards [z.B. @maierApplyingLDATopic2018] folgend habe ich alle Wörter in Kleinschreibung umgewandelt, Satzzeichen entfernt und URL entfernt. Zahlen habe ich beibehalten, da sie (wie die Ergebnisse auch zeigen) typische Merkmale bestimmter Perspektiven auf das Thema Impfen sind.
+  * Da wir auch an der Veränderung der Topic-Häufigkeiten über die Zeit interessiert sind, wird die Variable mit dem Erscheinungstags des Posts in eine numerische Variable umgewandelt. Sie ist so skaliert, dass der aktuellste Post den Wert 0 hat. Diese Variable können wir dann als Prädiktor beim Schätzen des *Structural Topic Model* berücksichtigen.
+  * Unter *Pruning* versteht man das Entfernen von Features, die entweder in sehr weniger oder in sehr vielen Dokumenten vorkommen. Dadurch können die Größe des Datensatzes und in der Folge die zum Schätzen der Modelle nötigen Ressourcen wesentlich reduziert werden. Inhaltlich sollte das Entfernen dieser Features wenig ändern: Features, die in sehr vielen Dokumenten vorkommen, tragen nicht zur Differenzierung zwischen den Dokumenten bei. Features, die nur in sehr wenigen Dokumenten vorkommen, tragen nicht zur Definition von Topics bei, da diese durch das regelmäßige *gemeinsame* Vorkommen in Dokumenten identifiziert werden. Siehe ausführlich @maierApplyingLDATopic2018.
+
+* Die Vorbereitung des Korpus und der Dokument-Feature-Matrix erfolgte mit Funktionen aus `{quanteda}`.
+  * Mit der Funktion `corpus()` wird der Datensatz in einen Text-Korpus umgewandelt. In diesem Zuge wird auch die numerische Datums-Variable erstellt. Die Variable mit dem Text des Posts duplizieren wir, damit sie zusätzlich als Meta-Datum für jeden Text gespeichert wird. Das wird später hilfreich sein, wenn wir die Ergebnisse einer Modellschätzung explorieren.
+  * `custom_stopwords` und `relevant_ngrams` zeigen die Stoppwörter und Wortkombinationen, die ausgeschlossen bzw. einbezogen werden. Letztere werden mit der Funktion `dictionary()` aus `{quanteda}` erstellt.
+  * Mit der Funktion `dfm()` wird der Korpus in eine Dokument-Feature-Matrix umgewandelt. Dabei werden die Standard-Schritte der Textaufbereitung durchgeführt. Sie besteht aus 12,369 Posts in den Zeilen und 41,385 Features in den Spalten. In jeder Zelle ist angegeben, wie häufig ein Feature in einem Dokument vorkommt.
+  * Mit der Funktion `dfm_trim()` wird das Pruning durchgeführt. Dabei werden alle Features, die in weniger als 0.5% oder mehr als 99% der Posts vorkommen, entfernt. Nach dem Pruning enthält die Matrix nur noch 1,150 Features.
+  * Zuletzt muss die Matrix in das von `stm()` benötigte Format konvertiert werden. Dabei werden zwei Posts gelöscht, die nach der Bereinigung kein einziges Feature mehr enthalten. Wichtig für den Bericht der Fallzahl in einer Publikation!
+  
+* Am Ende seht ihr eine einfache Beschreibung der häufigsten Features im Korpus als Tabelle und Wordcloud.
+
+```{r prepare-data, eval=TRUE, message=TRUE, warning=TRUE}
+
+```
+  
+  
+  

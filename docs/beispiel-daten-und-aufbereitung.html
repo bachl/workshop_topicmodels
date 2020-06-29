@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html"/>
-
+<link rel="next" href="modellspezifikation-modellvergleich-und-modellauswahl.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -139,6 +139,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html"><i class="fa fa-check"></i><b>2</b> Beispiel-Daten und Aufbereitung</a><ul>
 <li class="chapter" data-level="2.1" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html#laden-der-daten-und-übersicht"><i class="fa fa-check"></i><b>2.1</b> Laden der Daten und Übersicht</a></li>
+<li class="chapter" data-level="2.2" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html#aufbereitung-für-das-schätzen-der-topic-models"><i class="fa fa-check"></i><b>2.2</b> Aufbereitung für das Schätzen der Topic Models</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html"><i class="fa fa-check"></i><b>3</b> Modellspezifikation, Modellvergleich und Modellauswahl</a><ul>
+<li class="chapter" data-level="3.1" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#modellspezifikation"><i class="fa fa-check"></i><b>3.1</b> Modellspezifikation</a></li>
+<li class="chapter" data-level="3.2" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#modellvergleich"><i class="fa fa-check"></i><b>3.2</b> Modellvergleich</a></li>
 </ul></li>
 </ul>
 
@@ -175,10 +180,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="beispiel-daten-und-aufbereitung.html#cb2-1"></a><span class="co"># Laden der Daten</span></span>
-<span id="cb2-2"><a href="beispiel-daten-und-aufbereitung.html#cb2-2"></a>d =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/exampe_data.rds&quot;</span>)</span>
+<span id="cb2-2"><a href="beispiel-daten-und-aufbereitung.html#cb2-2"></a>d =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/example_data.rds&quot;</span>)</span>
 <span id="cb2-3"><a href="beispiel-daten-und-aufbereitung.html#cb2-3"></a>d <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb2-4"><a href="beispiel-daten-und-aufbereitung.html#cb2-4"></a><span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 12,635 x 5
+<pre><code>## # A tibble: 12,369 x 5
 ##   post                         author   postdate      wc thread_title           
 ##   &lt;chr&gt;                        &lt;chr&gt;    &lt;date&gt;     &lt;int&gt; &lt;chr&gt;                  
 ## 1 Wenn Impfungen zu Todesfäll… zwerg-b… 2018-04-06    26 HPV-Impfung            
@@ -186,7 +191,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 Hallo ja sind glaube ich dr… danerl   2017-06-05    42 Warum so oft Scheidenp…
 ## 4 Guten Morgen, gibt es hier … butterf… 2017-05-14   133 Impfung Deutschland/Ös…
 ## 5 In Österreich wird im 3., 5… butterf… 2017-05-15    68 Impfung Deutschland/Ös…
-## # … with 1.263e+04 more rows</code></pre>
+## # … with 1.236e+04 more rows</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="beispiel-daten-und-aufbereitung.html#cb4-1"></a>d <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb4-2"><a href="beispiel-daten-und-aufbereitung.html#cb4-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ym =</span> <span class="kw">round_date</span>(postdate, <span class="st">&quot;month&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb4-3"><a href="beispiel-daten-und-aufbereitung.html#cb4-3"></a><span class="st">  </span><span class="kw">count</span>(ym) <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -196,9 +201,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-2"><a href="beispiel-daten-und-aufbereitung.html#cb5-2"></a><span class="st">  </span><span class="kw">pull</span>(<span class="st">&quot;wc&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb5-3"><a href="beispiel-daten-und-aufbereitung.html#cb5-3"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##      20      37      60      87     102    2493</code></pre>
+##      20      37      60      85     101    2493</code></pre>
 <ul>
-<li>Der Datensatz besteht aus 12,635 Posts.
+<li>Der Datensatz besteht aus 12,369 Posts.
 <ul>
 <li>Die Variable <code>post</code> enthält den vollen Text des Posts.</li>
 <li>Die Variable <code>author</code> enthält den Accountnamen, von dem der Post abgegeben wurde.</li>
@@ -209,15 +214,256 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Pro Monat sind zwischen ca. 120 und 1.000 Posts in unserer Stichprobe.</li>
 <li>Typische Posts haben einen Umfang von zwischen 40 und 100 Wörtern (Zur Erinnerung: Sehr kurze Post wurden bereits ausgeschlossen).</li>
 </ul>
+</div>
+<div id="aufbereitung-für-das-schätzen-der-topic-models" class="section level2">
+<h2><span class="header-section-number">2.2</span> Aufbereitung für das Schätzen der Topic Models</h2>
+<ul>
+<li>Grundsätzlich gilt: Die verschiedenen Schritte bei der Aufbereitung des Text-Korpus kann die Ergebnisse wesentlich beeinflussen <span class="citation">(Denny and Spirling <a href="#ref-dennyTextPreprocessingUnsupervised2018" role="doc-biblioref">2018</a>; Maier et al. <a href="#ref-maierApplyingLDATopic2018" role="doc-biblioref">2018</a>)</span>. Aber ist es häufig sehr schwierig, theoretisch informierte Entscheidungen zu treffen, da
+<ul>
+<li>unsere Theorien fast immer zu vage sind, um etwas über konkrete, manifeste Eigenschaften der Texte auszusagen</li>
+<li>es schwer ist, die Folge einer Entscheidung für das technische Schätzen der Modelle und für die substanzielle Interpretation der Ergebnisse vorherzusagen,</li>
+<li>Entscheidungen <em>post hoc</em> auf Basis der Ergebnisse wissenschaftstheoretisch und -praktisch problematisch sein können (<em>overfitting</em>, <em>harking</em> bzw. <em>hindsight bias</em>, etc.).</li>
+</ul></li>
+<li>In der zugrunde liegenden Studie habe ich versucht, diese Entscheidungen <em>a priori</em> zu treffen. Die Entscheidungen basieren aber zugegebenermaßen mehr auf vagen Vermutungen und für mich plausiblen und pragmatischen Überlegungen als auf einer konsistenten Theorie.
+<ul>
+<li>Entfernen von Stoppwörtern: Stoppwörter sind Wörter, die in einer Sprache häufig vorkommen und nicht wesentlich zur Bedeutung eines Texts beitragen. Hier habe ich auf Basis der deutschen Liste im Paket <code>{stopwords}</code> und der Worthäufigkeiten im Korpus eine Liste erstellt. Durch das <em>Pruning</em> der Dokument-Feature-Matrix (siehe unten) ist die Auswahl der Stoppwörter aber weniger entscheidend, da Wörter, die in sehr vielen Texten des Korpus vorkommen, ohnehin entfernt werden.</li>
+<li>Zusätzliche Berücksichtigung von Bi- und Tri-Grammen: Ich habe die Kombinationen von zwei oder drei Wörtern, die häufig im Korpus vorkamen, daraufhin gesichtet, ob sie für das Thema Impfen und gesundheitsrelevante Diskussionen zusätzliche Informationen enthalten, die jedes einzelne Wort alleine nicht enthält. Diese Kombinationen wurden als zusätzliche Features aufgenommen.</li>
+<li>Der Argumentation und den empirischen Ergebnissen von <span class="citation">Schofield and Mimno (<a href="#ref-schofieldComparingApplesApple2016" role="doc-biblioref">2016</a>)</span> (deren Aufsatz übrigens einen großartigen Titel hat, großer NLP Nerd Humor) folgend habe ich auf Stemming oder Lemmatisierung verzichtet. In der Tat zeigt sich, dass Wörter mit dem gleichen Wortstamm, wie von <span class="citation">Schofield and Mimno (<a href="#ref-schofieldComparingApplesApple2016" role="doc-biblioref">2016</a>)</span> beschrieben, häufig im selben Topic landen.</li>
+<li>Üblichen Standards <span class="citation">(z.B. Maier et al. <a href="#ref-maierApplyingLDATopic2018" role="doc-biblioref">2018</a>)</span> folgend habe ich alle Wörter in Kleinschreibung umgewandelt, Satzzeichen entfernt und URL entfernt. Zahlen habe ich beibehalten, da sie (wie die Ergebnisse auch zeigen) typische Merkmale bestimmter Perspektiven auf das Thema Impfen sind.</li>
+<li>Da wir auch an der Veränderung der Topic-Häufigkeiten über die Zeit interessiert sind, wird die Variable mit dem Erscheinungstags des Posts in eine numerische Variable umgewandelt. Sie ist so skaliert, dass der aktuellste Post den Wert 0 hat. Diese Variable können wir dann als Prädiktor beim Schätzen des <em>Structural Topic Model</em> berücksichtigen.</li>
+<li>Unter <em>Pruning</em> versteht man das Entfernen von Features, die entweder in sehr weniger oder in sehr vielen Dokumenten vorkommen. Dadurch können die Größe des Datensatzes und in der Folge die zum Schätzen der Modelle nötigen Ressourcen wesentlich reduziert werden. Inhaltlich sollte das Entfernen dieser Features wenig ändern: Features, die in sehr vielen Dokumenten vorkommen, tragen nicht zur Differenzierung zwischen den Dokumenten bei. Features, die nur in sehr wenigen Dokumenten vorkommen, tragen nicht zur Definition von Topics bei, da diese durch das regelmäßige <em>gemeinsame</em> Vorkommen in Dokumenten identifiziert werden. Siehe ausführlich <span class="citation">Maier et al. (<a href="#ref-maierApplyingLDATopic2018" role="doc-biblioref">2018</a>)</span>.</li>
+</ul></li>
+<li>Die Vorbereitung des Korpus und der Dokument-Feature-Matrix erfolgte mit Funktionen aus <code>{quanteda}</code>.
+<ul>
+<li>Mit der Funktion <code>corpus()</code> wird der Datensatz in einen Text-Korpus umgewandelt. In diesem Zuge wird auch die numerische Datums-Variable erstellt. Die Variable mit dem Text des Posts duplizieren wir, damit sie zusätzlich als Meta-Datum für jeden Text gespeichert wird. Das wird später hilfreich sein, wenn wir die Ergebnisse einer Modellschätzung explorieren.</li>
+<li><code>custom_stopwords</code> und <code>relevant_ngrams</code> zeigen die Stoppwörter und Wortkombinationen, die ausgeschlossen bzw. einbezogen werden. Letztere werden mit der Funktion <code>dictionary()</code> aus <code>{quanteda}</code> erstellt.</li>
+<li>Mit der Funktion <code>dfm()</code> wird der Korpus in eine Dokument-Feature-Matrix umgewandelt. Dabei werden die Standard-Schritte der Textaufbereitung durchgeführt. Sie besteht aus 12,369 Posts in den Zeilen und 41,385 Features in den Spalten. In jeder Zelle ist angegeben, wie häufig ein Feature in einem Dokument vorkommt.</li>
+<li>Mit der Funktion <code>dfm_trim()</code> wird das Pruning durchgeführt. Dabei werden alle Features, die in weniger als 0.5% oder mehr als 99% der Posts vorkommen, entfernt. Nach dem Pruning enthält die Matrix nur noch 1,150 Features.</li>
+<li>Zuletzt muss die Matrix in das von <code>stm()</code> benötigte Format konvertiert werden. Dabei werden zwei Posts gelöscht, die nach der Bereinigung kein einziges Feature mehr enthalten. Wichtig für den Bericht der Fallzahl in einer Publikation!</li>
+</ul></li>
+<li>Am Ende seht ihr eine einfache Beschreibung der häufigsten Features im Korpus als Tabelle und Wordcloud.</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="beispiel-daten-und-aufbereitung.html#cb7-1"></a><span class="co"># Erstellen des Korpus</span></span>
+<span id="cb7-2"><a href="beispiel-daten-und-aufbereitung.html#cb7-2"></a>crps =<span class="st"> </span>d <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-3"><a href="beispiel-daten-und-aufbereitung.html#cb7-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">txt =</span> post, <span class="co"># Duplizieren des Post-Texts für Meta-Daten</span></span>
+<span id="cb7-4"><a href="beispiel-daten-und-aufbereitung.html#cb7-4"></a>         <span class="dt">date_num =</span> <span class="kw">as.numeric</span>(postdate) <span class="op">-</span><span class="st"> </span><span class="kw">max</span>(<span class="kw">as.numeric</span>(postdate))) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Numerische Datumsvariable</span></span>
+<span id="cb7-5"><a href="beispiel-daten-und-aufbereitung.html#cb7-5"></a><span class="st">  </span><span class="kw">corpus</span>(<span class="dt">text_field =</span> <span class="st">&quot;post&quot;</span>) <span class="co"># Erstellen des Korpus</span></span>
+<span id="cb7-6"><a href="beispiel-daten-und-aufbereitung.html#cb7-6"></a>crps <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-7"><a href="beispiel-daten-und-aufbereitung.html#cb7-7"></a><span class="st">  </span><span class="kw">summary</span>(<span class="dt">n =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## Corpus consisting of 12369 documents, showing 1 document:
+## 
+##   Text Types Tokens Sentences       author   postdate wc thread_title
+##  text1    27     29         2 zwerg-bayern 2018-04-06 26  HPV-Impfung
+##                                                                                                                                                                                                  txt
+##  Wenn Impfungen zu Todesfälle oder starken Nebenwirkungen in einzelnen Fällen führen, spricht dann für Immungschwäche oder schlummernder Krankheit. Ein gesunder Mensch stirbt nicht an der Impfung.
+##  date_num
+##      -457</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="beispiel-daten-und-aufbereitung.html#cb9-1"></a><span class="co"># Stoppwörter</span></span>
+<span id="cb9-2"><a href="beispiel-daten-und-aufbereitung.html#cb9-2"></a>custom_stopwords =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ab&quot;</span>, <span class="st">&quot;aber&quot;</span>, <span class="st">&quot;ach&quot;</span>, <span class="st">&quot;all&quot;</span>, <span class="st">&quot;alle&quot;</span>, <span class="st">&quot;allem&quot;</span>, <span class="st">&quot;allen&quot;</span>, <span class="st">&quot;aller&quot;</span>, <span class="st">&quot;alles&quot;</span>, <span class="st">&quot;als&quot;</span>, <span class="st">&quot;also&quot;</span>, <span class="st">&quot;am&quot;</span>, <span class="st">&quot;an&quot;</span>, <span class="st">&quot;andere&quot;</span>, <span class="st">&quot;anderen&quot;</span>, <span class="st">&quot;anderes&quot;</span>, <span class="st">&quot;anders&quot;</span>, <span class="st">&quot;auch&quot;</span>, <span class="st">&quot;auf&quot;</span>, <span class="st">&quot;aufs&quot;</span>, <span class="st">&quot;aus&quot;</span>, <span class="st">&quot;bei&quot;</span>, <span class="st">&quot;beim&quot;</span>, <span class="st">&quot;bin&quot;</span>, <span class="st">&quot;bis&quot;</span>, <span class="st">&quot;bist&quot;</span>, <span class="st">&quot;bzw&quot;</span>, <span class="st">&quot;da&quot;</span>, <span class="st">&quot;dabei&quot;</span>, <span class="st">&quot;dadurch&quot;</span>, <span class="st">&quot;daher&quot;</span>, <span class="st">&quot;dahin&quot;</span>, <span class="st">&quot;damit&quot;</span>, <span class="st">&quot;dann&quot;</span>, <span class="st">&quot;das&quot;</span>, <span class="st">&quot;dass&quot;</span>, <span class="st">&quot;daß&quot;</span>, <span class="st">&quot;dazu&quot;</span>, <span class="st">&quot;dein&quot;</span>, <span class="st">&quot;deine&quot;</span>, <span class="st">&quot;deinem&quot;</span>, <span class="st">&quot;deinen&quot;</span>, <span class="st">&quot;deiner&quot;</span>, <span class="st">&quot;dem&quot;</span>, <span class="st">&quot;den&quot;</span>, <span class="st">&quot;denen&quot;</span>, <span class="st">&quot;denn&quot;</span>, <span class="st">&quot;dennoch&quot;</span>, <span class="st">&quot;der&quot;</span>, <span class="st">&quot;deren&quot;</span>, <span class="st">&quot;des&quot;</span>, <span class="st">&quot;deshalb&quot;</span>, <span class="st">&quot;deswegen&quot;</span>, <span class="st">&quot;dich&quot;</span>, <span class="st">&quot;die&quot;</span>, <span class="st">&quot;dies&quot;</span>, <span class="st">&quot;diese&quot;</span>, <span class="st">&quot;diesem&quot;</span>, <span class="st">&quot;diesen&quot;</span>, <span class="st">&quot;dieser&quot;</span>, <span class="st">&quot;dieses&quot;</span>, <span class="st">&quot;dir&quot;</span>, <span class="st">&quot;doch&quot;</span>, <span class="st">&quot;dort&quot;</span>, <span class="st">&quot;dran&quot;</span>, <span class="st">&quot;drauf&quot;</span>, <span class="st">&quot;drin&quot;</span>, <span class="st">&quot;drüber&quot;, &quot;</span>du<span class="st">&quot;, &quot;</span>durch<span class="st">&quot;, &quot;</span>durchaus<span class="st">&quot;, &quot;</span>eh<span class="st">&quot;, &quot;</span>ein<span class="st">&quot;, &quot;</span>eine<span class="st">&quot;, &quot;</span>einem<span class="st">&quot;, &quot;</span>einen<span class="st">&quot;, &quot;</span>einer<span class="st">&quot;, &quot;</span>eines<span class="st">&quot;, &quot;</span>einige<span class="st">&quot;, &quot;</span>einigen<span class="st">&quot;, &quot;</span>einiges<span class="st">&quot;, &quot;</span>einmal<span class="st">&quot;, &quot;</span>er<span class="st">&quot;, &quot;</span>es<span class="st">&quot;, &quot;</span>etc<span class="st">&quot;, &quot;</span>etwas<span class="st">&quot;, &quot;</span>euch<span class="st">&quot;, &quot;</span>euer<span class="st">&quot;, &quot;</span>eure<span class="st">&quot;, &quot;</span>euren<span class="st">&quot;, &quot;</span>für&quot;, <span class="st">&quot;fürs&quot;, &quot;</span>gegen<span class="st">&quot;, &quot;</span>gehabt<span class="st">&quot;, &quot;</span>getan<span class="st">&quot;, &quot;</span>gewesen<span class="st">&quot;, &quot;</span>geworden<span class="st">&quot;, &quot;</span>hab<span class="st">&quot;, &quot;</span>habe<span class="st">&quot;, &quot;</span>haben<span class="st">&quot;, &quot;</span>habt<span class="st">&quot;, &quot;</span>halt<span class="st">&quot;, &quot;</span>hast<span class="st">&quot;, &quot;</span>hat<span class="st">&quot;, &quot;</span>hatte<span class="st">&quot;, &quot;</span>hätte<span class="st">&quot;, &quot;</span>hatten<span class="st">&quot;, &quot;</span>hätten<span class="st">&quot;, &quot;</span>her<span class="st">&quot;, &quot;</span>hier<span class="st">&quot;, &quot;</span>hin<span class="st">&quot;, &quot;</span>hinter<span class="st">&quot;, &quot;</span>ich<span class="st">&quot;, &quot;</span>ihm<span class="st">&quot;, &quot;</span>ihn<span class="st">&quot;, &quot;</span>ihnen<span class="st">&quot;, &quot;</span>ihr<span class="st">&quot;, &quot;</span>ihre<span class="st">&quot;, &quot;</span>ihrem<span class="st">&quot;, &quot;</span>ihren<span class="st">&quot;, &quot;</span>ihrer<span class="st">&quot;, &quot;</span>im<span class="st">&quot;, &quot;</span>in<span class="st">&quot;, &quot;</span>ins<span class="st">&quot;, &quot;</span>is<span class="st">&quot;, &quot;</span>ist<span class="st">&quot;, &quot;</span>ja<span class="st">&quot;, &quot;</span>je<span class="st">&quot;, &quot;</span>jede<span class="st">&quot;, &quot;</span>jedem<span class="st">&quot;, &quot;</span>jeden<span class="st">&quot;, &quot;</span>jeder<span class="st">&quot;, &quot;</span>jedes<span class="st">&quot;, &quot;</span>jetzt<span class="st">&quot;, &quot;</span>kann<span class="st">&quot;, &quot;</span>kannst<span class="st">&quot;, &quot;</span>kein<span class="st">&quot;, &quot;</span>keine<span class="st">&quot;, &quot;</span>keinem<span class="st">&quot;, &quot;</span>keinen<span class="st">&quot;, &quot;</span>keiner<span class="st">&quot;, &quot;</span>können<span class="st">&quot;, &quot;</span>könnt<span class="st">&quot;, &quot;</span>konnte<span class="st">&quot;, &quot;</span>könnte<span class="st">&quot;, &quot;</span>könnten<span class="st">&quot;, &quot;</span>mach<span class="st">&quot;, &quot;</span>mache<span class="st">&quot;, &quot;</span>machen<span class="st">&quot;, &quot;</span>machst<span class="st">&quot;, &quot;</span>macht<span class="st">&quot;, &quot;</span>mal<span class="st">&quot;, &quot;</span>man<span class="st">&quot;, &quot;</span>manche<span class="st">&quot;, &quot;</span>mein<span class="st">&quot;, &quot;</span>meine<span class="st">&quot;, &quot;</span>meinem<span class="st">&quot;, &quot;</span>meinen<span class="st">&quot;, &quot;</span>meiner<span class="st">&quot;, &quot;</span>meines<span class="st">&quot;, &quot;</span>mich<span class="st">&quot;, &quot;</span>mir<span class="st">&quot;, &quot;</span>mit<span class="st">&quot;, &quot;</span>muss<span class="st">&quot;, &quot;</span>müssen&quot;, <span class="st">&quot;musst&quot;</span>, <span class="st">&quot;musste&quot;</span>, <span class="st">&quot;müsste&quot;, &quot;</span>mussten<span class="st">&quot;, &quot;</span>na<span class="st">&quot;, &quot;</span>nach<span class="st">&quot;, &quot;</span>nachdem<span class="st">&quot;, &quot;</span>naja<span class="st">&quot;, &quot;</span>ne<span class="st">&quot;, &quot;</span>nein<span class="st">&quot;, &quot;</span>nem<span class="st">&quot;, &quot;</span>nen<span class="st">&quot;, &quot;</span>ner<span class="st">&quot;, &quot;</span>nicht<span class="st">&quot;, &quot;</span>nichts<span class="st">&quot;, &quot;</span>nix<span class="st">&quot;, &quot;</span>noch<span class="st">&quot;, &quot;</span>nun<span class="st">&quot;, &quot;</span>nur<span class="st">&quot;, &quot;</span>ob<span class="st">&quot;, &quot;</span>oder<span class="st">&quot;, &quot;</span>ohne<span class="st">&quot;, &quot;</span>ok<span class="st">&quot;, &quot;</span>okay<span class="st">&quot;, &quot;</span>raus<span class="st">&quot;, &quot;</span>rein<span class="st">&quot;, &quot;</span>rum<span class="st">&quot;, &quot;</span>schon<span class="st">&quot;, &quot;</span>sehr<span class="st">&quot;, &quot;</span>sei<span class="st">&quot;, &quot;</span>seid<span class="st">&quot;, &quot;</span>sein<span class="st">&quot;, &quot;</span>seine<span class="st">&quot;, &quot;</span>seinem<span class="st">&quot;, &quot;</span>seinen<span class="st">&quot;, &quot;</span>seiner<span class="st">&quot;, &quot;</span>selber<span class="st">&quot;, &quot;</span>selbst<span class="st">&quot;, &quot;</span>sich<span class="st">&quot;, &quot;</span>sie<span class="st">&quot;, &quot;</span>sind<span class="st">&quot;, &quot;</span>so<span class="st">&quot;, &quot;</span>solche<span class="st">&quot;, &quot;</span>solchen<span class="st">&quot;, &quot;</span>soll<span class="st">&quot;, &quot;</span>sollen<span class="st">&quot;, &quot;</span>sollte<span class="st">&quot;, &quot;</span>sollten<span class="st">&quot;, &quot;</span>solltest<span class="st">&quot;, &quot;</span>somit<span class="st">&quot;, &quot;</span>sondern<span class="st">&quot;, &quot;</span>sonst<span class="st">&quot;, &quot;</span>sowas<span class="st">&quot;, &quot;</span>soweit<span class="st">&quot;, &quot;</span>tun<span class="st">&quot;, &quot;</span>tut<span class="st">&quot;, &quot;</span>über<span class="st">&quot;, &quot;</span>um<span class="st">&quot;, &quot;</span>und<span class="st">&quot;, &quot;</span>uns<span class="st">&quot;, &quot;</span>unser<span class="st">&quot;, &quot;</span>unsere<span class="st">&quot;, &quot;</span>unserem<span class="st">&quot;, &quot;</span>unseren<span class="st">&quot;, &quot;</span>unserer<span class="st">&quot;, &quot;</span>unter<span class="st">&quot;, &quot;</span>usw<span class="st">&quot;, &quot;</span>viel<span class="st">&quot;, &quot;</span>viele<span class="st">&quot;, &quot;</span>vielen<span class="st">&quot;, &quot;</span>vieles<span class="st">&quot;, &quot;</span>vom<span class="st">&quot;, &quot;</span>von<span class="st">&quot;, &quot;</span>vor<span class="st">&quot;, &quot;</span>war<span class="st">&quot;, &quot;</span>wäre<span class="st">&quot;, &quot;</span>waren<span class="st">&quot;, &quot;</span>wären<span class="st">&quot;, &quot;</span>wars<span class="st">&quot;, &quot;</span>was<span class="st">&quot;, &quot;</span>weder<span class="st">&quot;, &quot;</span>weg<span class="st">&quot;, &quot;</span>wegen<span class="st">&quot;, &quot;</span>weil<span class="st">&quot;, &quot;</span>weiter<span class="st">&quot;, &quot;</span>weitere<span class="st">&quot;, &quot;</span>welche<span class="st">&quot;, &quot;</span>welchen<span class="st">&quot;, &quot;</span>welcher<span class="st">&quot;, &quot;</span>welches<span class="st">&quot;, &quot;</span>wenn<span class="st">&quot;, &quot;</span>wenns<span class="st">&quot;, &quot;</span>wer<span class="st">&quot;, &quot;</span>werd<span class="st">&quot;, &quot;</span>werde<span class="st">&quot;, &quot;</span>werden<span class="st">&quot;, &quot;</span>wie<span class="st">&quot;, &quot;</span>wieder<span class="st">&quot;, &quot;</span>wieso<span class="st">&quot;, &quot;</span>will<span class="st">&quot;, &quot;</span>willst<span class="st">&quot;, &quot;</span>wir<span class="st">&quot;, &quot;</span>wird<span class="st">&quot;, &quot;</span>wirst<span class="st">&quot;, &quot;</span>wo<span class="st">&quot;, &quot;</span>wobei<span class="st">&quot;, &quot;</span>wollen<span class="st">&quot;, &quot;</span>wollte<span class="st">&quot;, &quot;</span>wollten<span class="st">&quot;, &quot;</span>worden<span class="st">&quot;, &quot;</span>wurde<span class="st">&quot;, &quot;</span>würde&quot;, <span class="st">&quot;wurden&quot;</span>, <span class="st">&quot;würden&quot;, &quot;</span>z.b<span class="st">&quot;, &quot;</span>zb<span class="st">&quot;, &quot;</span>zu<span class="st">&quot;, &quot;</span>zum<span class="st">&quot;, &quot;</span>zur<span class="st">&quot;, &quot;</span>zwar<span class="st">&quot;, &quot;</span>zwischen<span class="st">&quot;)</span></span>
+<span id="cb9-3"><a href="beispiel-daten-und-aufbereitung.html#cb9-3"></a></span>
+<span id="cb9-4"><a href="beispiel-daten-und-aufbereitung.html#cb9-4"></a><span class="st"># Kombinationen von Wörtern</span></span>
+<span id="cb9-5"><a href="beispiel-daten-und-aufbereitung.html#cb9-5"></a><span class="st">relevant_ngrams = dictionary(list(</span></span>
+<span id="cb9-6"><a href="beispiel-daten-und-aufbereitung.html#cb9-6"></a><span class="st">  &quot;</span>trotz_impfung<span class="st">&quot; = &quot;</span>trotz impfung<span class="st">&quot;,</span></span>
+<span id="cb9-7"><a href="beispiel-daten-und-aufbereitung.html#cb9-7"></a><span class="st">  &quot;</span>grippe_impfen<span class="st">&quot; = &quot;</span>grippe impfen<span class="st">&quot;,</span></span>
+<span id="cb9-8"><a href="beispiel-daten-und-aufbereitung.html#cb9-8"></a><span class="st">  &quot;</span>mmr_impfung<span class="st">&quot; = &quot;</span>mmr impfung<span class="st">&quot;,</span></span>
+<span id="cb9-9"><a href="beispiel-daten-und-aufbereitung.html#cb9-9"></a><span class="st">  &quot;</span>hepatitis_b<span class="st">&quot; = &quot;</span>hepatitis b<span class="st">&quot;,</span></span>
+<span id="cb9-10"><a href="beispiel-daten-und-aufbereitung.html#cb9-10"></a><span class="st">  &quot;</span>gut_vertragen<span class="st">&quot; = &quot;</span>gut vertragen<span class="st">&quot;,</span></span>
+<span id="cb9-11"><a href="beispiel-daten-und-aufbereitung.html#cb9-11"></a><span class="st">  &quot;</span>6fach_impfung<span class="st">&quot; = &quot;</span>6fach impfung<span class="st">&quot;,</span></span>
+<span id="cb9-12"><a href="beispiel-daten-und-aufbereitung.html#cb9-12"></a><span class="st">  &quot;</span><span class="dv">6</span>_fach<span class="st">&quot; = &quot;</span><span class="dv">6</span> fach<span class="st">&quot;,</span></span>
+<span id="cb9-13"><a href="beispiel-daten-und-aufbereitung.html#cb9-13"></a><span class="st">  &quot;</span><span class="dv">6</span>_fach_impfung<span class="st">&quot; = &quot;</span><span class="dv">6</span> fach impfung<span class="st">&quot;,</span></span>
+<span id="cb9-14"><a href="beispiel-daten-und-aufbereitung.html#cb9-14"></a><span class="st">  &quot;</span>meningokokken_b<span class="st">&quot; = &quot;</span>meningokokken b<span class="st">&quot;,</span></span>
+<span id="cb9-15"><a href="beispiel-daten-und-aufbereitung.html#cb9-15"></a><span class="st">  &quot;</span>gute_besserung<span class="st">&quot; = &quot;</span>gute besserung<span class="st">&quot;,</span></span>
+<span id="cb9-16"><a href="beispiel-daten-und-aufbereitung.html#cb9-16"></a><span class="st">  &quot;</span><span class="dv">6</span><span class="op">-</span>fach_impfung<span class="st">&quot; = &quot;</span><span class="dv">6</span><span class="op">-</span>fach impfung<span class="st">&quot;,</span></span>
+<span id="cb9-17"><a href="beispiel-daten-und-aufbereitung.html#cb9-17"></a><span class="st">  &quot;</span>erhöhte_temperatur<span class="st">&quot; = &quot;</span>erhöhte temperatur<span class="st">&quot;,</span></span>
+<span id="cb9-18"><a href="beispiel-daten-und-aufbereitung.html#cb9-18"></a><span class="st">  &quot;</span>kein_fieber<span class="st">&quot; = &quot;</span>kein fieber<span class="st">&quot;,</span></span>
+<span id="cb9-19"><a href="beispiel-daten-und-aufbereitung.html#cb9-19"></a><span class="st">  &quot;</span>kein_problem<span class="st">&quot; = &quot;</span>kein problem<span class="st">&quot;,</span></span>
+<span id="cb9-20"><a href="beispiel-daten-und-aufbereitung.html#cb9-20"></a><span class="st">  &quot;</span>keine_ahnung<span class="st">&quot; = &quot;</span>keine ahnung<span class="st">&quot;,</span></span>
+<span id="cb9-21"><a href="beispiel-daten-und-aufbereitung.html#cb9-21"></a><span class="st">  &quot;</span>keine_impfung<span class="st">&quot; = &quot;</span>keine impfung<span class="st">&quot;,</span></span>
+<span id="cb9-22"><a href="beispiel-daten-und-aufbereitung.html#cb9-22"></a><span class="st">  &quot;</span>nicht_geimpft<span class="st">&quot; = &quot;</span>nicht geimpft<span class="st">&quot;,</span></span>
+<span id="cb9-23"><a href="beispiel-daten-und-aufbereitung.html#cb9-23"></a><span class="st">  &quot;</span>nicht_impfen<span class="st">&quot; = &quot;</span>nicht impfen<span class="st">&quot;,</span></span>
+<span id="cb9-24"><a href="beispiel-daten-und-aufbereitung.html#cb9-24"></a><span class="st">  &quot;</span>nicht_zu_impfen<span class="st">&quot; = &quot;</span>nicht zu impfen<span class="st">&quot;,</span></span>
+<span id="cb9-25"><a href="beispiel-daten-und-aufbereitung.html#cb9-25"></a><span class="st">  &quot;</span>selbst_entscheiden<span class="st">&quot; = &quot;</span>selbst entscheiden<span class="st">&quot;</span></span>
+<span id="cb9-26"><a href="beispiel-daten-und-aufbereitung.html#cb9-26"></a><span class="st">))</span></span>
+<span id="cb9-27"><a href="beispiel-daten-und-aufbereitung.html#cb9-27"></a></span>
+<span id="cb9-28"><a href="beispiel-daten-und-aufbereitung.html#cb9-28"></a><span class="st"># Erstellen einer Dokument-Feature-Matrix aus dem Korpus</span></span>
+<span id="cb9-29"><a href="beispiel-daten-und-aufbereitung.html#cb9-29"></a><span class="st">impf_dfm = crps %&gt;% </span></span>
+<span id="cb9-30"><a href="beispiel-daten-und-aufbereitung.html#cb9-30"></a><span class="st">  dfm(stem = FALSE, tolower = TRUE, remove_punct = TRUE,</span></span>
+<span id="cb9-31"><a href="beispiel-daten-und-aufbereitung.html#cb9-31"></a><span class="st">      remove = custom_stopwords,</span></span>
+<span id="cb9-32"><a href="beispiel-daten-und-aufbereitung.html#cb9-32"></a><span class="st">      remove_url = TRUE, verbose = TRUE,</span></span>
+<span id="cb9-33"><a href="beispiel-daten-und-aufbereitung.html#cb9-33"></a><span class="st">      thesaurus = relevant_ngrams)</span></span></code></pre></div>
+<pre><code>## Creating a dfm from a corpus input...</code></pre>
+<pre><code>##    ... lowercasing</code></pre>
+<pre><code>##    ... found 12,369 documents, 41,651 features</code></pre>
+<pre><code>##    ... applying a dictionary consisting of 20 keys
+##    ... removed 286 features</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="beispiel-daten-und-aufbereitung.html#cb14-1"></a>impf_dfm</span></code></pre></div>
+<pre><code>## Document-feature matrix of: 12,369 documents, 41,385 features (99.9% sparse) and 6 docvars.
+##        features
+## docs    TROTZ_IMPFUNG GRIPPE_IMPFEN MMR_IMPFUNG HEPATITIS_B GUT_VERTRAGEN
+##   text1             0             0           0           0             0
+##   text2             0             0           0           0             0
+##   text3             0             0           0           0             0
+##   text4             1             0           0           0             0
+##   text5             0             0           0           0             0
+##   text6             0             0           0           0             0
+##        features
+## docs    6FACH_IMPFUNG 6_FACH 6_FACH_IMPFUNG MENINGOKOKKEN_B GUTE_BESSERUNG
+##   text1             0      0              0               0              0
+##   text2             0      0              0               0              0
+##   text3             0      0              0               0              0
+##   text4             1      0              0               0              0
+##   text5             0      0              0               0              0
+##   text6             0      0              0               0              0
+## [ reached max_ndoc ... 12,363 more documents, reached max_nfeat ... 41,375 more features ]</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="beispiel-daten-und-aufbereitung.html#cb16-1"></a><span class="co"># Pruning</span></span>
+<span id="cb16-2"><a href="beispiel-daten-und-aufbereitung.html#cb16-2"></a>impf_dfm =<span class="st"> </span>impf_dfm <span class="op">%&gt;%</span></span>
+<span id="cb16-3"><a href="beispiel-daten-und-aufbereitung.html#cb16-3"></a><span class="st">  </span><span class="kw">dfm_trim</span>(<span class="dt">max_docfreq =</span> <span class="fl">0.99</span>, <span class="dt">min_docfreq =</span> <span class="fl">0.005</span>, <span class="dt">docfreq_type =</span> <span class="st">&quot;prop&quot;</span>)</span>
+<span id="cb16-4"><a href="beispiel-daten-und-aufbereitung.html#cb16-4"></a>impf_dfm</span></code></pre></div>
+<pre><code>## Document-feature matrix of: 12,369 documents, 1,150 features (98.2% sparse) and 6 docvars.
+##        features
+## docs    TROTZ_IMPFUNG GRIPPE_IMPFEN MMR_IMPFUNG GUT_VERTRAGEN 6_FACH
+##   text1             0             0           0             0      0
+##   text2             0             0           0             0      0
+##   text3             0             0           0             0      0
+##   text4             1             0           0             0      0
+##   text5             0             0           0             0      0
+##   text6             0             0           0             0      0
+##        features
+## docs    MENINGOKOKKEN_B GUTE_BESSERUNG ERHÖHTE_TEMPERATUR KEIN_FIEBER
+##   text1               0              0                  0           0
+##   text2               0              0                  0           0
+##   text3               0              0                  0           0
+##   text4               0              0                  0           0
+##   text5               0              0                  0           0
+##   text6               0              0                  0           0
+##        features
+## docs    KEIN_PROBLEM
+##   text1            0
+##   text2            0
+##   text3            0
+##   text4            0
+##   text5            0
+##   text6            0
+## [ reached max_ndoc ... 12,363 more documents, reached max_nfeat ... 1,140 more features ]</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="beispiel-daten-und-aufbereitung.html#cb18-1"></a><span class="co"># Überblick: Die häufigsten Features im Korpus</span></span>
+<span id="cb18-2"><a href="beispiel-daten-und-aufbereitung.html#cb18-2"></a>impf_dfm <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-3"><a href="beispiel-daten-und-aufbereitung.html#cb18-3"></a><span class="st">  </span><span class="kw">colSums</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-4"><a href="beispiel-daten-und-aufbereitung.html#cb18-4"></a><span class="st">  </span><span class="kw">enframe</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-5"><a href="beispiel-daten-und-aufbereitung.html#cb18-5"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(value)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-6"><a href="beispiel-daten-und-aufbereitung.html#cb18-6"></a><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-7"><a href="beispiel-daten-und-aufbereitung.html#cb18-7"></a><span class="st">  </span><span class="kw">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="right">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">impfung</td>
+<td align="right">4519</td>
+</tr>
+<tr class="even">
+<td align="left">impfen</td>
+<td align="right">4356</td>
+</tr>
+<tr class="odd">
+<td align="left">kind</td>
+<td align="right">3690</td>
+</tr>
+<tr class="even">
+<td align="left">lassen</td>
+<td align="right">3257</td>
+</tr>
+<tr class="odd">
+<td align="left">immer</td>
+<td align="right">2705</td>
+</tr>
+<tr class="even">
+<td align="left">mehr</td>
+<td align="right">2594</td>
+</tr>
+<tr class="odd">
+<td align="left">kinder</td>
+<td align="right">2503</td>
+</tr>
+<tr class="even">
+<td align="left">gibt</td>
+<td align="right">2184</td>
+</tr>
+<tr class="odd">
+<td align="left">geimpft</td>
+<td align="right">2176</td>
+</tr>
+<tr class="even">
+<td align="left">impfungen</td>
+<td align="right">2174</td>
+</tr>
+<tr class="odd">
+<td align="left">gut</td>
+<td align="right">2115</td>
+</tr>
+<tr class="even">
+<td align="left">hallo</td>
+<td align="right">1898</td>
+</tr>
+<tr class="odd">
+<td align="left">einfach</td>
+<td align="right">1767</td>
+</tr>
+<tr class="even">
+<td align="left">lg</td>
+<td align="right">1720</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="right">1704</td>
+</tr>
+<tr class="even">
+<td align="left">bekommen</td>
+<td align="right">1585</td>
+</tr>
+<tr class="odd">
+<td align="left">ganz</td>
+<td align="right">1584</td>
+</tr>
+<tr class="even">
+<td align="left">erst</td>
+<td align="right">1558</td>
+</tr>
+<tr class="odd">
+<td align="left">geht</td>
+<td align="right">1492</td>
+</tr>
+<tr class="even">
+<td align="left">arzt</td>
+<td align="right">1411</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="beispiel-daten-und-aufbereitung.html#cb19-1"></a><span class="co"># als (beliebte, wenn auch nur mittel informative) Wordcloud</span></span>
+<span id="cb19-2"><a href="beispiel-daten-und-aufbereitung.html#cb19-2"></a>impf_dfm <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb19-3"><a href="beispiel-daten-und-aufbereitung.html#cb19-3"></a><span class="st">  </span><span class="kw">textplot_wordcloud</span>()</span></code></pre></div>
+<p><img src="workshop_topicmodels_files/figure-html/prepare-data-1.png" width="672" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="beispiel-daten-und-aufbereitung.html#cb20-1"></a><span class="co"># Umwandeln der dfm in das Format für stm</span></span>
+<span id="cb20-2"><a href="beispiel-daten-und-aufbereitung.html#cb20-2"></a>impf_stm =<span class="st"> </span>impf_dfm <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb20-3"><a href="beispiel-daten-und-aufbereitung.html#cb20-3"></a><span class="st">  </span>quanteda<span class="op">::</span><span class="kw">convert</span>(<span class="dt">to =</span> <span class="st">&quot;stm&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in dfm2stm(x, docvars, omit_empty = TRUE): Dropped empty document(s):
+## text12225, text12271</code></pre>
 
+</div>
+</div>
+<h3>References</h3>
 <div id="refs" class="references">
-<div>
+<div id="ref-dennyTextPreprocessingUnsupervised2018">
+<p>Denny, Matthew J., and Arthur Spirling. 2018. “Text Preprocessing for Unsupervised Learning: Why It Matters, When It Misleads, and What to Do About It.” <em>Political Analysis</em> 26 (2): 168–89. <a href="https://doi.org/10.1017/pan.2017.44">https://doi.org/10.1017/pan.2017.44</a>.</p>
+</div>
+<div id="ref-maierApplyingLDATopic2018">
 <p>Maier, Daniel, A. Waldherr, P. Miltner, G. Wiedemann, A. Niekler, A. Keinert, B. Pfetsch, et al. 2018. “Applying LDA Topic Modeling in Communication Research: Toward a Valid and Reliable Methodology.” <em>Communication Methods and Measures</em> 12 (2-3): 93–118. <a href="https://doi.org/10.1080/19312458.2018.1430754">https://doi.org/10.1080/19312458.2018.1430754</a>.</p>
 </div>
-<div>
-<p>Roberts, Margaret E., Brandon M. Stewart, and Dustin Tingley. 2019. “Stm: An R Package for Structural Topic Models.” <em>Journal of Statistical Software</em> 91 (1): 1–40. <a href="https://doi.org/10.18637/jss.v091.i02">https://doi.org/10.18637/jss.v091.i02</a>.</p>
-</div>
-</div>
+<div id="ref-schofieldComparingApplesApple2016">
+<p>Schofield, Alexandra, and David Mimno. 2016. “Comparing Apples to Apple: The Effects of Stemmers on Topic Models.” <em>Transactions of the Association for Computational Linguistics</em> 4 (December): 287–300. <a href="https://doi.org/10.1162/tacl_a_00099">https://doi.org/10.1162/tacl_a_00099</a>.</p>
 </div>
 </div>
             </section>
@@ -225,8 +471,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modellspezifikation-modellvergleich-und-modellauswahl.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -276,6 +522,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

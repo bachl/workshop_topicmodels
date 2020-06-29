@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Abschnitt 3 Modellspezifikation, Modellvergleich und Modellauswahl | Mini-Workshop (Structural) Topic Models</title>
+  <meta name="description" content="Material für den Mini-Workshop (Structural) Topic Models" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Abschnitt 3 Modellspezifikation, Modellvergleich und Modellauswahl | Mini-Workshop (Structural) Topic Models" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Material für den Mini-Workshop (Structural) Topic Models" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Abschnitt 3 Modellspezifikation, Modellvergleich und Modellauswahl | Mini-Workshop (Structural) Topic Models" />
+  
+  <meta name="twitter:description" content="Material für den Mini-Workshop (Structural) Topic Models" />
+  
+
+<meta name="author" content="Marko Bachl" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="beispiel-daten-und-aufbereitung.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Topic Models</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Überblick</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#inhalt-des-virtuellen-mini-workshops"><i class="fa fa-check"></i><b>1.1</b> Inhalt des virtuellen Mini-Workshops</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#welche-inhalte-wir-nicht-behandeln"><i class="fa fa-check"></i><b>1.2</b> Welche Inhalte wir <em>nicht</em> behandeln</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#aufbau-des-workshops"><i class="fa fa-check"></i><b>1.3</b> Aufbau des Workshops</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html"><i class="fa fa-check"></i><b>2</b> Beispiel-Daten und Aufbereitung</a><ul>
+<li class="chapter" data-level="2.1" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html#laden-der-daten-und-übersicht"><i class="fa fa-check"></i><b>2.1</b> Laden der Daten und Übersicht</a></li>
+<li class="chapter" data-level="2.2" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html#aufbereitung-für-das-schätzen-der-topic-models"><i class="fa fa-check"></i><b>2.2</b> Aufbereitung für das Schätzen der Topic Models</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html"><i class="fa fa-check"></i><b>3</b> Modellspezifikation, Modellvergleich und Modellauswahl</a><ul>
+<li class="chapter" data-level="3.1" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#modellspezifikation"><i class="fa fa-check"></i><b>3.1</b> Modellspezifikation</a></li>
+<li class="chapter" data-level="3.2" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#modellvergleich"><i class="fa fa-check"></i><b>3.2</b> Modellvergleich</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Mini-Workshop (Structural) Topic Models</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modellspezifikation-modellvergleich-und-modellauswahl" class="section level1">
+<h1><span class="header-section-number">Abschnitt 3</span> Modellspezifikation, Modellvergleich und Modellauswahl</h1>
+<div id="modellspezifikation" class="section level2">
+<h2><span class="header-section-number">3.1</span> Modellspezifikation</h2>
+<ul>
+<li><p>Die Funktion <code>stm()</code> aus dem gleichnamigen Paket bietet zahlreiche Möglichkeiten, Details der Modellspezifikation und -schätzung anzupassen. Wir beschränken uns im Folgenden auf drei wesentliche Einstellungen:</p>
+<ul>
+<li><code>K</code>: Die Zahl der Topics.</li>
+<li><code>prevalence</code>: Eine Formel zur Vorhersage der Topic-Prävalenzen</li>
+<li><code>init.type</code>: Wie soll der Startpunkt für die Modellschätzung gewählt werden?</li>
+</ul></li>
+<li><p>Zu weiteren Details siehe für einen Überblick <code>?stm</code> und <span class="citation">Roberts, Stewart, and Tingley (<a href="#ref-robertsStmPackageStructural2019" role="doc-biblioref">2019</a>)</span> für eine ausführliche Erläuterung.</p></li>
+<li><p>Eine Modell-Spezifikation könnte z.B. so aussehen:</p></li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb22-1"></a>modelfit =<span class="st"> </span><span class="kw">stm</span>(<span class="dt">documents =</span> impf_stm<span class="op">$</span>documents,</span>
+<span id="cb22-2"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb22-2"></a>               <span class="dt">vocab =</span> impf_stm<span class="op">$</span>vocab,</span>
+<span id="cb22-3"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb22-3"></a>               <span class="dt">data =</span> impf_stm<span class="op">$</span>meta, </span>
+<span id="cb22-4"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb22-4"></a>               <span class="dt">K =</span> <span class="dv">10</span>, </span>
+<span id="cb22-5"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb22-5"></a>               <span class="dt">prevalence =</span> <span class="op">~</span><span class="kw">s</span>(date_num), </span>
+<span id="cb22-6"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb22-6"></a>               <span class="dt">init.type =</span> <span class="st">&quot;Spectral&quot;</span>)</span></code></pre></div>
+<ul>
+<li>Mit den ersten drei Inputs übergeben wir die Daten aus der im letzten Abschnitt erstellten Dokument-Feature-Matrix.</li>
+<li>Mit <code>K</code> geben wir an, wie viele Themen es geben soll. Mit dieser Syntax würde ein Modell mit <span class="math inline">\(k = 10\)</span> Themen geschätzt. Wie wir bei der Wahl eines geeigneten <span class="math inline">\(k\)</span> vorgehen können, ist Thema des folgenden Unterabschnitts.</li>
+<li>Mit der Formel zu <code>prevalence</code> geben wir an, welche Dokument-Variablen mit dem Auftreten der Topics zusammenhängen.
+<ul>
+<li>In der Formel wird die abhängige Variable vor der Tilde (~) frei gelassen. Es wird immer der Zusammenhang mit dem Auftreten von allen <span class="math inline">\(k\)</span> Topics geschätzt. In diesem Beispiel schätzen wir, wie sich das Auftreten der Topics über den Untersuchungszeitraum hinweg verändert. Details zum Schätzen von Zusammenhängen mit Kovariaten folgen später in diesem Workshop.</li>
+<li>Mit <code>init.type</code> wird angegeben, wie <code>stm()</code> die Ausgangswerte für die Modellschätzung bestimmen soll. Die Default-Einstellung ist “Spectral”. Ich empfehle diese Einstellung aus folgenden Gründen:
+<ul>
+<li>Sie ist deterministisch, d.h., sie führt gegeben derselben Daten und desselben Modells immer zu derselben Lösung. So wird die Reproduzierbarkeit sichergestellt.</li>
+<li>Sie ist effizient, d.h., dass von diesem Startpunkt aus relativ schnell die finale Lösung gefunden wird.</li>
+<li>Wenn eine andere Einstellung für die Ausgangswerte gewählt wird, müssen mehrere Schätzungen für eine Spezifikation durchgeführt werden. Nur so kann geprüft werden, ob die Ausgangswerte das Ergebnis beeinflussen.</li>
+</ul></li>
+</ul></li>
+<li>Allgemein muss beachtet werden, dass die Schätzung eines Structural Topic Model mit <code>stm()</code> trotz der Effizienz der Implementierung sehr rechenintensiv ist. Die Schätzung des oben beschriebenen Modells dauert auf meinem recht leistungsfähigen Notebook bereits ca. eine Minute. Es empfiehlt sich daher, die Modelle immer in neue Objekte zu speichern und diese ggf. direkt auf der Festplatte zu sichern. Um die Berechnungszeiten in diesem Workshop kurz zu halten, stelle ich die Ergebnisse der Modellschätzungen über das LMS zur Verfügung. Wenn ihr diese herunterladet und in den Ordner “data” kopiert, muss das Modell nicht neu geschätzt werden.</li>
+</ul>
+</div>
+<div id="modellvergleich" class="section level2">
+<h2><span class="header-section-number">3.2</span> Modellvergleich</h2>
+<div id="allgemeines-vorgehen" class="section level3 unnumbered">
+<h3>Allgemeines Vorgehen</h3>
+<ul>
+<li>Eine zentrale Frage ist die Wahl eines geeigneten <span class="math inline">\(k\)</span>, also der Zahl von Topics, die in den Dokumenten identifiziert werden sollen. Wichtig ist zuerst die Feststellung, dass es in der angewandten Analyse kein <em>per se</em> richtiges oder falsches <span class="math inline">\(k\)</span> gibt.</li>
+<li>Wie viele Topics nützlich sind, hängt von Umfang von Zusammensetzung des Materials und vom substantiellen Forschungsinteresse ab.</li>
+<li>Um ein geeignetes <span class="math inline">\(k\)</span> zu finden, gehen wir in der Regel modellvergleichend vor. Wir schätzen Modelle mit unterschiedlich vielen Topics und prüfen dann, welche Modelle besser zu den Daten und zum Forschungsinteresse passen.</li>
+<li>Hinweise für einen allgemeinen Ausgangspunkt, in welchem Bereich nützliche <span class="math inline">\(k\)</span> zu finden sein könnten, liefert die Paket-Hilfe:</li>
+</ul>
+<blockquote>
+<p>The most important user input in parametric topic models is the number of topics. There is no right answer to the appropriate number of topics. More topics will give more fine-grained representations of the data at the potential cost of being less precisely estimated. […] For short corpora focused on very specific subject matter (such as survey experiments) 3-10 topics is a useful starting range. For small corpora (a few hundred to a few thousand) 5-50 topics is a good place to start. Beyond these rough guidelines it is application specific. Previous applications in political science with medium sized corpora (10k to 100k documents) have found 60-100 topics to work well. For larger corpora 100 topics is a useful default size. Of course, your mileage may vary. — ?stm</p>
+</blockquote>
+<ul>
+<li>Hier werden zwei wichtige Kriterien, die unser Nachdenken über die Spannweite von zu Berücksichtigten <span class="math inline">\(k\)</span> leiten können, deutlich:
+<ul>
+<li>Quantität des Materials: Je mehr Dokumente, desto mehr Topics.</li>
+<li>Varianz im Inhalt: Je mehr inhaltliche Varianz, desto mehr Topics (an einem Beispiel: für 10k Nachrichtenbeiträge aus dem Wirtschaftsteil brauchen wir weniger Topics als für 10k Nachrichtenbeiträge, die aus allen Ressorts kommen).</li>
+</ul></li>
+<li>Im vorliegenden Fall haben wir einen kleinen bis mittleren Korpus (ca. 13k Dokumente, die größtenteils recht kurz sind). Wir können von einer mittleren inhaltlichen Varianz ausgehen. Einerseits haben wir Posts bewusst danach ausgewählt, dass sie sich mit dem Thema Impfen beschäftigen, was die Varianz einschränkt. Andererseits wissen wir, dass in Online-Foren die verschiedensten Perspektiven auf dieses Thema vorkommen können, was für Varianz sorgt.</li>
+<li>Wir gehen im Folgenden in mehreren Schritten vor:
+<ol style="list-style-type: decimal">
+<li>Um eine allgemeine Orientierung zu erhalten, in welcher Range Modelle zu finden sind, die gut zu den Daten passen, schätzen wir 10 Modelle von <span class="math inline">\(k = 10\)</span> bis <span class="math inline">\(k = 100\)</span> mit einem Abstand von jeweils 10 Topics. Diese Modelle vergleichen wir anhand von einigen statistischen Maßen, um die Zahl der Kandidatenmodelle einzuschränken.</li>
+<li>Wir interpretieren die besten Modelle substantiell und entscheiden, welche Topic-Anzahl für das Forschungsinteresse hilfreicher scheint.</li>
+<li>Wir schätzen weitere Modelle basierend auf den Ergebnissen aus 2) mit kleineren Abständen zwischen den <span class="math inline">\(k\)</span>. Wir prüfen, wie sich die Topics verändern. Zudem achten wir darauf, ob bei Modellen mit größeren <span class="math inline">\(k\)</span> interessante Topics hinzukommen oder ob sich mehr Ambivalenzen zeigen.</li>
+<li>Wir entscheiden uns für ein Modell. Dieses beschreiben wir dann ausführlich.</li>
+</ol></li>
+<li>Da das Schätzen der Modelle recht lange dauert, parallelisieren wir die Berechnung. Dazu nutze ich das Paket <code>furrr</code>. Es sei an dieser Stelle darauf hingewiesen, dass das Paket vor allem unter Windows mit RStudio für Probleme sorgen kann. Es ist daher empfehlenswert, das Skript zum Schätzen und Speichern der Modelle in der Konsole oder im Terminal auszuführen. Noch schneller geht es für diesen Workshop, die bereits geschätzten Modelle aus dem LMS zu laden.</li>
+</ul>
+</div>
+<div id="quantitativer-vergleich-der-ersten-modelle" class="section level3 unnumbered">
+<h3>Quantitativer Vergleich der ersten Modelle</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-1"></a><span class="co"># 1) Modelle mit K = 10, ..., K = 100</span></span>
+<span id="cb23-2"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-2"></a><span class="co"># Modelle schätzen bzw. laden</span></span>
+<span id="cb23-3"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-3"></a><span class="cf">if</span> (<span class="kw">file.exists</span>(<span class="st">&quot;R/data/models10_100.rds&quot;</span>)) {</span>
+<span id="cb23-4"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-4"></a><span class="co"># Schneller: Modelle aus LMS laden</span></span>
+<span id="cb23-5"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-5"></a>  many_models =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/models10_100.rds&quot;</span>)</span>
+<span id="cb23-6"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-6"></a>} <span class="cf">else</span> {</span>
+<span id="cb23-7"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-7"></a><span class="co"># Vorsicht: Schätzen dauert auf meinem MacBook Pro 2020 i9 32 GB RAM 10 Minuten</span></span>
+<span id="cb23-8"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-8"></a>  Ks =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="dt">by =</span> <span class="dv">10</span>)</span>
+<span id="cb23-9"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-9"></a>  <span class="kw">tic</span>()</span>
+<span id="cb23-10"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-10"></a>  <span class="kw">plan</span>(<span class="kw">multiprocess</span>(<span class="dt">workers =</span> <span class="dv">10</span>))</span>
+<span id="cb23-11"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-11"></a>  many_models =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">K =</span> Ks) <span class="op">%&gt;%</span></span>
+<span id="cb23-12"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-12"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">topic_model =</span> <span class="kw">future_map</span>(K, <span class="op">~</span><span class="kw">stm</span>(<span class="dt">documents =</span> impf_stm<span class="op">$</span>documents, </span>
+<span id="cb23-13"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-13"></a>                                            <span class="dt">vocab =</span> impf_stm<span class="op">$</span>vocab,</span>
+<span id="cb23-14"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-14"></a>                                            <span class="dt">data =</span> impf_stm<span class="op">$</span>meta,</span>
+<span id="cb23-15"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-15"></a>                                            <span class="dt">init.type =</span> <span class="st">&quot;Spectral&quot;</span>,</span>
+<span id="cb23-16"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-16"></a>                                            <span class="dt">K =</span> ., <span class="dt">verbose =</span> <span class="ot">FALSE</span>),</span>
+<span id="cb23-17"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-17"></a>                                    <span class="dt">.progress =</span> <span class="ot">TRUE</span>))</span>
+<span id="cb23-18"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-18"></a>  <span class="kw">plan</span>(sequential)</span>
+<span id="cb23-19"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-19"></a>  <span class="kw">toc</span>()</span>
+<span id="cb23-20"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-20"></a>  <span class="kw">saveRDS</span>(many_models, <span class="st">&quot;R/data/models10_100.rds&quot;</span>)  </span>
+<span id="cb23-21"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-21"></a>}</span>
+<span id="cb23-22"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-22"></a></span>
+<span id="cb23-23"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-23"></a><span class="co"># Quantitative Indikatoren der Modellqualität berechnen</span></span>
+<span id="cb23-24"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-24"></a><span class="co"># Inspired by https://juliasilge.com/blog/evaluating-stm/</span></span>
+<span id="cb23-25"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-25"></a><span class="cf">if</span> (<span class="kw">file.exists</span>(<span class="st">&quot;R/data/eval10_100.rds&quot;</span>)) {</span>
+<span id="cb23-26"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-26"></a>  <span class="co"># Schneller: Modellevaluation aus LMS laden</span></span>
+<span id="cb23-27"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-27"></a>  model_eval =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/eval10_100.rds&quot;</span>)</span>
+<span id="cb23-28"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-28"></a>} <span class="cf">else</span> {</span>
+<span id="cb23-29"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-29"></a>  <span class="co"># Evaluation dauert auf meinem MacBook Pro 2020 i9 32 GB RAM 24 Sekunden</span></span>
+<span id="cb23-30"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-30"></a>  <span class="kw">tic</span>()</span>
+<span id="cb23-31"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-31"></a>  heldout =<span class="st"> </span><span class="kw">make.heldout</span>(<span class="dt">documents =</span> impf_stm<span class="op">$</span>documents, <span class="dt">vocab =</span> impf_stm<span class="op">$</span>vocab)</span>
+<span id="cb23-32"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-32"></a>  <span class="kw">plan</span>(<span class="kw">multiprocess</span>(<span class="dt">workers =</span> <span class="dv">10</span>))</span>
+<span id="cb23-33"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-33"></a>  model_eval =<span class="st"> </span>many_models <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb23-34"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-34"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">exclusivity =</span> <span class="kw">future_map</span>(topic_model, exclusivity),</span>
+<span id="cb23-35"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-35"></a>           <span class="dt">semantic_coherence =</span> <span class="kw">future_map</span>(topic_model, semanticCoherence, impf_stm<span class="op">$</span>documents),</span>
+<span id="cb23-36"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-36"></a>           <span class="dt">eval_heldout =</span> <span class="kw">future_map</span>(topic_model, eval.heldout, heldout<span class="op">$</span>missing),</span>
+<span id="cb23-37"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-37"></a>           <span class="dt">residual =</span> <span class="kw">future_map</span>(topic_model, checkResiduals, impf_stm<span class="op">$</span>documents),</span>
+<span id="cb23-38"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-38"></a>           <span class="dt">residuals =</span> <span class="kw">future_map_dbl</span>(residual, <span class="st">&quot;dispersion&quot;</span>),</span>
+<span id="cb23-39"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-39"></a>           <span class="dt">held_out_likelihood =</span> <span class="kw">future_map_dbl</span>(eval_heldout, <span class="st">&quot;expected.heldout&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb23-40"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-40"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>topic_model)</span>
+<span id="cb23-41"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-41"></a>  <span class="kw">plan</span>(sequential)</span>
+<span id="cb23-42"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-42"></a>  <span class="kw">toc</span>()</span>
+<span id="cb23-43"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-43"></a>  <span class="kw">saveRDS</span>(model_eval, <span class="st">&quot;R/data/eval10_100.rds&quot;</span>)  </span>
+<span id="cb23-44"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-44"></a>}</span>
+<span id="cb23-45"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-45"></a></span>
+<span id="cb23-46"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-46"></a><span class="co"># Exklusivität und Semantische Kohärenz (Mean, Median)</span></span>
+<span id="cb23-47"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-47"></a>model_eval <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb23-48"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-48"></a><span class="st">  </span><span class="kw">select</span>(K, <span class="dt">Exclusivity =</span> exclusivity, <span class="dt">Coherence =</span> semantic_coherence) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb23-49"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-49"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dt">.funs =</span> <span class="kw">list</span>(<span class="dt">Mean =</span> <span class="op">~</span><span class="kw">map_dbl</span>(.x, mean), <span class="dt">Median =</span> <span class="op">~</span><span class="kw">map_dbl</span>(.x, median))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb23-50"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-50"></a><span class="st">  </span><span class="kw">select_if</span>(<span class="kw">negate</span>(is.list)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb23-51"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-51"></a><span class="st">  </span><span class="kw">gather</span>(metric, value, <span class="op">-</span>K) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb23-52"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-52"></a><span class="st">  </span><span class="kw">separate</span>(metric, <span class="kw">c</span>(<span class="st">&quot;measure&quot;</span>, <span class="st">&quot;metric&quot;</span>), <span class="st">&quot;_&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb23-53"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-53"></a><span class="st">  </span><span class="kw">spread</span>(measure, value) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb23-54"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb23-54"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Coherence, Exclusivity, <span class="dt">label =</span> K)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="st">&quot;metric&quot;</span>)</span></code></pre></div>
+<p><img src="workshop_topicmodels_files/figure-html/model-compare-1.png" width="672" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb24-1"></a><span class="co"># Exklusivität und Semantische Kohärenz von k = 40, 50</span></span>
+<span id="cb24-2"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb24-2"></a>model_eval <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb24-3"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb24-3"></a><span class="st">  </span><span class="kw">filter</span>(K <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">50</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb24-4"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb24-4"></a><span class="st">  </span><span class="kw">select</span>(K, <span class="dt">Exclusivity =</span> exclusivity, <span class="dt">Coherence =</span> semantic_coherence) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb24-5"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb24-5"></a><span class="st">  </span><span class="kw">unnest</span>(<span class="kw">c</span>(Exclusivity, Coherence)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb24-6"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb24-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Coherence, Exclusivity, <span class="dt">color =</span> <span class="kw">factor</span>(K))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="workshop_topicmodels_files/figure-html/model-compare-2.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb25-1"></a><span class="co"># Held-out-likelihood und multinomiale Residuen</span></span>
+<span id="cb25-2"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb25-2"></a>model_eval <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb25-3"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb25-3"></a><span class="st">  </span><span class="kw">select</span>(K, <span class="st">`</span><span class="dt">Held-out likelihood (higher is better)</span><span class="st">`</span> =<span class="st"> </span>held_out_likelihood, <span class="st">`</span><span class="dt">Multinomial dispersion of residuals (lower is better)</span><span class="st">`</span> =<span class="st"> </span>residuals) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb25-4"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb25-4"></a><span class="st">  </span><span class="kw">gather</span>(measure, value, <span class="op">-</span>K) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb25-5"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb25-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(K, value, <span class="dt">label =</span> K)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="st">&quot;measure&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Number of topics (K)&quot;</span>, <span class="dt">y =</span> <span class="ot">NULL</span>)</span></code></pre></div>
+<p><img src="workshop_topicmodels_files/figure-html/model-compare-3.png" width="672" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb26-1"></a><span class="co"># Speichern der Modelle mit 30 und 40 Topics für qualitative Analyse</span></span>
+<span id="cb26-2"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb26-2"></a><span class="co"># Benennung und Datenstruktur für stminsights</span></span>
+<span id="cb26-3"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb26-3"></a>out =<span class="st"> </span>impf_stm</span>
+<span id="cb26-4"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb26-4"></a>m30 =<span class="st"> </span>many_models<span class="op">$</span>topic_model[[<span class="dv">3</span>]]</span>
+<span id="cb26-5"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb26-5"></a>m60 =<span class="st"> </span>many_models<span class="op">$</span>topic_model[[<span class="dv">6</span>]]</span>
+<span id="cb26-6"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb26-6"></a><span class="co"># save(out, m30, m60, file = &quot;R/data/models30_60.rdata&quot;)</span></span></code></pre></div>
+<ul>
+<li>Wir betrachten zuerst die <em>semantische Kohärenz</em> und die <em>Exklusivität</em> der Topics in den Modellen. Beide Metriken sind Eigenschaften der einzelnen Themen. In der ersten Grafik sind daher der Mittelwerte und die Mediane aller Themen in einem Modell dargestellt. Die absoluten Werte beider Metriken haben keine substantielle Bedeutung. Von Interesse ist der Vergleich der Modelle. Je höher die Exklusivität, desto geringer ist die Wahrscheinlichkeit, dass die typischsten Terme eines Topics in anderen Topics vorkommen <span class="citation">(Roberts et al. <a href="#ref-robertsStructuralTopicModels2014" role="doc-biblioref">2014</a>)</span>. Je höher die semantische Kohärenz, desto wahrscheinlicher kommen die typischsten Wörter eines Topics gemeinsam in einem Dokument mit diesem Topic vor <span class="citation">(Mimno et al. <a href="#ref-davidmimnoOptimizingSemanticCoherence2011" role="doc-biblioref">2011</a>)</span>. Zwischen den beiden Metriken besteht in der Regel ein negativer Zusammenhang. Daher ist es notwendig, eine Balance zwischen beiden zu finden.
+<ul>
+<li>Im vorliegenden Beispiel können wir zuerst die Modelle mit <span class="math inline">\(k \ge 80\)</span> ausschließen. Obwohl sie mehr Topics benötigen, sind ihre Topics im Mittel weniger exklusiv und weniger kohärent als die Topics der Modelle <span class="math inline">\(k = 60\)</span> oder <span class="math inline">\(k = 70\)</span>. Eine Erklärung dafür kann sein, irgendwann zwischen dem 70. und dem 80. Topic keine substantiell neuen Aspekte mehr im Korpus zu finden sind. Die neuen Topics sind dann redundant zu schon bestehenden Topics.</li>
+<li>Ebenso können wir für die meisten Zwecke die Modelle mit <span class="math inline">\(k \le 20\)</span> vernachlässigen, da die mittlere Exklusivität ihrer Topics wesentlich geringer ist als die der übrigen Modelle. Das Modell mit <span class="math inline">\(k = 20\)</span> könnte vielleicht infrage kommen, wenn wir Sparsamkeit sehr hoch gewichten, also den Korpus durch möglichst wenige Topics beschreiben wollen.</li>
+<li>Schließlich ist das Modell mit <span class="math inline">\(k = 50\)</span> nicht besonders attraktiv. Die Topics sind im Mittel nur weniger kohärent, aber nicht exklusiver, als die Topics des Modells mit <span class="math inline">\(k = 40\)</span>. Der Detailvergleich der beiden Modelle in der nächsten Abbildung, in der jedes Topic mit einem Punkt dargestellt ist, zeigt, dass dies vor allem auf vier Topics zurück geht, die weniger kohärent sind, ohne eine besonders gute Exklusivität aufzuweisen.</li>
+<li>Gegeben der Metriken <em>semantische Kohärenz</em> und <em>Exklusivität</em> spricht einiges dafür, entweder Modelle mit ca. 60-70 Topics oder Modelle mit 30-40 Topics weiter zu verfolgen.</li>
+</ul></li>
+<li>Die <em>held-out likelihood</em> und die <em>Dispersion der multinomialen Residuen</em> sind zwei Metriken, die die Abweichung des Modells von den Daten quantifizieren. Auch sie sind wieder im relativen Modellvergleich zu interpretieren. Die held-out likelihood gibt Auskunft darüber, wie gut das Vorkommen von Wörter in einem Dokument, das nicht zum Schätzen des Modells genutzt wurde, vorhergesagt werden kann. Mit der Dispersion der multinomialen Residuen wird die Abweichung der durch das Modell vorhergesagten von den beobachteten Wörtern in den Dokumenten auf Basis des gesamten Datensatzes quantifiziert. Ein Wert von 1 wäre ideal, wird in angewandten Beispielen mit echten Texten aber kaum erreicht. Beide Metriken sind eng verwandt und legen in der Regel ähnliche Entscheidungen nahe.
+<ul>
+<li>Das Modell mit <span class="math inline">\(k = 50\)</span> ist nach beiden Metriken gut geeignet.</li>
+<li>Nach der held-out likelihood sind die Modelle mit <span class="math inline">\(k \ge 80\)</span> noch etwas besser - diese haben sich aber in der semantischer Kohärenz und Exklusivität nicht sonderlich gut bewährt.</li>
+<li>Die nach semantischer Kohärenz und Exklusivität besten Modelle liegen nach diesen beiden Metriken etwa gleich auf.</li>
+</ul></li>
+<li>Die Befunde sind auch für die didaktischen Zwecke dieses Workshops gut geeignet. Es wird klar, dass die Modellwahl sich nicht einfach automatisieren lässt. Die quantitativen Kriterien helfen und lediglich, den Raum möglicher Modelle einzuschränken.
+<ul>
+<li>Für mich kommen auf Basis der berichteten Metriken Modelle mit zwischen 30 und 70 Topics infrage.</li>
+<li>Wenn man an einer besonders sparsamen Lösung interessiert ist, könnte man auch <span class="math inline">\(k = 20\)</span> in Erwägung ziehen.</li>
+<li>Wenn man besonders detailliertere Lösungen sucht, sind auch die Modelle mit <span class="math inline">\(k \ge 80\)</span> nicht ausgeschlossen. Hier müsste man dann die Differenzierungen zwischen den Topics in der Tiefe untersuchen und klarstellen.</li>
+</ul></li>
+<li>Im nächsten Schritt vergleichen wir die Modelle mit 30 und mit 60 Topics, um zu verstehen, welche Konsequenzen es für die inhaltliche Interpretation hat, ein eher sparsames oder ein eher detailliertes Modell zu wählen. Nach dieser Entscheidung können wir dann weiter überlegen, welches der eher sparsamen bzw. detaillierten Modelle für unser Forschungsinteresse besser geeignet ist.</li>
+</ul>
+</div>
+<div id="qualitativer-vergleich-der-modelle-mit-30-und-60-topics" class="section level3 unnumbered">
+<h3>Qualitativer Vergleich der Modelle mit 30 und 60 Topics</h3>
+<ul>
+<li>Um die Ergebnisse eines Topic Model interpretieren zu können, müssen wir zuerst verstehen, wie das Ergebnis eines Topic Models aussieht. Es enthält im wesentlichen zwei zweidimensionale Vektoren von Koeffizienten.
+<ul>
+<li>beta: Für jedes Topic die Wahrscheinlichkeit, dass ein Dokument, in dem das Feature vorkommt, das Topic hat. Jedes Topic erhält für jedes Feature einen beta-Koeffizienten zwischen 0 und 1, die zusammen 1 ergeben.</li>
+<li>theta bzw. gamma (uneinheitlich benannt): Für jedes Dokument die Wahrscheinlichkeit, dass das Dokument das Topic enthält. Jedes Dokument erhält für jedes Topic einen theta- bzw. gamma-Koeffizienten zwischen 0 und 1, die zusammen 1 ergeben.</li>
+</ul></li>
+<li>Um die Bedeutung der Topics zu interpretieren, betrachten wir daher zwei Modell-Outputs.
+<ul>
+<li>Die Features, die am typischsten für Dokumente mit einem Topic sind, also die höchsten beta-Koeffizienten (ggf. nach Korrekturen für die Verteilung der Features im gesamten Korpus).</li>
+<li>Die Dokumente, die mit der größten Wahrscheinlichkeit ein Thema enthalten (manchmal auch interpretiert als zum größten Anteil aus einem Thema bestehen), also die Dokumente mit den höchsten gamma- bzw. theta-Koeffizienten.</li>
+</ul></li>
+<li>Zur qualitativen Interpretation der Modelle anhand dieser Outputs kann ich das Paket <code>{stminsights}</code> empfehlen — vor allem denjenigen, die lieber mit einer intuitiven grafischen Benutzeroberfläche als direkt mit <em>R</em> arbeiten. Aber auch ich selbst schätze das Tool für einen schnellen Überblick über mehrere Modelle.</li>
+<li>Leider ist es zurzeit nicht einfach, <code>{stminsights}</code> direkt zum Laufen zu bringen, da einige Pakete, auf denen es aufbaut, Bugs bzw. Kompabilitätsprobleme haben. Eine Anleitung, wie das Paket zurzeit installiert werden kann, gibt es hier:</li>
+</ul>
+<blockquote>
+<p>Important note: The shiny app for the CRAN release of stminsights does currently not work properly due to bugs introduced by recent changes in the Shiny package […]. Please use the Github version of stminsights for now. This will require the development version of Shiny which can be installed by running devtools::install_github(‘rstudio/shiny’).</p>
+</blockquote>
+<blockquote>
+<p>You can download and install the latest development version of stminsights by running devtools::install_github(‘cschwem2er/stminsights’) — <a href="https://github.com/cschwem2er/stminsights" class="uri">https://github.com/cschwem2er/stminsights</a></p>
+</blockquote>
+<ul>
+<li>Zur Vorbereitung der Analyse mit <code>{stminsights}</code> müssen die Objekte der geschätzten Modelle (hier: <code>m30</code> und <code>m70</code>) und die Daten, die zur Modellschätzung verwendet wurden (hier: <code>out = ìmpf_stm</code>), als <code>.rdata</code> Datei gespeichert werden. Dabei muss das Daten-Objekt unbedingt den Namen <code>out</code> haben. Damit der Text der Dokumente in <code>{stminsights}</code> angezeigt werden kann, muss dieser zusätzlich als Variable in den Meta-Daten enthalten sein (siehe Abschnitt zur Datenaufbereitung).</li>
+<li>Durch das ausführen der Funktion <code>run_stminsights()</code> wird eine grafische Benutzeroberfläche im Browser gestartet, mit dem die qualitative Analyse durchgeführt wird. Eine Beschreibung der Oberfläche findet ihr als Video im LMS [kommt nach Fertigstellen des Textmaterials].</li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb27-1"></a><span class="kw">run_stminsights</span>()</span></code></pre></div>
+<ul>
+<li>Wer die Interpretation der Topics lieber in R durchführt, kann z.B. den folgenden Code verwenden und anpassen.
+<ul>
+<li>Wir sammeln zuerst die 20 typischsten Texte für jedes Topic in einem Datensatz. Dabei bereiten wir die Texte auch für eine Ausgabe in der Konsole vor. Der Parameter “gamma” oder “theta” (uneinheitlich benannt, aber derselbe Parameter) kann mit <code>tidytext::tidy()</code> extrahiert werden. Dann werden die Texte aus den Ursprungsdaten zugespielt.</li>
+<li>Mit <code>stm::labelTopics()</code> können wird die typischsten Features für ein Topic anzeigen. <code>n</code> bestimmt die Zahl der Features, <code>topics</code> das Topic, das wir gerade beschreiben möchten. Es werden die typischsten Features nach vier verschiedenen Kriterien ausgegeben (Diese werden auch in <code>{stminsights}</code> angezeigt):
+<ul>
+<li><em>Highest Prob</em> zeigt die Features, die mit der größten Wahrscheinlichkeit in Dokumenten mit einem Topic vorkommen (= Features mit den höchsten beta-Koeffizienten für das Topic). Dabei wird die Gesamthäufigkeit der Features im Korpus <em>nicht</em> berücksichtigt. Wörter, die allgemein sehr häufig vorkommen, sind nach dieser Metrik typisch für verschiedene Topics. Die anderen drei Metriken versuchen, diese Schwäche auf verschiedene Art und Weise zu korrigieren.</li>
+<li><em>FREX</em> steht für <em>most frequent and exclusive</em> Features. Hier werden die Features aufgelistet, die möglichst typisch für ein Dokument mit einem Topic, aber möglichst nicht sehr typisch für Dokumente mit anderen Topics sind. Siehe <code>?calcfrex</code> für technische Details.</li>
+<li>Die <em>Lift</em>-Metrik setzt die Wahrscheinlichkeit, dass ein Feature in einem Dokument mit einem Topic vorkommt, zur Wahrscheinlichkeit, dass ein Feature in einem beliebigen Dokument vorkommt, ins Verhältnis. Siehe <code>?calclift</code> für technische Details.</li>
+<li><em>Score</em> gewichtet für die Wahrscheinlichkeit, mit der ein Feature in Dokumenten mit einem anderen Topics vorkommt. Siehe <code>?calcscore</code> für technische Details.</li>
+</ul></li>
+<li>Mit den Auszügen aus dem Datensatz typischer Dokumente (gefiltert nach Topic) können wir diese Features zudem im Kontext der gesamten Texte sehen.</li>
+<li>Im abschließenden Datensatz <code>topic_labels</code> halten wir für jedes Topic ein aussagekräftiges, möglichst kurzes Label fest, das wir jetzt zur eigenen Übersicht und später auch zur Ergebnisdarstellung verwenden. Zusätzlich empfehle ich, eine kurze Zusammenfassung für jedes Topic auf einem Medium eigener Wahl (präferierte analoger oder digitaler Notizzettel) festzuhalten.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-1"></a><span class="co"># Laden der Modelle</span></span>
+<span id="cb28-2"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-2"></a><span class="kw">load</span>(<span class="st">&quot;R/data/models30_60.rdata&quot;</span>)</span>
+<span id="cb28-3"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-3"></a></span>
+<span id="cb28-4"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-4"></a><span class="co"># Beispiel für das Modell mit k = 30</span></span>
+<span id="cb28-5"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-5"></a><span class="co"># Erstellen eines Datensatzes mit den typischsten Dokumenten</span></span>
+<span id="cb28-6"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-6"></a>top_docs =<span class="st"> </span><span class="kw">tidy</span>(m30, <span class="st">&quot;gamma&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb28-7"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-7"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(gamma)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb28-8"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-8"></a><span class="st">  </span><span class="kw">group_by</span>(topic) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb28-9"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-9"></a><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb28-10"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-10"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rank =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb28-11"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-11"></a><span class="st">  </span><span class="kw">left_join</span>(<span class="kw">mutate</span>(<span class="kw">select</span>(out<span class="op">$</span>meta, txt), <span class="dt">document =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">n</span>())) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb28-12"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-12"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">out =</span> <span class="kw">paste0</span>(<span class="kw">round</span>(gamma, <span class="dv">2</span>), <span class="st">&quot;: &quot;</span>, txt))</span>
+<span id="cb28-13"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-13"></a></span>
+<span id="cb28-14"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-14"></a><span class="co"># Ausgabe der typischen Feature für ein Topic (hier Topic 1)</span></span>
+<span id="cb28-15"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-15"></a>m30 <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb28-16"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb28-16"></a><span class="st">  </span><span class="kw">labelTopics</span>(<span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">topics =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## Topic 1 Top Words:
+##       Highest Prob: 2, 3, 1, monate, erst, monaten, 4, 6, alt, 5 
+##       FREX: 3, 2, monate, monaten, 6, 4, 1, monat, +, 5 
+##       Lift: österreich, zecken, monat, fach, 3, 2, monate, 6, +, monaten 
+##       Score: österreich, 2, 3, monate, 1, monaten, 4, alt, 6, +</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb30-1"></a><span class="co"># Ausgabe der typischen Texte für ein Topic (hier Topic 1)</span></span>
+<span id="cb30-2"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb30-2"></a>top_docs <span class="op">%&gt;%</span></span>
+<span id="cb30-3"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb30-3"></a><span class="st">  </span><span class="kw">filter</span>(topic <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb30-4"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb30-4"></a><span class="st">  </span><span class="kw">filter</span>(rank <span class="op">%in%</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb30-5"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb30-5"></a><span class="st">  </span>.<span class="op">$</span>out <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb30-6"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb30-6"></a><span class="st">  </span><span class="kw">str_squish</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb30-7"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb30-7"></a><span class="st">  </span><span class="kw">cat</span>(<span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 0.62: da fängt der 12 lebensmonat an, ein Jahr alt ist dein Baby dann erst mit vollendetem 12. Lebensmonat.... meine Tochter wird jetzt am 24.07 12 Monate alt, und am 24.08 wird sie 1 Jahr....da ist also der 12 lebensmonat vollendet :)
+## 
+## 0.59: Man spricht erst sobald der Monat vollendet ist vom z.B. 12. Monat. Deine Tochter ist also einen Monat vor ihrem 1. Geburtstag ELF Monate alt und nicht 12... Klar, sie befindet sich ab dem 24.07. im zwölften Lebensmonat, ist aber noch keine 12 Monate alt, sondern 11. Kann etwas verwirrend sein, ich weiß... Denn sie ist am Tag ihrer Geburt ja auch nicht einen Monat alt... Sondern erst einen Monat nach ihrer Geburt Ich bin aktuell 30 Jahre alt und befinde mich somit in meinem 31. Lebensjahr. So wird das immer gerechnet :)
+## 
+## 0.59: In Österreich wird im 3., 5. und 12. Monat geimpft. Ich bin auf einer anderen Seite auch fündig geworden. Dieses Schema nennt sich 2+1. Das in Deutschland von der Stiko empfohlene Schema nennt sich 3+1. Beide Schemata werden wohl in Deutschland als Grundimmunisierung anerkannt, da das Schema 2+1 einen ähnlichen bzw. gleichen Effekt hat wie 3+1. Die Stiko empfiehlt halt das 3+1 Schema.
+## 
+## 0.53: so mein ich ja :) sie befindet sich ab dem Tag ihrer Geburt ja im erst Lebensmonat und nicht im nullsten Lebensmonat :D und ab dem 24.07 ist sie im 12. Öebensmonat.... wenn mich jemand Frägt wie alt sie ist sag ich auch nich 12 Monate alt sonder sie wird Ende August 1 Jahr alt...aber prinzipiell, so wird es auch bei Urbia angezeigt ist sie ab 24.07 im 12 lebensmonat....und wenn der vollendet ist, wird sie 1... :)
+## 
+## 0.51: Wir mussten 2 Monate auf den Termin beim Kardiologen warten. Hatten den Termin dann als er jetzt 6 Monate alt war. Das Herzgeräusch sind 2 Sehnenfäden, aber er hat auch ein Mini Loch. Wir müssen erst wieder zur Kontrolle, wenn er 3 Jahre ist.
+## 
+## 0.5: Korrektur: Bei der 2+1 Impfung sind ca 84% nach der 2 . Impfung immun. Bei der 3+1 Impfung sind ca 95 % nach der 3. Impfung immun. Und die ersten beiden bzw. 3 Impfungen werden ja in einen Zeitraum von 2 Monaten verabreicht. Also durchaus noch abzuwarten, wenn du dir da Sorgen machst.
+## 
+## 0.47: hallo rebecca es gibt auch &quot;Mittelwege&quot;, zB das 2+1-Schema. Man beginnt erst mit 3 Monaten und spart sich eine Impfdosis. (Normalerweise ist ja 3 x innerhalb des 1. Lebensjahres und 1 x zur Auffrischung). Die Immunantwort ist am Ende wohl identisch, das Risiko besteht darin, dass man eben 1 Monat später beginnt und damit der Impfschutz 1 monat später beginnt. Wobei das größte Risiko hier der Keuchhusten ist. Das 2+1-Schema ist zB in Österreich Standard.
+## 
+## 0.47: Unter 2 Jahren muss 2x geimpft werden. Mein Sohn ist 6 Monate. Wird am Freitag geimpft und dann in 2 Monaten wieder. Die Dritte erfolgt wenn er 2 Jahre alt ist oder 3 Jahre. Du musst alle 3 Impfungen bezahlen jeweils 120 Euro oder ein bisschen mehr. Die AOK Niedersachsen wird diese 3 Impfungen jeweils mit 80% mir erstatten. Die AOK Sachsen anscheinend alle 3 zu 100%.
+## 
+## 0.44: Dann wär er aber 1 Monat vor Geburtstag 12 Monate : Wenn du die Wochen zählst darfst du halt nicht 4 Wochen mit 1 Monat gleich setzen.
+## 
+## 0.43: Darf ich über die Fragestellung hinaus fragen, wie genau der Ablauf dann genau ist. Befasse mich in den ersten Zügen mit dem Thema Impfen. Es wird also in den ersten 12 Monaten 2x 5fach geimpft und dann 1x bis zum 24 Monat? Kann man das system 2+1 auch auf 6fach-impfung übertragen? Und auf +pneumokokken?</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb32-1"></a><span class="co"># Datensatz für Topic Labels</span></span>
+<span id="cb32-2"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb32-2"></a><span class="co"># Bis Topic 30 weiterführen</span></span>
+<span id="cb32-3"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb32-3"></a>topic_labels =<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb32-4"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb32-4"></a>  <span class="op">~</span>topic, <span class="op">~</span>label,</span>
+<span id="cb32-5"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb32-5"></a>  <span class="dv">1</span>,      <span class="st">&quot;Alter von Babies&quot;</span>,</span>
+<span id="cb32-6"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb32-6"></a>  <span class="dv">2</span>,      <span class="st">&quot;label B&quot;</span>,</span>
+<span id="cb32-7"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb32-7"></a>  <span class="dv">3</span>,      <span class="st">&quot;label C&quot;</span></span>
+<span id="cb32-8"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#cb32-8"></a>)</span></code></pre></div>
+
+<div id="refs" class="references">
+<div>
+<p>Denny, Matthew J., and Arthur Spirling. 2018. “Text Preprocessing for Unsupervised Learning: Why It Matters, When It Misleads, and What to Do About It.” <em>Political Analysis</em> 26 (2): 168–89. <a href="https://doi.org/10.1017/pan.2017.44">https://doi.org/10.1017/pan.2017.44</a>.</p>
+</div>
+<div>
+<p>Maier, Daniel, A. Waldherr, P. Miltner, G. Wiedemann, A. Niekler, A. Keinert, B. Pfetsch, et al. 2018. “Applying LDA Topic Modeling in Communication Research: Toward a Valid and Reliable Methodology.” <em>Communication Methods and Measures</em> 12 (2-3): 93–118. <a href="https://doi.org/10.1080/19312458.2018.1430754">https://doi.org/10.1080/19312458.2018.1430754</a>.</p>
+</div>
+<div>
+<p>Mimno, David, Hanna M. Wallach, Edmund Talley, Miriam Leenders, and Andrew McCallum. 2011. “Optimizing Semantic Coherence in Topic Models.” <em>Proceedings of the 2011 Conference on Empirical Methods in Natural Language Processing</em>, 262–72.</p>
+</div>
+<div>
+<p>Roberts, Margaret E., Brandon M. Stewart, and Dustin Tingley. 2019. “Stm: An R Package for Structural Topic Models.” <em>Journal of Statistical Software</em> 91 (1): 1–40. <a href="https://doi.org/10.18637/jss.v091.i02">https://doi.org/10.18637/jss.v091.i02</a>.</p>
+</div>
+<div>
+<p>Roberts, Margaret E., Brandon M. Stewart, Dustin Tingley, Christopher Lucas, Jetson Leder-Luis, Shana Kushner Gadarian, Bethany Albertson, and David G. Rand. 2014. “Structural Topic Models for Open-Ended Survey Responses.” <em>American Journal of Political Science</em> 58 (4): 1064–82. <a href="https://doi.org/10.1111/ajps.12103">https://doi.org/10.1111/ajps.12103</a>.</p>
+</div>
+<div>
+<p>Schofield, Alexandra, and David Mimno. 2016. “Comparing Apples to Apple: The Effects of Stemmers on Topic Models.” <em>Transactions of the Association for Computational Linguistics</em> 4 (December): 287–300. <a href="https://doi.org/10.1162/tacl_a_00099">https://doi.org/10.1162/tacl_a_00099</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-davidmimnoOptimizingSemanticCoherence2011">
+<p>Mimno, David, Hanna M. Wallach, Edmund Talley, Miriam Leenders, and Andrew McCallum. 2011. “Optimizing Semantic Coherence in Topic Models.” <em>Proceedings of the 2011 Conference on Empirical Methods in Natural Language Processing</em>, 262–72.</p>
+</div>
+<div id="ref-robertsStmPackageStructural2019">
+<p>Roberts, Margaret E., Brandon M. Stewart, and Dustin Tingley. 2019. “Stm: An R Package for Structural Topic Models.” <em>Journal of Statistical Software</em> 91 (1): 1–40. <a href="https://doi.org/10.18637/jss.v091.i02">https://doi.org/10.18637/jss.v091.i02</a>.</p>
+</div>
+<div id="ref-robertsStructuralTopicModels2014">
+<p>Roberts, Margaret E., Brandon M. Stewart, Dustin Tingley, Christopher Lucas, Jetson Leder-Luis, Shana Kushner Gadarian, Bethany Albertson, and David G. Rand. 2014. “Structural Topic Models for Open-Ended Survey Responses.” <em>American Journal of Political Science</em> 58 (4): 1064–82. <a href="https://doi.org/10.1111/ajps.12103">https://doi.org/10.1111/ajps.12103</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="beispiel-daten-und-aufbereitung.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["workshop_topicmodels.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -139,6 +139,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html"><i class="fa fa-check"></i><b>2</b> Beispiel-Daten und Aufbereitung</a><ul>
 <li class="chapter" data-level="2.1" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html#laden-der-daten-und-übersicht"><i class="fa fa-check"></i><b>2.1</b> Laden der Daten und Übersicht</a></li>
+<li class="chapter" data-level="2.2" data-path="beispiel-daten-und-aufbereitung.html"><a href="beispiel-daten-und-aufbereitung.html#aufbereitung-für-das-schätzen-der-topic-models"><i class="fa fa-check"></i><b>2.2</b> Aufbereitung für das Schätzen der Topic Models</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html"><i class="fa fa-check"></i><b>3</b> Modellspezifikation, Modellvergleich und Modellauswahl</a><ul>
+<li class="chapter" data-level="3.1" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#modellspezifikation"><i class="fa fa-check"></i><b>3.1</b> Modellspezifikation</a></li>
+<li class="chapter" data-level="3.2" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#modellvergleich"><i class="fa fa-check"></i><b>3.2</b> Modellvergleich</a></li>
 </ul></li>
 </ul>
 
@@ -169,7 +174,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>In diesem Mini-Workshop erläutere ich das praktische Vorgehen einer Datenanalyse mit <em>Structural Topic Models</em>. Wir behandeln die folgenden Schritte im Analyseprozess:
 <ul>
-<li>Schätzen eines ersten Modells</li>
+<li>Modellspezifikation</li>
 <li>Modellvergleich zur Auswahl eines geeigneten Modells</li>
 <li>Interpretation der Topics im finalen Modell</li>
 <li>Darstellung der Ergebnisse</li>
@@ -191,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Die Darstellung basiert auf einer Analyse, die ich gemeinsam mit Elena Link durchgeführt habe. Wir untersuchten, wie das Thema Impfen in Online-Foren für Eltern diskutiert wurde. Wir verwenden aber nur einen <em>nicht repräsentativen</em> Ausschnitt aus dem Material, um die notwendige Rechenleistung und -zeit zu verringern.
 <ul>
 <li>Einen Preprint zur Analyse könnt ihr hier lesen: <a href="https://osf.io/ad9h7/">Vaccine-related Discussions in Online Communities for Parents. A Quantitative Overview</a>.</li>
-<li>Die Dokumentation zur Studie ist hier verfügbar: <a href="https://bachl.github.io/vaccine_discussions/" class="uri">https://bachl.github.io/vaccine_discussions/</a>. Daten und Analyse-Skripts gibt es im <a href="https://osf.io/twx38/">OSF</a>. In diesem Material werde auch die Datenerhebung mittels Web-Scraping und die Datenaufbereitung erläutert. Diese Inhalte sind <em>nicht</em> Teil dieses Workshops. Wenn ihr Fragen dazu habt, dürft ihr sie natürlich stellen.</li>
+<li>Die Dokumentation zur Studie ist hier verfügbar: <a href="https://bachl.github.io/vaccine_discussions/" class="uri">https://bachl.github.io/vaccine_discussions/</a>. Daten und Analyse-Skripts gibt es im <a href="https://osf.io/twx38/">OSF</a>. Dort werden auch die Datenerhebung mittels Web-Scraping und die Datenaufbereitung erläutert. Diese Inhalte sind <em>nicht</em> Teil dieses Workshops. Wenn ihr Fragen dazu habt, dürft ihr sie natürlich stellen.</li>
 </ul></li>
 </ul>
 </div>
@@ -230,11 +235,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Pakete</h3>
 <p>Wir verwenden die folgenden Pakete</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
-<span id="cb1-2"><a href="index.html#cb1-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(tidyverse, stm, stminsights, tidytext, quanteda, lubridate)</span>
-<span id="cb1-3"><a href="index.html#cb1-3"></a><span class="kw">theme_set</span>(<span class="kw">theme_bw</span>())  <span class="co"># ggplot theme</span></span>
-<span id="cb1-4"><a href="index.html#cb1-4"></a></span>
-<span id="cb1-5"><a href="index.html#cb1-5"></a><span class="kw">tibble</span>(<span class="dt">package =</span> <span class="kw">c</span>(<span class="st">&quot;R&quot;</span>, <span class="kw">sort</span>(pacman<span class="op">::</span><span class="kw">p_loaded</span>()))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">version =</span> <span class="kw">map_chr</span>(package, </span>
-<span id="cb1-6"><a href="index.html#cb1-6"></a>    <span class="op">~</span><span class="kw">as.character</span>(pacman<span class="op">::</span><span class="kw">p_version</span>(<span class="dt">package =</span> .x)))) <span class="op">%&gt;%</span><span class="st"> </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
+<span id="cb1-2"><a href="index.html#cb1-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(tidyverse, stm, stminsights, tidytext, quanteda, lubridate, knitr, </span>
+<span id="cb1-3"><a href="index.html#cb1-3"></a>    tictoc, furrr)</span>
+<span id="cb1-4"><a href="index.html#cb1-4"></a><span class="kw">theme_set</span>(<span class="kw">theme_bw</span>())  <span class="co"># ggplot theme</span></span>
+<span id="cb1-5"><a href="index.html#cb1-5"></a></span>
+<span id="cb1-6"><a href="index.html#cb1-6"></a><span class="kw">tibble</span>(<span class="dt">package =</span> <span class="kw">c</span>(<span class="st">&quot;R&quot;</span>, <span class="kw">sort</span>(pacman<span class="op">::</span><span class="kw">p_loaded</span>()))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">version =</span> <span class="kw">map_chr</span>(package, </span>
+<span id="cb1-7"><a href="index.html#cb1-7"></a>    <span class="op">~</span><span class="kw">as.character</span>(pacman<span class="op">::</span><span class="kw">p_version</span>(<span class="dt">package =</span> .x)))) <span class="op">%&gt;%</span><span class="st"> </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -256,44 +262,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">0.4.0</td>
 </tr>
 <tr class="even">
+<td align="left">furrr</td>
+<td align="left">0.1.0</td>
+</tr>
+<tr class="odd">
+<td align="left">future</td>
+<td align="left">1.16.0</td>
+</tr>
+<tr class="even">
 <td align="left">ggplot2</td>
 <td align="left">3.3.1</td>
 </tr>
 <tr class="odd">
+<td align="left">knitr</td>
+<td align="left">1.28</td>
+</tr>
+<tr class="even">
 <td align="left">lubridate</td>
 <td align="left">1.7.4</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">pacman</td>
 <td align="left">0.5.1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">purrr</td>
 <td align="left">0.3.3</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">quanteda</td>
 <td align="left">2.0.0</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">readr</td>
 <td align="left">1.3.1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">stm</td>
 <td align="left">1.3.5</td>
 </tr>
-<tr class="odd">
-<td align="left">stminsights</td>
-<td align="left">0.3.0</td>
-</tr>
 <tr class="even">
+<td align="left">stminsights</td>
+<td align="left">0.4.0</td>
+</tr>
+<tr class="odd">
 <td align="left">stringr</td>
 <td align="left">1.4.0</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">tibble</td>
 <td align="left">2.1.3</td>
+</tr>
+<tr class="odd">
+<td align="left">tictoc</td>
+<td align="left">1.0</td>
 </tr>
 <tr class="even">
 <td align="left">tidyr</td>
@@ -378,6 +400,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

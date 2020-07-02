@@ -26,7 +26,7 @@ knitr::read_chunk("R/packages.R")
 * In diesem Mini-Workshop erläutere ich das praktische Vorgehen einer Datenanalyse mit *Structural Topic Models*. Wir behandeln die folgenden Schritte im Analyseprozess:
   * Modellspezifikation
   * Modellvergleich zur Auswahl eines geeigneten Modells
-  * Interpretation der Topics im finalen Modell
+  * Interpretation der Topics in einem ausgewählten Modell
   * Darstellung der Ergebnisse
   * Weitere Analysen
     * Identifikation verwandter Themen

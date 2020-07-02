@@ -165,7 +165,6 @@ top_docs %>%
   cat(sep = "\n\n")
 
 # Datensatz für Topic Labels
-# Bis Topic 30 weiterführen
 m40_topic_labels = tribble(
   ~topic, ~label,
   1,      "Alter bei frühkindlichen Impfungen",

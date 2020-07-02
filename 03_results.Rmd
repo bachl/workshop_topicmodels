@@ -1,0 +1,34 @@
+# Modellinterpretation und -darstellung
+
+```{r, include=FALSE}
+source("R/packages.R")
+source("R/read_data.R") # am Ende entfernen, nur für temp knit
+source("R/prepare_data.R")
+source("R/model_compare.R")
+```
+
+```{r, echo=FALSE, cache=FALSE}
+# knitr::read_chunk("R/model_compare.R")
+```
+
+## Test der Modellqualität
+
+* mit `{oolong}`, kurz zeigen, dann Video
+
+## Interpretation des Modells
+
+* Beispiele aus Bachl & Link zeigen
+
+## Darstellung des Modells
+
+* Einige nützliche Plots
+
+## Weitere Analysen: Prädiktoren der Topic-Prävalenz und Topic-Cluster
+
+* Schätzen der Veränderung der Topics über die Zeit
+* Darstellung dieser Ergebnisse
+
+* Cluster-Analyse des gemeinsamen Auftretens von Topics
+* Darstellung dieser Ergebnisse
+
+

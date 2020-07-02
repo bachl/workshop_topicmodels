@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="beispiel-daten-und-aufbereitung.html"/>
-<link rel="next" href="literatur.html"/>
+<link rel="next" href="modellinterpretation-und-darstellung.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -146,12 +146,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html"><i class="fa fa-check"></i><b>3</b> Modellspezifikation, Modellvergleich und Modellauswahl</a><ul>
 <li class="chapter" data-level="3.1" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#modellspezifikation"><i class="fa fa-check"></i><b>3.1</b> Modellspezifikation</a></li>
-<li class="chapter" data-level="3.2" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#modellvergleich"><i class="fa fa-check"></i><b>3.2</b> Modellvergleich</a><ul>
+<li class="chapter" data-level="3.2" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#modellvergleich-und--auswahl"><i class="fa fa-check"></i><b>3.2</b> Modellvergleich und -auswahl</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#allgemeines-vorgehen"><i class="fa fa-check"></i><b>3.2.1</b> Allgemeines Vorgehen</a></li>
 <li class="chapter" data-level="3.2.2" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#quantitativer-vergleich-der-ersten-modelle"><i class="fa fa-check"></i><b>3.2.2</b> Quantitativer Vergleich der ersten Modelle</a></li>
 <li class="chapter" data-level="3.2.3" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#qualitativer-vergleich-der-modelle-mit-30-und-60-topics"><i class="fa fa-check"></i><b>3.2.3</b> Qualitativer Vergleich der Modelle mit 30 und 60 Topics</a></li>
 <li class="chapter" data-level="3.2.4" data-path="modellspezifikation-modellvergleich-und-modellauswahl.html"><a href="modellspezifikation-modellvergleich-und-modellauswahl.html#schätzen-und-vergleich-von-weiteren-modellen-zwischen-k-30-und-k-40"><i class="fa fa-check"></i><b>3.2.4</b> Schätzen und Vergleich von weiteren Modellen zwischen <span class="math inline">\(k = 30\)</span> und <span class="math inline">\(k = 40\)</span></a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html"><i class="fa fa-check"></i><b>4</b> Modellinterpretation und -darstellung</a><ul>
+<li class="chapter" data-level="4.1" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#test-der-modellqualität"><i class="fa fa-check"></i><b>4.1</b> Test der Modellqualität</a></li>
+<li class="chapter" data-level="4.2" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#interpretation-des-modells"><i class="fa fa-check"></i><b>4.2</b> Interpretation des Modells</a></li>
+<li class="chapter" data-level="4.3" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#darstellung-des-modells"><i class="fa fa-check"></i><b>4.3</b> Darstellung des Modells</a></li>
+<li class="chapter" data-level="4.4" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#weitere-analysen-prädiktoren-der-topic-prävalenz-und-topic-cluster"><i class="fa fa-check"></i><b>4.4</b> Weitere Analysen: Prädiktoren der Topic-Prävalenz und Topic-Cluster</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="literatur.html"><a href="literatur.html"><i class="fa fa-check"></i>Literatur</a></li>
 </ul>
@@ -207,8 +213,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Allgemein muss beachtet werden, dass die Schätzung eines Structural Topic Model mit <code>stm()</code> trotz der Effizienz der Implementierung sehr rechenintensiv ist. Die Schätzung des oben beschriebenen Modells dauert auf meinem recht leistungsfähigen Notebook bereits ca. eine Minute. Es empfiehlt sich daher, die Modelle immer in neue Objekte zu speichern und diese ggf. direkt auf der Festplatte zu sichern. Um die Berechnungszeiten in diesem Workshop kurz zu halten, stelle ich die Ergebnisse der Modellschätzungen über das LMS zur Verfügung. Wenn ihr diese herunterladet und in den Ordner “data” kopiert, muss das Modell nicht neu geschätzt werden.</li>
 </ul>
 </div>
-<div id="modellvergleich" class="section level2">
-<h2><span class="header-section-number">3.2</span> Modellvergleich</h2>
+<div id="modellvergleich-und--auswahl" class="section level2">
+<h2><span class="header-section-number">3.2</span> Modellvergleich und -auswahl</h2>
 <div id="allgemeines-vorgehen" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Allgemeines Vorgehen</h3>
 <ul>
@@ -454,6 +460,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Ein Blick auf die Skalierung der Achsen zeigt, dass die Modelle sich untereinander nur wenig unterscheiden. Die quantitativen Metriken helfen uns bei der Entscheidung zwischen diesen Modellen nicht weiter.</li>
 <li>Es folgt ein recht aufwändiger qualitativer Prozess, in dem wir entscheiden, ob die zusätzlichen Themen die Beschreibung der Dokumentinhalte substantiell verbessern.</li>
+<li>Als Ausgangspunkt nehmen wir das Modell mit 30 Topics. Daneben legen wir das Modell mit 31 Topics. Viele Topic-Labels sollten identisch oder sehr ähnlich sein. Unsere besondere Aufmerksamkeit gilt den Topics, deren typische Features sich verändert haben und die neue hinzu gekommen sind.</li>
+<li>Dazu können wir wieder <code>{stminsights}</code> oder den oben dargestellten Code (zu finden in <code>R/model_qualihelper.R</code>) nutzen.</li>
+<li>Ich habe für meine eigene Arbeit eine einfache Hilfsfunktion <code>complete_labels()</code> geschrieben, die ausgehend von Referenz-Topic-Labels für ein Modell die FREX-Features einer Liste von Topic Models vergleicht und die Labels weiter gibt, wenn sich mindestens eine vorgegebene Zahl FREX-Termen überschneiden. Ich stelle die Funktion im GitHub-Repository zur eigenverantwortlichen Verwendung zur Verfügung.
+<ul>
+<li>Vorsicht: Die Funktion führt keine Checks durch. Ihr müsst selbst prüfen, ob
+<ul>
+<li>die Referenz-Labels das richtige Format haben (tibble mit den Variablen <code>topic</code> und <code>label</code>)</li>
+<li>die Modelle in der Liste wirklich vergleichbar sind (auf vergleichbaren Daten basieren)</li>
+<li>Im Arbeitsverzeichnis keine Dateien mit der Bezeichnung “labels_k?.csv” vorhanden sind - diese werden kommentarlos überschrieben.</li>
+</ul></li>
+<li>Mit dieser Funktion könnt ihr die Labels, die ihr für die Modelle mit <span class="math inline">\(k = 30\)</span> oder <span class="math inline">\(k = 40\)</span> schon erstellt habt, bei einer Überschneidung von FREX-Features auf die weiteren Modelle übertragen. Das spart etwas Arbeit beim checken der einzelnen Modelle. Topics, die bei 10 berücksichtigen FREX-Features 8 oder mehr Überschneidungen haben, sollten eine sehr ähnliche inhaltliche Interpretation haben. Ich empfehle aber trotzdem, die jeweiligen Topics nach dem oben vorgestellten Vorgehen kurz zu prüfen, um eventuelle Veränderungen bemerken zu können.</li>
+</ul></li>
+<li>Eine Beschreibung des Vorgehens beim qualitativen Modellvergleich findet ihr als Video im LMS [kommt nach Fertigstellen des Textmaterials].</li>
+<li>Ich habe das Modell mit <span class="math inline">\(k = 37\)</span> Topics für die weiteren Analysen ausgewählt. Die Labels der Topics sind in <code>R/data/labels_k37.csv</code> gespeichert.</li>
 </ul>
 
 </div>
@@ -480,7 +500,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="beispiel-daten-und-aufbereitung.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="literatur.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="modellinterpretation-und-darstellung.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -26,7 +26,6 @@ knitr::read_chunk("R/packages.R")
 * In diesem Mini-Workshop erläutere ich das praktische Vorgehen einer Datenanalyse mit *Structural Topic Models*. Wir behandeln die folgenden Schritte im Analyseprozess:
   * Modellspezifikation
   * Modellvergleich zur Auswahl eines geeigneten Modells
-  * Interpretation der Topics in einem ausgewählten Modell
   * Darstellung der Ergebnisse
   * Weitere Analysen
     * Identifikation verwandter Themen
@@ -34,7 +33,7 @@ knitr::read_chunk("R/packages.R")
 
 * Wir verwenden das Paket `{stm}` [@robertsStmPackageStructural2019] zum Schätzen von Topic Models. Für die Variante der *Structural* Topic Models und die Implementation in diesem Paket sprechen *für mich* die folgenden Gründe
   * Gute Integration mit *R* und Paketen, die ich für die Arbeit mit Text-Daten verwende (insbesondere `{quanteda}` und `{tidytext}`)
-  * Gute ergänzende Pakete zur Arbeit mit den Modellen (insbesondere `{stminsights}`)
+  * Gute ergänzende Pakete zur Arbeit mit den Modellen (insbesondere `{stminsights}` und `{oolong}`)
   * Vergleichsweise schnelle Modellschätzung auch mit großen Datensätzen
   * Direktes Schätzen von Zusammenhängen von Topics mit Kovariaten
   * Initialisieren der Modellschätzung mit dem Spectral Algorithmus
@@ -64,9 +63,7 @@ knitr::read_chunk("R/packages.R")
 ### Material {-}
 
 * Dieses Dokument + R Skripte: (Hoffentlich) mehr oder weniger selbsterklärendes Material
-  * Kuratierte Form ist dieses HTML-Dokument
-  * Es gibt auch ein PDF, das ich aber nicht formatiert habe
-  
+
 * Daten: Ein Ausschnitt auf den Daten der oben genannten Beispielstudie. Eine genauere Beschreibung folgt im nächsten Abschnitt.
 
 * Screencast: Zu einigen Analyseschritten stelle ich Screencasts zur Verfügung. Diese sind größtenteils ergänzend gedacht. Bis auf wenige Ausnahmen sollte das schriftliche Material selbsterklärend sein.

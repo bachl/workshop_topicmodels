@@ -1,7 +1,7 @@
 ## ---- packages
 
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse, stm, stminsights, tidytext, quanteda, lubridate, knitr, tictoc, furrr, oolong)
+pacman::p_load(tidyverse, stm, stminsights, tidytext, quanteda, lubridate, knitr, tictoc, furrr, oolong, textmineR, ggdendro)
 theme_set(theme_bw()) # ggplot theme
 
 tibble(package = c("R", sort(pacman::p_loaded()))) %>% 

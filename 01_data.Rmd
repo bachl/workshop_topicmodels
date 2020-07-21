@@ -12,7 +12,7 @@ knitr::read_chunk("R/prepare_data.R")
 ## Laden der Daten und Übersicht
 
 * Wir verwenden einen Ausschnitt der Daten aus der Beispielstudie. Konkret handelt es sich um Posts mit dem Suchwort *impf*, die zwischen dem 1. Mai 2016 und dem 8. Juli 2019 im Elternforum [Urbia](https://www.urbia.de/forum) veröffentlicht wurden. Ausgeschlossen wurden unter anderem
-  * sehr kurze Posts (weniger als 19 Wörter)
+  * sehr kurze Posts (weniger als 20 Wörter)
   * Posts mit dem Wort *schimpf*
   * Posts zur Impfung von Haustieren (nach einem kurzen Diktionär)
 * Die Dokumentation zur Studie gibt weitere Informationen zur Erhebung und Bereinigung der Rohdaten.
@@ -45,7 +45,7 @@ knitr::read_chunk("R/prepare_data.R")
   * Der Argumentation und den empirischen Ergebnissen von @schofieldComparingApplesApple2016 (deren Aufsatz übrigens einen großartigen Titel hat, großer NLP Nerd Humor) folgend habe ich auf Stemming oder Lemmatisierung verzichtet. In der Tat zeigt sich, dass Wörter mit dem gleichen Wortstamm, wie von @schofieldComparingApplesApple2016 beschrieben, häufig im selben Topic landen.
   * Üblichen Standards [z.B. @maierApplyingLDATopic2018] folgend habe ich alle Wörter in Kleinschreibung umgewandelt, Satzzeichen entfernt und URL entfernt. Zahlen habe ich beibehalten, da sie (wie die Ergebnisse auch zeigen) typische Merkmale bestimmter Perspektiven auf das Thema Impfen sind.
   * Da wir auch an der Veränderung der Topic-Häufigkeiten über die Zeit interessiert sind, wird die Variable mit dem Erscheinungstags des Posts in eine numerische Variable umgewandelt. Sie ist so skaliert, dass der aktuellste Post den Wert 0 hat. Diese Variable können wir dann als Prädiktor beim Schätzen des *Structural Topic Model* berücksichtigen.
-  * Unter *Pruning* versteht man das Entfernen von Features, die entweder in sehr weniger oder in sehr vielen Dokumenten vorkommen. Dadurch können die Größe des Datensatzes und in der Folge die zum Schätzen der Modelle nötigen Ressourcen wesentlich reduziert werden. Inhaltlich sollte das Entfernen dieser Features wenig ändern: Features, die in sehr vielen Dokumenten vorkommen, tragen nicht zur Differenzierung zwischen den Dokumenten bei. Features, die nur in sehr wenigen Dokumenten vorkommen, tragen nicht zur Definition von Topics bei, da diese durch das regelmäßige *gemeinsame* Vorkommen in Dokumenten identifiziert werden. Siehe ausführlich @maierApplyingLDATopic2018.
+  * Unter *Pruning* versteht man das Entfernen von Features, die entweder in sehr wenigen oder in sehr vielen Dokumenten vorkommen. Dadurch können die Größe des Datensatzes und in der Folge die zum Schätzen der Modelle nötigen Ressourcen wesentlich reduziert werden. Inhaltlich sollte das Entfernen dieser Features wenig ändern: Features, die in sehr vielen Dokumenten vorkommen, tragen nicht zur Differenzierung zwischen den Dokumenten bei. Features, die nur in sehr wenigen Dokumenten vorkommen, tragen nicht zur Definition von Topics bei, da diese durch das regelmäßige *gemeinsame* Vorkommen in Dokumenten identifiziert werden. Siehe ausführlich @maierApplyingLDATopic2018.
 
 * Die Vorbereitung des Korpus und der Dokument-Feature-Matrix erfolgte mit Funktionen aus `{quanteda}`.
   * Mit der Funktion `corpus()` wird der Datensatz in einen Text-Korpus umgewandelt. In diesem Zuge wird auch die numerische Datums-Variable erstellt. Die Variable mit dem Text des Posts duplizieren wir, damit sie zusätzlich als Meta-Datum für jeden Text gespeichert wird. Das wird später hilfreich sein, wenn wir die Ergebnisse einer Modellschätzung explorieren.

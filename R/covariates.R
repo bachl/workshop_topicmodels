@@ -1,11 +1,25 @@
 ## ---- covariates
 
 # Data
-m37 = read_rds("R/data/model37.rds")
 m37_labels = read_csv("R/data/labels_k37.csv")
 m37_labels = m37_labels %>% 
   mutate(label = str_c(topic, label, sep = ": "))
 out = read_rds("R/data/out.rds")
+
+# Schätzen des Modells mit Kovariate
+if (file.exists("R/data/m37_we.rds")) {
+  # Laden des Modells mit Kovariate
+  m37_we = read_rds("R/data/m37_we.rds")
+} else {
+  # Schätzen des Modells mit Kovariate
+  m37_we = stm(documents = out$documents, 
+               vocab = out$vocab,
+               data = out$meta,
+               prevalence = ~s(date_num), # In dieser Zeile spezifizieren wir die Kovariate
+               init.type = "Spectral",
+               K = 37, verbose = FALSE)
+  saveRDS(m37_we, "R/data/m37_we.rds")
+}
 
 
 # Effect Objekt
@@ -14,7 +28,7 @@ if (file.exists("R/data/m37_effects.rds")) {
   m37_effects = read_rds("R/data/m37_effects.rds")
 } else {
   # Effekt-Schätzung
-  m37_effects = m37 %>% 
+  m37_effects = m37_we %>% 
     estimateEffect(1:37 ~ s(date_num), stmobj = ., metadata = out$meta)  
   saveRDS(m37_effects, "R/data/m37_effects.rds")
 }

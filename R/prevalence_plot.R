@@ -8,7 +8,10 @@ m37_labels = m37_labels %>%
 
 # Prävelenz der Topics
 m37_gamma = m37 %>% 
-  tidy("gamma")
+  tidy("gamma") %>% 
+  group_by(topic) %>% 
+  summarise(P = mean(gamma),
+            n = sum(gamma))
 
 # Frex Terms
 m37_frex = m37 %>% 
@@ -22,10 +25,15 @@ m37_frex = m37 %>%
 
 # Plot
 m37_gamma %>% 
-  group_by(topic) %>% 
-  summarise(P = mean(gamma),
-            n = sum(gamma)) %>% 
   left_join(m37_labels) %>% 
   left_join(m37_frex) %>% 
   mutate(label = reorder(label, P)) %>% 
   ggplot(aes(P, label, label = frex_terms)) + geom_bar(stat = "identity") + scale_x_continuous(labels = scales::percent_format(accuracy = 1), expand = c(0, 0), limits = c(0, 0.1)) + geom_text(hjust = 0, nudge_x = 5e-04, size = 3) + labs(x = "Anteil des Topics am gesamten Korpus", y = NULL)
+
+# Table
+m37_gamma %>% 
+  left_join(m37_labels) %>% 
+  left_join(m37_frex) %>% 
+  select(label, P, frex_terms) %>% 
+  mutate(P = paste0(round(P*100), "%")) %>% 
+  kable()

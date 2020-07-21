@@ -28,8 +28,8 @@ knitr::read_chunk("R/packages.R")
   * Modellvergleich zur Auswahl eines geeigneten Modells
   * Darstellung der Ergebnisse
   * Weitere Analysen
-    * Identifikation verwandter Themen
-    * Zusammenhänge der Themenprävalenz mit Kovariaten.
+    * Zusammenhänge der Topic-Prävalenz mit Kovariaten
+    * Identifikation verwandter Topics
 
 * Wir verwenden das Paket `{stm}` [@robertsStmPackageStructural2019] zum Schätzen von Topic Models. Für die Variante der *Structural* Topic Models und die Implementation in diesem Paket sprechen *für mich* die folgenden Gründe
   * Gute Integration mit *R* und Paketen, die ich für die Arbeit mit Text-Daten verwende (insbesondere `{quanteda}` und `{tidytext}`)
@@ -54,7 +54,7 @@ knitr::read_chunk("R/packages.R")
 
 * Dieser Mini-Workshop ist kein *R*-Tutorial. Wenn ihr Interesse habt, *R*-Kenntnisse zu erwerben und zu vertiefen, empfehle ich [R4DS](https://r4ds.had.co.nz/).
 
-* Dieser Mini-Workshop ist keine allgemeine Einführung in die computergestützte Inhaltsanalyse. Wenn ihr allgemein mit *R* arbeiten möchtet, empfehle ich zu diesem Thema die [Einführung von Cornelius Puschmann](http://inhaltsanalyse-mit-r.de/).
+* Dieser Mini-Workshop ist keine allgemeine Einführung in die computergestützte Inhaltsanalyse. Wenn ihr allgemein Textanalysen mit *R* durchführen möchtet, empfehle ich zu diesem Thema die [Einführung von Cornelius Puschmann](http://inhaltsanalyse-mit-r.de/).
 
 ## Aufbau des Workshops
 
@@ -64,12 +64,11 @@ knitr::read_chunk("R/packages.R")
 
 * Dieses Dokument + R Skripte: (Hoffentlich) mehr oder weniger selbsterklärendes Material
 
-* Daten: Ein Ausschnitt auf den Daten der oben genannten Beispielstudie. Eine genauere Beschreibung folgt im nächsten Abschnitt.
+* Daten: Ein Ausschnitt auf den Daten der oben genannten Beispielstudie. Eine genauere Beschreibung folgt im nächsten Abschnitt. Sie sind *nicht* auf GitHub, sondern nur im LMS verfügbar.
 
-* Screencast: Zu einigen Analyseschritten stelle ich Screencasts zur Verfügung. Diese sind größtenteils ergänzend gedacht. Bis auf wenige Ausnahmen sollte das schriftliche Material selbsterklärend sein.
+* Screencast: Zu einigen Analyseschritten stelle ich Screencasts zur Verfügung (siehe Anmerkungen im Text).
 
-* Übungen: Zu einigen Analysen gibt es Übungsaufgaben.
-  * XXX
+* Übungen: Zur Einübung der Inhalte empfehle ich, die in diesem Material dokumentierten Code-Auszüge auf dem eigenen Rechner auszuführen und anzupassen. Die inhaltliche Interpretation der Modelle wird im Material nur angedeutet. Ihr könnt diese selbst vertiefen.
 
 ### Pakete {-}
 

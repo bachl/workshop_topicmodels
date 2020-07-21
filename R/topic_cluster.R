@@ -16,9 +16,6 @@ ggdendro::ggdendrogram(clusters, rotate = TRUE) + labs(title = NULL) + scale_y_c
 
 # Plot mit 7 Topic-Clustern
 m37_gamma %>% 
-  group_by(topic) %>% 
-  summarise(P = mean(gamma),
-            n = sum(gamma)) %>% 
   mutate(grp = case_when(topic %in% c(21, 10, 11, 7, 16) ~ 1,
                          topic %in% c(27, 1, 2, 35, 24) ~ 2,
                          topic %in% c(31, 8, 19) ~ 3,

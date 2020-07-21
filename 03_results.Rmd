@@ -15,10 +15,10 @@ knitr::read_chunk("R/covariates.R")
 
 ## Test der Modellqualität
 
-* `{oolong}` ist ein recht neues Paket, das die Durchführung von standardisierten Tests der Topic-Qualität erleichtert. Ich habe es selbst bisher noch nicht in produktiven Projekten eingesetzt, werde es aber in allen zukünftigen Projekten tun. Infos zur technischen Umsetzung gibt es hier: https://github.com/chainsawriot/oolong/blob/master/overview_gh.md.
+* `{oolong}` ist ein recht neues Paket, das die Durchführung von standardisierten Tests der Topic-Qualität erleichtert. Ich habe es selbst bisher noch nicht in produktiven Projekten eingesetzt, werde es aber in zukünftigen Projekten tun. Infos zur technischen Umsetzung gibt es hier: https://github.com/chainsawriot/oolong/blob/master/overview_gh.md.
 
 * Es werden zwei Tests angeboten:
-  * Der *word intrusion test* zeigt für jedes Topic die typischsten Features an und fügt zusätzlich ein Wort hinzu, dass *nicht* typisch für das Topic ist (*intruder*). Die Tester\*innen müssen raten, welches Wort nicht zu den anderen passt. Je größer der Anteil der richtig erkannten *intruder* (Hier als *precision* bezeichnet), desto besser lassen sich die Topics anhand der typischen Features interpretieren. Bei mehreren Tester\*innen wird zusätzlich der aus der manuellen Inhaltsanalyse bekannte Koeffizient der Intercoder-Reliabilität Krippendorffs $\alpha$ ausgegeben.
+  * Der *word intrusion test* zeigt für jedes Topic die typischsten Features an und fügt zusätzlich ein Wort hinzu, dass *nicht* typisch für das Topic ist (*intruder*). Die Tester\*innen müssen raten, welches Wort nicht zu den anderen passt. Je größer der Anteil der richtig erkannten *intruder* (hier als *precision* bezeichnet), desto besser lassen sich die Topics anhand der typischen Features interpretieren. Bei mehreren Tester\*innen wird zusätzlich der aus der manuellen Inhaltsanalyse bekannte Koeffizient der Intercoder-Reliabilität Krippendorffs $\alpha$ ausgegeben.
   * Der *topic intrusion test* zeigt eine Auswahl von Dokumenten aus dem Korpus. Dazu werden eine vorgegebene Zahl von Topics angezeigt, die in einem Dokument am wahrscheinlichsten enthalten sind. Ein weiteres Topic wird angezeigt, das in diesem Dokument nicht enthalten ist. Die Tester\*innen müssen raten, welches Topic nicht zum Dokument passt. Als Ergebnis werden die *topic log odds* (TLO) berichtet. Sie quantifizieren die Wahrscheinlichkeit, dass das unpassende Topic gewählt wurde, korrigiert um die Wahrscheinlichkeit, dass das unpassende Topic einfach nur zufällig geraten wurde. Perfektes Erkennen der falschen Topics bei allen Dokumenten ergibt $TLO = 0$.
   * Diese Tests sollten von mehreren Personen durchgeführt werden. Im Idealfall werden die Modelle auch durch Personen getestet, die nicht am Projekt (oder zumindest nicht an der Modellierung) beteiligt waren, um die intersubjektive Nachvollziehbarkeit der Interpretationen zu testen.
   * Aber schon formale Tests nur mit den Projektbeteiligten schlagen den heute üblichen Standard um Weiten. Bisher werden zur Validierung vor allem informelle Diskussionen eingesetzt [@maierApplyingLDATopic2018] --- so auch in unserer Beispielstudie.
@@ -32,22 +32,36 @@ knitr::read_chunk("R/covariates.R")
 
 ## Darstellung des Modells
 
-* Einige nützliche Plots
+* Eine Zusammenfassung der zentralen Ergebnisse eines Topic Models können wir mit einem Balkendiagramm leisten, dass auf der X-Achse die Prävalenz der Topics im gesamten Korpus zeigt. Auf der Y-Achse werden die Labels der Topics abgetragen. Um zusätzlich die wichtigsten Features, auf denen die Interpretation eines Topics basiert, zu vermitteln, können diese auf der rechten Seite neben den Balken dargestellt werden.
+* Im folgenden Code-Snippet wird diese Abbildung erstellt:
+  * Für den Plot brauchen wir das Objekt mit dem geschätzten Modell (`m37`) und die Topic-Labels (`m37_labels`).
+  * Die Prävalenz der Topics in den einzelnen Dokumenten kann mit `tidy("gamma")` in einen tidy data frame extrahiert werden. Der Mittelwert von "gamma" über die Dokumente ergibt den Anteil der Topics am gesamten Korpus, die Summe die Anzahl der Dokumente.
+  * Die typischen Features für die Topics, hier die FREX-Features, extrahieren wir mit `labelTopics()`. Wir fassen sie zu einer Tabelle zusammen, die jeweils alle Features für ein Topic in einer Zelle getrennt mit "," enthält.
+  * Zuletzt fusionieren wir die Datensätze und erstellen die Abbildung mit `ggplot()`.
+* Dieselbe Inhformation können wir auch als Tabelle darstellen.
 
 ```{r prevalence-plot, fig.width=16, fig.cap="Zur vollen Ansicht in neuem Tab öffnen", message=FALSE, warning=FALSE}
 
 ```
 
-* Tabelle mit FREX-Termen
-
-* Autoreport (Verweis auf Dokumentation in Bachl & Link)
+* Für den Anhang einer Arbeit, in der die Ergebnisse eines Topic Models berichtet werden, bietet sich eine ausführliche Dokumentation der Topics und der ihrer Interpretation zugrunde liegenden Features und Dokumente an. Damit wird die intersubjektive Nachvollziehbarkeit der qualitativen Interpretation gestärkt.
+  * Ein Beispiel für eine ausführliche Dokumentation findet sich [hier]( https://bachl.github.io/vaccine_discussions/topic-description.html).
+  * Die Dokumentation wurde größtenteils automatisch generiert. Nur die englischen Übersetzungen wurden aus einem manuell erstellten Word-Dokument eingelesen. Daten und Code zum Erstellen dieser Dokumentation sind [hier](https://mfr.de-1.osf.io/render?url=https://osf.io/zuh4t/?direct%26mode=render%26action=download%26mode=render) und im assoziierten OSF-Repository.
 
 
 ## Weitere Analysen: Prädiktoren der Topic-Prävalenz und Topic-Cluster
 
-* Schätzen der Veränderung der Topics über die Zeit
-* Wichtig: Prädiktoren sollten bereits in der Spezifikation des Topic Modells (siehe Abschnitt 3.1) enthalten sein. Schätzung der Zusammenhänge mit anderen Prädiktoren zwar möglich, aber nicht ideal [@robertsStmPackageStructural2019].
-* Darstellung dieser Ergebnisse
+* Ein zentraler Vorteil von *Structural* Topic Models und ihrer Implementierung in `stm` ist die Möglichkeit, Zusammenhänge von Kovariaten mit den latenten Topics direkt zu schätzen. Damit wird die latente Struktur der Topics und die darin enthaltene Unsicherheit bei der Schätzung berücksichtigt.
+* Wichtig: Prädiktoren sollten bereits in der Spezifikation des Topic Model (siehe Abschnitt 3.1) enthalten sein. Schätzung der Zusammenhänge mit anderen Prädiktoren zwar möglich, aber nicht ideal [@robertsStmPackageStructural2019].
+* Hier betrachten wir eine typische Analyse: Wie haben sich die Prävalenzen der Topics über den Untersuchungszeitraum hinweg verändert?
+* Das folgende Code-Snippet zeigt das Vorgehen bei der Analyse und mögliche Ergebnisdarstellungen:
+  * Zuerst schätzen wir das Modell mit $k = 37$ noch einmal und spezifizieren dabei die Variable `date_num` (das Datum der Veröffentlichung eines Posts als numerische Variable in Tagen, 0 = aktuellster Post im Untersuchungszeitraum) als Kovariate
+  * Da wir nicht einfach nur einen linearen Trend schätzen wollen, schätzen wir den Zusammenhang als *spline* (`~s(date_num)`); siehe zu Details `?splines::bs`. Allgemein gesprochen schätzen wir nicht-lineare Veränderungen in den Topic-Prävalenzen.
+  * Mit der Funktion `estimateEffect()` schätzen wir die Zusammenhänge der Topic-Prävalenzen mit der Kovariate,
+    * Vor der Tilde `~` geben wir an, für welche Topics wir die Zusammenhänge schätzen wollen. Hier schreiben wir `1:37`, da wir sie für alle 37 Topics erhalten wollen. `2:5` würde z.B. nur die Zusammenhänge für die Topics 2 bis 5 schätzen.
+    * Nach der Tilde geben wir die Formel für die Kovariaten an. Hier geben wir, wie empfohlen, die Formel genau so an, wie wir sie beim Schätzen des Modells spezifiziert haben. Es wäre auch möglich, hier eine andere funktionale Form (z.B. nur `~ date_num` für einen linearen Trend) oder andere Kovariaten aufzunehmen. 
+  * Mit der Funktion `get_effects()` extrahieren wir einen *tidy data frame*, auf dessen Basis wir verschiedene Visualisierungen erstellen können. Hier fügen wir auch die Labels der Topics hinzu und formatieren die Datumsvariable wieder als Datum.
+  * Die beiden Abbildungen zeigen die Entwicklung der Topics über den Untersuchungszeitraum. 
 
 ```{r covariates, message=FALSE, warning=FALSE}
 
@@ -62,8 +76,13 @@ plt2
 ```
 
 
-* Cluster-Analyse des gemeinsamen Auftretens von Topics
-* Darstellung dieser Ergebnisse
+* Analysen von mittleren oder großen Korpora erfordern Topic Models mit einer recht großen Anzahl von Topics (siehe Abschnitt 3). Für ein besseres Verständnis der Inhalte im Korpus und für eine einfachere Ergebnispräsentation kann es manchmal sinnvoll sein, die Topics weiter zusammenzufassen. Eine Möglichkeit ist eine Betrachtung, welche Topics häufig gemeinsam in Dokumenten vorkommen. Es liegt nahe, dass solche Topics etwas miteinander zu tun haben.
+ * Eine hierarchische Cluster-Analyse des gemeinsamen Auftretens von Topics in Dokumenten erlaubt einen einfachen empirischen Zugang.
+ * Der folgende Code zeigt, wie wir eine solche Analyse für das Modell mit 37 Topics durchführen können.
+   * Wir erstellen eine Distanzmatrix der Topics `m37_dist` aus der Dokument-Topic-Matrix `m37$theta`. Als Distanzmaß wählen wir die [*Hellinger's Distance*](https://en.wikipedia.org/wiki/Hellinger_distance), die im Paket `{textmineR}` implementiert ist.
+   * Die Cluster-Analyse führen wir mit der Funktion `hclust()` und dem Ward-Algorithmus durch.
+   * Aus dem Dendogramm leiten wir eine für unsere Zwecke nützliche Zahl von Clustern ab. In diesem Fall habe ich mich für 7 Cluster entschieden.
+* Die Abbildung zur Prävalenz der Topics lässt sich nun nach der Zugehörigkeit der Topics zu den Clustern darstellen.
 
 ```{r topic-cluster, fig.width=16, fig.cap="Zur vollen Ansicht in neuem Tab öffnen", message=FALSE, warning=FALSE}
 

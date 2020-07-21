@@ -155,9 +155,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html"><i class="fa fa-check"></i><b>4</b> Modellinterpretation und -darstellung</a><ul>
 <li class="chapter" data-level="4.1" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#test-der-modellqualität"><i class="fa fa-check"></i><b>4.1</b> Test der Modellqualität</a></li>
-<li class="chapter" data-level="4.2" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#interpretation-des-modells"><i class="fa fa-check"></i><b>4.2</b> Interpretation des Modells</a></li>
-<li class="chapter" data-level="4.3" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#darstellung-des-modells"><i class="fa fa-check"></i><b>4.3</b> Darstellung des Modells</a></li>
-<li class="chapter" data-level="4.4" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#weitere-analysen-prädiktoren-der-topic-prävalenz-und-topic-cluster"><i class="fa fa-check"></i><b>4.4</b> Weitere Analysen: Prädiktoren der Topic-Prävalenz und Topic-Cluster</a></li>
+<li class="chapter" data-level="4.2" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#darstellung-des-modells"><i class="fa fa-check"></i><b>4.2</b> Darstellung des Modells</a></li>
+<li class="chapter" data-level="4.3" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#weitere-analysen-prädiktoren-der-topic-prävalenz-und-topic-cluster"><i class="fa fa-check"></i><b>4.3</b> Weitere Analysen: Prädiktoren der Topic-Prävalenz und Topic-Cluster</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="literatur.html"><a href="literatur.html"><i class="fa fa-check"></i>Literatur</a></li>
 </ul>
@@ -182,181 +181,423 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="test-der-modellqualität" class="section level2">
 <h2><span class="header-section-number">4.1</span> Test der Modellqualität</h2>
 <ul>
-<li><p><code>{oolong}</code> ist ein recht neues Paket, das die Durchführung von standardisierten Tests der Topic-Qualität erleichtert. Ich habe es selbst bisher noch nicht in produktiven Projekten eingesetzt, werde es aber in allen zukünftigen Projekten tun. Infos zur technischen Umsetzung gibt es hier: <a href="https://github.com/chainsawriot/oolong/blob/master/overview_gh.md" class="uri">https://github.com/chainsawriot/oolong/blob/master/overview_gh.md</a>.</p></li>
+<li><p><code>{oolong}</code> ist ein recht neues Paket, das die Durchführung von standardisierten Tests der Topic-Qualität erleichtert. Ich habe es selbst bisher noch nicht in produktiven Projekten eingesetzt, werde es aber in zukünftigen Projekten tun. Infos zur technischen Umsetzung gibt es hier: <a href="https://github.com/chainsawriot/oolong/blob/master/overview_gh.md" class="uri">https://github.com/chainsawriot/oolong/blob/master/overview_gh.md</a>.</p></li>
 <li><p>Es werden zwei Tests angeboten:</p>
 <ul>
-<li>Der <em>word intrusion test</em> zeigt für jedes Topic die typischsten Features an und fügt zusätzlich ein Wort hinzu, dass <em>nicht</em> typisch für das Topic ist (<em>intruder</em>). Die Tester*innen müssen raten, welches Wort nicht zu den anderen passt. Je größer der Anteil der richtig erkannten <em>intruder</em> (Hier als <em>precision</em> bezeichnet), desto besser lassen sich die Topics anhand der typischen Features interpretieren. Bei mehreren Tester*innen wird zusätzlich der aus der manuellen Inhaltsanalyse bekannte Koeffizient der Intercoder-Reliabilität Krippendorffs <span class="math inline">\(\alpha\)</span> ausgegeben.</li>
+<li>Der <em>word intrusion test</em> zeigt für jedes Topic die typischsten Features an und fügt zusätzlich ein Wort hinzu, dass <em>nicht</em> typisch für das Topic ist (<em>intruder</em>). Die Tester*innen müssen raten, welches Wort nicht zu den anderen passt. Je größer der Anteil der richtig erkannten <em>intruder</em> (hier als <em>precision</em> bezeichnet), desto besser lassen sich die Topics anhand der typischen Features interpretieren. Bei mehreren Tester*innen wird zusätzlich der aus der manuellen Inhaltsanalyse bekannte Koeffizient der Intercoder-Reliabilität Krippendorffs <span class="math inline">\(\alpha\)</span> ausgegeben.</li>
 <li>Der <em>topic intrusion test</em> zeigt eine Auswahl von Dokumenten aus dem Korpus. Dazu werden eine vorgegebene Zahl von Topics angezeigt, die in einem Dokument am wahrscheinlichsten enthalten sind. Ein weiteres Topic wird angezeigt, das in diesem Dokument nicht enthalten ist. Die Tester*innen müssen raten, welches Topic nicht zum Dokument passt. Als Ergebnis werden die <em>topic log odds</em> (TLO) berichtet. Sie quantifizieren die Wahrscheinlichkeit, dass das unpassende Topic gewählt wurde, korrigiert um die Wahrscheinlichkeit, dass das unpassende Topic einfach nur zufällig geraten wurde. Perfektes Erkennen der falschen Topics bei allen Dokumenten ergibt <span class="math inline">\(TLO = 0\)</span>.</li>
 <li>Diese Tests sollten von mehreren Personen durchgeführt werden. Im Idealfall werden die Modelle auch durch Personen getestet, die nicht am Projekt (oder zumindest nicht an der Modellierung) beteiligt waren, um die intersubjektive Nachvollziehbarkeit der Interpretationen zu testen.</li>
 <li>Aber schon formale Tests nur mit den Projektbeteiligten schlagen den heute üblichen Standard um Weiten. Bisher werden zur Validierung vor allem informelle Diskussionen eingesetzt <span class="citation">(Maier et al. <a href="#ref-maierApplyingLDATopic2018" role="doc-biblioref">2018</a>)</span> — so auch in unserer Beispielstudie.</li>
 </ul></li>
 <li><p>Der folgende Code zeigt das Erstellen, durchführen und Auswerten der Tests. Da die Tests interaktiv sind, wird er hier nicht ausgeführt. Ich zeige das Vorgehen in einem Video im LMS [kommt nach Fertigstellen des Textmaterials].</p></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="modellinterpretation-und-darstellung.html#cb1-1"></a>m37 =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/model37.rds&quot;</span>)</span>
-<span id="cb1-2"><a href="modellinterpretation-und-darstellung.html#cb1-2"></a>out =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/out.rds&quot;</span>)</span>
-<span id="cb1-3"><a href="modellinterpretation-und-darstellung.html#cb1-3"></a></span>
-<span id="cb1-4"><a href="modellinterpretation-und-darstellung.html#cb1-4"></a><span class="co"># Erstellen eines Tests </span></span>
-<span id="cb1-5"><a href="modellinterpretation-und-darstellung.html#cb1-5"></a>m37_oolong =<span class="st"> </span><span class="kw">create_oolong</span>(</span>
-<span id="cb1-6"><a href="modellinterpretation-und-darstellung.html#cb1-6"></a>  <span class="dt">input_model =</span> m37, <span class="co"># Modell, das wir testen wollen</span></span>
-<span id="cb1-7"><a href="modellinterpretation-und-darstellung.html#cb1-7"></a>  <span class="dt">input_corpus =</span> out<span class="op">$</span>meta<span class="op">$</span>txt, <span class="co"># Korpus, auf dem Modell basiert; können wir aus &quot;out&quot; für stminsights nehmen</span></span>
-<span id="cb1-8"><a href="modellinterpretation-und-darstellung.html#cb1-8"></a>  <span class="dt">use_frex_words =</span> <span class="ot">TRUE</span>, <span class="co"># FREX-Features in beiden Tests nutzen</span></span>
-<span id="cb1-9"><a href="modellinterpretation-und-darstellung.html#cb1-9"></a>  <span class="dt">n_top_terms =</span> <span class="dv">5</span>, <span class="co"># Zahl der korrekten Features im word intrusion test</span></span>
-<span id="cb1-10"><a href="modellinterpretation-und-darstellung.html#cb1-10"></a>  <span class="dt">difficulty =</span> <span class="fl">0.5</span>, <span class="co"># Schwierigkeit des word intrusion tests; 0.5 = frexweight, das wir zur Interpretation genutzt haben</span></span>
-<span id="cb1-11"><a href="modellinterpretation-und-darstellung.html#cb1-11"></a>  <span class="dt">bottom_terms_percentile =</span> <span class="fl">0.4</span>, <span class="co"># Definition der intruder words; hier: haben theta &lt; 0.4</span></span>
-<span id="cb1-12"><a href="modellinterpretation-und-darstellung.html#cb1-12"></a>  <span class="dt">n_topiclabel_words =</span> <span class="dv">10</span>, <span class="co"># Zahl der Features, die als Label im topic intrusion test angezeigt werden</span></span>
-<span id="cb1-13"><a href="modellinterpretation-und-darstellung.html#cb1-13"></a>  <span class="dt">n_top_topics =</span> <span class="dv">2</span>, <span class="co"># Zahl der besten Topics, die für ein Dokument gezeigt werden</span></span>
-<span id="cb1-14"><a href="modellinterpretation-und-darstellung.html#cb1-14"></a>  <span class="dt">exact_n =</span> <span class="dv">5</span> <span class="co"># Zahl der Dokumente für topic intrusion test (alternativ frac für Anteil); in echtem Test mehr Dokumente codieren, hier nur 5, damit Demo nicht so lange dauert</span></span>
-<span id="cb1-15"><a href="modellinterpretation-und-darstellung.html#cb1-15"></a>                           )</span>
-<span id="cb1-16"><a href="modellinterpretation-und-darstellung.html#cb1-16"></a></span>
-<span id="cb1-17"><a href="modellinterpretation-und-darstellung.html#cb1-17"></a><span class="co"># Ausführen der Tests; Durchführen interaktiv in Viewer</span></span>
-<span id="cb1-18"><a href="modellinterpretation-und-darstellung.html#cb1-18"></a>m37_oolong<span class="op">$</span><span class="kw">do_word_intrusion_test</span>()</span>
-<span id="cb1-19"><a href="modellinterpretation-und-darstellung.html#cb1-19"></a>m37_oolong<span class="op">$</span><span class="kw">do_topic_intrusion_test</span>()</span>
-<span id="cb1-20"><a href="modellinterpretation-und-darstellung.html#cb1-20"></a><span class="co"># Beenden des Tests</span></span>
-<span id="cb1-21"><a href="modellinterpretation-und-darstellung.html#cb1-21"></a>m37_oolong<span class="op">$</span><span class="kw">lock</span>()</span>
-<span id="cb1-22"><a href="modellinterpretation-und-darstellung.html#cb1-22"></a><span class="co"># Test-Ergebnisse</span></span>
-<span id="cb1-23"><a href="modellinterpretation-und-darstellung.html#cb1-23"></a>m37_oolong_res =<span class="st"> </span>m37_oolong <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_oolong</span>()</span>
-<span id="cb1-24"><a href="modellinterpretation-und-darstellung.html#cb1-24"></a>m37_oolong_res</span></code></pre></div>
-</div>
-<div id="interpretation-des-modells" class="section level2">
-<h2><span class="header-section-number">4.2</span> Interpretation des Modells</h2>
-<ul>
-<li>Zur Interpretation des ausgewählten Modells zunächst ein wichtiger Hinweis: Vergesst nicht, dass ein Topic Model nur eine statistische Repräsentation des Textkorpuses ist.</li>
-</ul>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="modellinterpretation-und-darstellung.html#cb33-1"></a>m37 =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/model37.rds&quot;</span>)</span>
+<span id="cb33-2"><a href="modellinterpretation-und-darstellung.html#cb33-2"></a>out =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/out.rds&quot;</span>)</span>
+<span id="cb33-3"><a href="modellinterpretation-und-darstellung.html#cb33-3"></a></span>
+<span id="cb33-4"><a href="modellinterpretation-und-darstellung.html#cb33-4"></a><span class="co"># Erstellen eines Tests </span></span>
+<span id="cb33-5"><a href="modellinterpretation-und-darstellung.html#cb33-5"></a>m37_oolong =<span class="st"> </span><span class="kw">create_oolong</span>(</span>
+<span id="cb33-6"><a href="modellinterpretation-und-darstellung.html#cb33-6"></a>  <span class="dt">input_model =</span> m37, <span class="co"># Modell, das wir testen wollen</span></span>
+<span id="cb33-7"><a href="modellinterpretation-und-darstellung.html#cb33-7"></a>  <span class="dt">input_corpus =</span> out<span class="op">$</span>meta<span class="op">$</span>txt, <span class="co"># Korpus, auf dem Modell basiert; können wir aus &quot;out&quot; für stminsights nehmen</span></span>
+<span id="cb33-8"><a href="modellinterpretation-und-darstellung.html#cb33-8"></a>  <span class="dt">use_frex_words =</span> <span class="ot">TRUE</span>, <span class="co"># FREX-Features in beiden Tests nutzen</span></span>
+<span id="cb33-9"><a href="modellinterpretation-und-darstellung.html#cb33-9"></a>  <span class="dt">n_top_terms =</span> <span class="dv">5</span>, <span class="co"># Zahl der korrekten Features im word intrusion test</span></span>
+<span id="cb33-10"><a href="modellinterpretation-und-darstellung.html#cb33-10"></a>  <span class="dt">difficulty =</span> <span class="fl">0.5</span>, <span class="co"># Schwierigkeit des word intrusion tests; 0.5 = frexweight, das wir zur Interpretation genutzt haben</span></span>
+<span id="cb33-11"><a href="modellinterpretation-und-darstellung.html#cb33-11"></a>  <span class="dt">bottom_terms_percentile =</span> <span class="fl">0.4</span>, <span class="co"># Definition der intruder words; hier: haben theta &lt; 0.4</span></span>
+<span id="cb33-12"><a href="modellinterpretation-und-darstellung.html#cb33-12"></a>  <span class="dt">n_topiclabel_words =</span> <span class="dv">10</span>, <span class="co"># Zahl der Features, die als Label im topic intrusion test angezeigt werden</span></span>
+<span id="cb33-13"><a href="modellinterpretation-und-darstellung.html#cb33-13"></a>  <span class="dt">n_top_topics =</span> <span class="dv">2</span>, <span class="co"># Zahl der besten Topics, die für ein Dokument gezeigt werden</span></span>
+<span id="cb33-14"><a href="modellinterpretation-und-darstellung.html#cb33-14"></a>  <span class="dt">exact_n =</span> <span class="dv">5</span> <span class="co"># Zahl der Dokumente für topic intrusion test (alternativ frac für Anteil); in echtem Test mehr Dokumente codieren, hier nur 5, damit Demo nicht so lange dauert</span></span>
+<span id="cb33-15"><a href="modellinterpretation-und-darstellung.html#cb33-15"></a>                           )</span>
+<span id="cb33-16"><a href="modellinterpretation-und-darstellung.html#cb33-16"></a></span>
+<span id="cb33-17"><a href="modellinterpretation-und-darstellung.html#cb33-17"></a><span class="co"># Ausführen der Tests; Durchführen interaktiv in Viewer</span></span>
+<span id="cb33-18"><a href="modellinterpretation-und-darstellung.html#cb33-18"></a>m37_oolong<span class="op">$</span><span class="kw">do_word_intrusion_test</span>()</span>
+<span id="cb33-19"><a href="modellinterpretation-und-darstellung.html#cb33-19"></a>m37_oolong<span class="op">$</span><span class="kw">do_topic_intrusion_test</span>()</span>
+<span id="cb33-20"><a href="modellinterpretation-und-darstellung.html#cb33-20"></a><span class="co"># Beenden des Tests</span></span>
+<span id="cb33-21"><a href="modellinterpretation-und-darstellung.html#cb33-21"></a>m37_oolong<span class="op">$</span><span class="kw">lock</span>()</span>
+<span id="cb33-22"><a href="modellinterpretation-und-darstellung.html#cb33-22"></a><span class="co"># Test-Ergebnisse</span></span>
+<span id="cb33-23"><a href="modellinterpretation-und-darstellung.html#cb33-23"></a>m37_oolong_res =<span class="st"> </span>m37_oolong <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_oolong</span>()</span>
+<span id="cb33-24"><a href="modellinterpretation-und-darstellung.html#cb33-24"></a>m37_oolong_res</span></code></pre></div>
 </div>
 <div id="darstellung-des-modells" class="section level2">
-<h2><span class="header-section-number">4.3</span> Darstellung des Modells</h2>
+<h2><span class="header-section-number">4.2</span> Darstellung des Modells</h2>
 <ul>
-<li>Einige nützliche Plots</li>
+<li>Eine Zusammenfassung der zentralen Ergebnisse eines Topic Models können wir mit einem Balkendiagramm leisten, dass auf der X-Achse die Prävalenz der Topics im gesamten Korpus zeigt. Auf der Y-Achse werden die Labels der Topics abgetragen. Um zusätzlich die wichtigsten Features, auf denen die Interpretation eines Topics basiert, zu vermitteln, können diese auf der rechten Seite neben den Balken dargestellt werden.</li>
+<li>Im folgenden Code-Snippet wird diese Abbildung erstellt:
+<ul>
+<li>Für den Plot brauchen wir das Objekt mit dem geschätzten Modell (<code>m37</code>) und die Topic-Labels (<code>m37_labels</code>).</li>
+<li>Die Prävalenz der Topics in den einzelnen Dokumenten kann mit <code>tidy("gamma")</code> in einen tidy data frame extrahiert werden. Der Mittelwert von “gamma” über die Dokumente ergibt den Anteil der Topics am gesamten Korpus, die Summe die Anzahl der Dokumente.</li>
+<li>Die typischen Features für die Topics, hier die FREX-Features, extrahieren wir mit <code>labelTopics()</code>. Wir fassen sie zu einer Tabelle zusammen, die jeweils alle Features für ein Topic in einer Zelle getrennt mit “,” enthält.</li>
+<li>Zuletzt fusionieren wir die Datensätze und erstellen die Abbildung mit <code>ggplot()</code>.</li>
+</ul></li>
+<li>Dieselbe Inhformation können wir auch als Tabelle darstellen.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="modellinterpretation-und-darstellung.html#cb2-1"></a><span class="co"># Data</span></span>
-<span id="cb2-2"><a href="modellinterpretation-und-darstellung.html#cb2-2"></a>m37 =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/model37.rds&quot;</span>)</span>
-<span id="cb2-3"><a href="modellinterpretation-und-darstellung.html#cb2-3"></a>m37_labels =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;R/data/labels_k37.csv&quot;</span>)</span>
-<span id="cb2-4"><a href="modellinterpretation-und-darstellung.html#cb2-4"></a>m37_labels =<span class="st"> </span>m37_labels <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-5"><a href="modellinterpretation-und-darstellung.html#cb2-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">str_c</span>(topic, label, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>))</span>
-<span id="cb2-6"><a href="modellinterpretation-und-darstellung.html#cb2-6"></a></span>
-<span id="cb2-7"><a href="modellinterpretation-und-darstellung.html#cb2-7"></a><span class="co"># Prävelenz der Topics</span></span>
-<span id="cb2-8"><a href="modellinterpretation-und-darstellung.html#cb2-8"></a>m37_gamma =<span class="st"> </span>m37 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-9"><a href="modellinterpretation-und-darstellung.html#cb2-9"></a><span class="st">  </span><span class="kw">tidy</span>(<span class="st">&quot;gamma&quot;</span>)</span>
-<span id="cb2-10"><a href="modellinterpretation-und-darstellung.html#cb2-10"></a></span>
-<span id="cb2-11"><a href="modellinterpretation-und-darstellung.html#cb2-11"></a><span class="co"># Frex Terms</span></span>
-<span id="cb2-12"><a href="modellinterpretation-und-darstellung.html#cb2-12"></a>m37_frex =<span class="st"> </span>m37 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-13"><a href="modellinterpretation-und-darstellung.html#cb2-13"></a><span class="st">  </span><span class="kw">labelTopics</span>(<span class="dt">n =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-14"><a href="modellinterpretation-und-darstellung.html#cb2-14"></a><span class="st">  </span><span class="kw">pluck</span>(<span class="st">&quot;frex&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-15"><a href="modellinterpretation-und-darstellung.html#cb2-15"></a><span class="st">  </span><span class="kw">as_tibble</span>(<span class="dt">.name_repair =</span> <span class="op">~</span><span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;r&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-16"><a href="modellinterpretation-und-darstellung.html#cb2-16"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">topic =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-17"><a href="modellinterpretation-und-darstellung.html#cb2-17"></a><span class="st">  </span><span class="kw">gather</span>(rank, frex_term, <span class="op">-</span>topic) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-18"><a href="modellinterpretation-und-darstellung.html#cb2-18"></a><span class="st">  </span><span class="kw">group_by</span>(topic) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-19"><a href="modellinterpretation-und-darstellung.html#cb2-19"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">frex_terms =</span> <span class="kw">paste0</span>(frex_term, <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>))</span>
-<span id="cb2-20"><a href="modellinterpretation-und-darstellung.html#cb2-20"></a></span>
-<span id="cb2-21"><a href="modellinterpretation-und-darstellung.html#cb2-21"></a><span class="co"># Plot</span></span>
-<span id="cb2-22"><a href="modellinterpretation-und-darstellung.html#cb2-22"></a>m37_gamma <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-23"><a href="modellinterpretation-und-darstellung.html#cb2-23"></a><span class="st">  </span><span class="kw">group_by</span>(topic) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-24"><a href="modellinterpretation-und-darstellung.html#cb2-24"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">P =</span> <span class="kw">mean</span>(gamma),</span>
-<span id="cb2-25"><a href="modellinterpretation-und-darstellung.html#cb2-25"></a>            <span class="dt">n =</span> <span class="kw">sum</span>(gamma)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-26"><a href="modellinterpretation-und-darstellung.html#cb2-26"></a><span class="st">  </span><span class="kw">left_join</span>(m37_labels) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-27"><a href="modellinterpretation-und-darstellung.html#cb2-27"></a><span class="st">  </span><span class="kw">left_join</span>(m37_frex) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-28"><a href="modellinterpretation-und-darstellung.html#cb2-28"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">reorder</span>(label, P)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-29"><a href="modellinterpretation-und-darstellung.html#cb2-29"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(P, label, <span class="dt">label =</span> frex_terms)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">percent_format</span>(<span class="dt">accuracy =</span> <span class="dv">1</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>(<span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">nudge_x =</span> <span class="fl">5e-04</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Anteil des Topics am gesamten Korpus&quot;</span>, <span class="dt">y =</span> <span class="ot">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="modellinterpretation-und-darstellung.html#cb34-1"></a><span class="co"># Data</span></span>
+<span id="cb34-2"><a href="modellinterpretation-und-darstellung.html#cb34-2"></a>m37 =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/model37.rds&quot;</span>)</span>
+<span id="cb34-3"><a href="modellinterpretation-und-darstellung.html#cb34-3"></a>m37_labels =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;R/data/labels_k37.csv&quot;</span>)</span>
+<span id="cb34-4"><a href="modellinterpretation-und-darstellung.html#cb34-4"></a>m37_labels =<span class="st"> </span>m37_labels <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-5"><a href="modellinterpretation-und-darstellung.html#cb34-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">str_c</span>(topic, label, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>))</span>
+<span id="cb34-6"><a href="modellinterpretation-und-darstellung.html#cb34-6"></a></span>
+<span id="cb34-7"><a href="modellinterpretation-und-darstellung.html#cb34-7"></a><span class="co"># Prävelenz der Topics</span></span>
+<span id="cb34-8"><a href="modellinterpretation-und-darstellung.html#cb34-8"></a>m37_gamma =<span class="st"> </span>m37 <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-9"><a href="modellinterpretation-und-darstellung.html#cb34-9"></a><span class="st">  </span><span class="kw">tidy</span>(<span class="st">&quot;gamma&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-10"><a href="modellinterpretation-und-darstellung.html#cb34-10"></a><span class="st">  </span><span class="kw">group_by</span>(topic) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-11"><a href="modellinterpretation-und-darstellung.html#cb34-11"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">P =</span> <span class="kw">mean</span>(gamma),</span>
+<span id="cb34-12"><a href="modellinterpretation-und-darstellung.html#cb34-12"></a>            <span class="dt">n =</span> <span class="kw">sum</span>(gamma))</span>
+<span id="cb34-13"><a href="modellinterpretation-und-darstellung.html#cb34-13"></a></span>
+<span id="cb34-14"><a href="modellinterpretation-und-darstellung.html#cb34-14"></a><span class="co"># Frex Terms</span></span>
+<span id="cb34-15"><a href="modellinterpretation-und-darstellung.html#cb34-15"></a>m37_frex =<span class="st"> </span>m37 <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-16"><a href="modellinterpretation-und-darstellung.html#cb34-16"></a><span class="st">  </span><span class="kw">labelTopics</span>(<span class="dt">n =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-17"><a href="modellinterpretation-und-darstellung.html#cb34-17"></a><span class="st">  </span><span class="kw">pluck</span>(<span class="st">&quot;frex&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-18"><a href="modellinterpretation-und-darstellung.html#cb34-18"></a><span class="st">  </span><span class="kw">as_tibble</span>(<span class="dt">.name_repair =</span> <span class="op">~</span><span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;r&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-19"><a href="modellinterpretation-und-darstellung.html#cb34-19"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">topic =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-20"><a href="modellinterpretation-und-darstellung.html#cb34-20"></a><span class="st">  </span><span class="kw">gather</span>(rank, frex_term, <span class="op">-</span>topic) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-21"><a href="modellinterpretation-und-darstellung.html#cb34-21"></a><span class="st">  </span><span class="kw">group_by</span>(topic) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-22"><a href="modellinterpretation-und-darstellung.html#cb34-22"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">frex_terms =</span> <span class="kw">paste0</span>(frex_term, <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>))</span>
+<span id="cb34-23"><a href="modellinterpretation-und-darstellung.html#cb34-23"></a></span>
+<span id="cb34-24"><a href="modellinterpretation-und-darstellung.html#cb34-24"></a><span class="co"># Plot</span></span>
+<span id="cb34-25"><a href="modellinterpretation-und-darstellung.html#cb34-25"></a>m37_gamma <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-26"><a href="modellinterpretation-und-darstellung.html#cb34-26"></a><span class="st">  </span><span class="kw">left_join</span>(m37_labels) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-27"><a href="modellinterpretation-und-darstellung.html#cb34-27"></a><span class="st">  </span><span class="kw">left_join</span>(m37_frex) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-28"><a href="modellinterpretation-und-darstellung.html#cb34-28"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">reorder</span>(label, P)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-29"><a href="modellinterpretation-und-darstellung.html#cb34-29"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(P, label, <span class="dt">label =</span> frex_terms)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">percent_format</span>(<span class="dt">accuracy =</span> <span class="dv">1</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>(<span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">nudge_x =</span> <span class="fl">5e-04</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Anteil des Topics am gesamten Korpus&quot;</span>, <span class="dt">y =</span> <span class="ot">NULL</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:prevalence-plot"></span>
 <img src="workshop_topicmodels_files/figure-html/prevalence-plot-1.png" alt="Zur vollen Ansicht in neuem Tab öffnen" width="1536" />
 <p class="caption">
 Figure 4.1: Zur vollen Ansicht in neuem Tab öffnen
 </p>
 </div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="modellinterpretation-und-darstellung.html#cb35-1"></a><span class="co"># Table</span></span>
+<span id="cb35-2"><a href="modellinterpretation-und-darstellung.html#cb35-2"></a>m37_gamma <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb35-3"><a href="modellinterpretation-und-darstellung.html#cb35-3"></a><span class="st">  </span><span class="kw">left_join</span>(m37_labels) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb35-4"><a href="modellinterpretation-und-darstellung.html#cb35-4"></a><span class="st">  </span><span class="kw">left_join</span>(m37_frex) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb35-5"><a href="modellinterpretation-und-darstellung.html#cb35-5"></a><span class="st">  </span><span class="kw">select</span>(label, P, frex_terms) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb35-6"><a href="modellinterpretation-und-darstellung.html#cb35-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">P =</span> <span class="kw">paste0</span>(<span class="kw">round</span>(P<span class="op">*</span><span class="dv">100</span>), <span class="st">&quot;%&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb35-7"><a href="modellinterpretation-und-darstellung.html#cb35-7"></a><span class="st">  </span><span class="kw">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">label</th>
+<th align="left">P</th>
+<th align="left">frex_terms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1: Alter bei frühkindlicher Impfung</td>
+<td align="left">4%</td>
+<td align="left">3, monate, 2, monaten, 6, 1, 4, +, 5, fach</td>
+</tr>
+<tr class="even">
+<td align="left">2: Reaktion auf Impfung (MMR)</td>
+<td align="left">2%</td>
+<td align="left">sohn, später, reaktion, mmr, reagiert, MMR_IMPFUNG, fieber, infekt, tagen, kh</td>
+</tr>
+<tr class="odd">
+<td align="left">3: Zweifel und Unsicherheit</td>
+<td align="left">3%</td>
+<td align="left">vielleicht, weiß, denke, lieber, frag, nochmal, sprechen, eventuell, interessieren, darüber</td>
+</tr>
+<tr class="even">
+<td align="left">4: Familienkommunikation</td>
+<td align="left">3%</td>
+<td align="left">familie, schwer, ehrlich, mann, alleine, oma, leben, verhalten, dinge, mutter</td>
+</tr>
+<tr class="odd">
+<td align="left">5: Entwicklung über die Zeit (in D)</td>
+<td align="left">2%</td>
+<td align="left">mehr, deutschland, jahren, mittlerweile, weiss, jedenfalls, seit, tragen, anscheinend, fast</td>
+</tr>
+<tr class="even">
+<td align="left">6: Fragen an Arzt und Hebamme</td>
+<td align="left">2%</td>
+<td align="left">fragen, kinderarzt, glaube, stelle, allein, hebamme, anrufen, darf, setzen, braucht</td>
+</tr>
+<tr class="odd">
+<td align="left">7: Informationsquellen (insb. Hirte)</td>
+<td align="left">4%</td>
+<td align="left">pro, impfen, entschieden, sinnvoll, lässt, stiko, lasse, empfehlen, buch, definitiv</td>
+</tr>
+<tr class="even">
+<td align="left">8: Fieber</td>
+<td align="left">2%</td>
+<td align="left">u, geben, kleinen, grad, schmerzen, gegeben, regelmäßig, hände, waschen, 39</td>
+</tr>
+<tr class="odd">
+<td align="left">9: Schutz von / Gefahr für andere/n Kinder, Impfpflicht</td>
+<td align="left">3%</td>
+<td align="left">kinder, NICHT_GEIMPFT, &gt;, eltern, impfpflicht, krankheiten, ungeimpfte, ungeimpften, verantwortung, geimpfte</td>
+</tr>
+<tr class="even">
+<td align="left">10: Verschiedene Kombi-Impfstoffe (bei Erwachsenen)</td>
+<td align="left">2%</td>
+<td align="left">keuchhusten, geimpft, windpocken, tetanus, schutz, brauchst, anstecken, trotzdem, auffrischen, polio</td>
+</tr>
+<tr class="odd">
+<td align="left">11: Nebenwirkungen von Impfungen</td>
+<td align="left">3%</td>
+<td align="left">nebenwirkungen, impfung, viren, nebenwirkung, erreger, impfstoff, körper, hpv, impft, mögliche</td>
+</tr>
+<tr class="even">
+<td align="left">12: Großes Risiko, schwere gesundheitliche Konsequenzen</td>
+<td align="left">3%</td>
+<td align="left">risiko, sicher, fälle, daran, passiert, folgen, gott, schäden, erkrankt, 100</td>
+</tr>
+<tr class="odd">
+<td align="left">13: Urlaub mit Baby, Umgang mit Baby</td>
+<td align="left">3%</td>
+<td align="left">urlaub, warum, eigentlich, baby, verstehe, bevor, fliegen, kommt, niemanden, irgendwas</td>
+</tr>
+<tr class="even">
+<td align="left">14: Kranke Kinder</td>
+<td align="left">3%</td>
+<td align="left">kind, husten, krank, normale, schlimmer, ansteckend, krankenhaus, würdest, krankheit, schwester</td>
+</tr>
+<tr class="odd">
+<td align="left">15: Danke</td>
+<td align="left">3%</td>
+<td align="left">danke, morgen, guten, gestern, antworten, beruhigt, heute, antwort, dank, schönen</td>
+</tr>
+<tr class="even">
+<td align="left">16: Grippe-Impfung</td>
+<td align="left">4%</td>
+<td align="left">grippe, lassen, grippeimpfung, GRIPPE_IMPFEN, nie, empfohlen, influenza, während, geraten, schwangerschaft</td>
+</tr>
+<tr class="odd">
+<td align="left">17: Meinungen und Informationen</td>
+<td align="left">3%</td>
+<td align="left">meinung, besten, beste, seiten, informieren, sachen, wissen, thema, eigene, verschiedene</td>
+</tr>
+<tr class="even">
+<td align="left">18: Spezifische Diskussion 1</td>
+<td align="left">2%</td>
+<td align="left">rki, bereits, vermutlich, statt, bzgl, lesen, steht, usa, link, zurück</td>
+</tr>
+<tr class="odd">
+<td align="left">19: Schlafen und (nachts) trinken von Babies</td>
+<td align="left">3%</td>
+<td align="left">schläft, flasche, trinkt, trinken, milch, minuten, bett, wasser, essen, brust</td>
+</tr>
+<tr class="even">
+<td align="left">20: Beziehungsprobleme</td>
+<td align="left">2%</td>
+<td align="left">nehmen, vertrauen, genommen, ernst, gesund, freund, klar, darm, funktioniert, böse</td>
+</tr>
+<tr class="odd">
+<td align="left">21: Masern, Viren, Nestschutz</td>
+<td align="left">2%</td>
+<td align="left">antikörper, virus, nestschutz, erkrankung, entweder, angesteckt, personen, früher, infektion, masern</td>
+</tr>
+<tr class="even">
+<td align="left">22: Impfschutz in der Schwangerschaft (insb. Röteln)</td>
+<td align="left">2%</td>
+<td align="left">röteln, immun, ringelröteln, titer, mumps, immunität, ssw, impfpass, s, frauenarzt</td>
+</tr>
+<tr class="odd">
+<td align="left">23: Hilfe durch Arzt</td>
+<td align="left">3%</td>
+<td align="left">hilft, arzt, schnell, helfen, eher, haut, kopf, sieht, schreien, kia</td>
+</tr>
+<tr class="even">
+<td align="left">24: Frühe Kombi-Impfungen</td>
+<td align="left">3%</td>
+<td align="left">rotaviren, pneumokokken, vertragen, b, erste, meningokokken, c, bisher, GUT_VERTRAGEN, zweite</td>
+</tr>
+<tr class="odd">
+<td align="left">25: Arbeiten und Berufsverbot</td>
+<td align="left">3%</td>
+<td align="left">arbeiten, praxis, arbeite, arbeit, bv, hause, krippe, gehen, schule, kita</td>
+</tr>
+<tr class="even">
+<td align="left">26: Ärzte und Patienten</td>
+<td align="left">2%</td>
+<td align="left">ärzte, zumindest, gefühl, stimmt, patienten, schau, beraten, ggf, irgendwo, kinderärzte</td>
+</tr>
+<tr class="odd">
+<td align="left">27: Zeitliche Abstände</td>
+<td align="left">3%</td>
+<td align="left">woche, wochen, zwei, letzte, nächste, drei, großen, kam, kleine, 8</td>
+</tr>
+<tr class="even">
+<td align="left">28: Evidenzlage in der Impfdebatte</td>
+<td align="left">4%</td>
+<td align="left">impfgegner, studien, pharmaindustrie, menschen, zusammenhang, impfschäden, leute, autismus, impfstoffe, artikel</td>
+</tr>
+<tr class="odd">
+<td align="left">29: Meta-Kommunikation</td>
+<td align="left">2%</td>
+<td align="left">echt, sorry, wohl, bitte, bleibt, stellen, oh, nämlich, scheint, schreiben</td>
+</tr>
+<tr class="even">
+<td align="left">30: Medizinische Tests</td>
+<td align="left">3%</td>
+<td align="left">sagte, termin, meinte, blut, warten, gemacht, ärztin, negativ, untersuchung, klinik</td>
+</tr>
+<tr class="odd">
+<td align="left">31: Milde Impffolgen</td>
+<td align="left">3%</td>
+<td align="left">tag, danach, nächsten, geschlafen, vorbei, ging, kurz, weinen, KEIN_FIEBER, geweint</td>
+</tr>
+<tr class="even">
+<td align="left">32: Meta-Kommunikation 2</td>
+<td align="left">4%</td>
+<td align="left">wirklich, finde, beitrag, gut, schlecht, sache, verstehen, art, te, schwierig</td>
+</tr>
+<tr class="odd">
+<td align="left">33: Wünsche und Hoffnungen</td>
+<td align="left">2%</td>
+<td align="left">hoffe, bald, wünsche, gute, glück, leider, leid, 🍀, daumen, gibt’s</td>
+</tr>
+<tr class="even">
+<td align="left">34: Grüße und Fragen</td>
+<td align="left">3%</td>
+<td align="left">grüße, liebe, frage, 😉, erfahrungen, hey, holen, bisschen, jemand, hallo</td>
+</tr>
+<tr class="odd">
+<td align="left">35: FSME</td>
+<td align="left">2%</td>
+<td align="left">jahr, fsme, tochter, zecken, damals, letztes, jahre, lag, flach, sommer</td>
+</tr>
+<tr class="even">
+<td align="left">36: Emoji</td>
+<td align="left">2%</td>
+<td align="left">😂, 😊, 🙈, 😅, mama, schön, bauch, 🙄, genug, papa</td>
+</tr>
+<tr class="odd">
+<td align="left">37: Spezifische Diskussion 2</td>
+<td align="left">1%</td>
+<td align="left">alter, meisten, tödlich, zudem, jedoch, davon, verzichten, mütter, möglich, natürlich</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Für den Anhang einer Arbeit, in der die Ergebnisse eines Topic Models berichtet werden, bietet sich eine ausführliche Dokumentation der Topics und der ihrer Interpretation zugrunde liegenden Features und Dokumente an. Damit wird die intersubjektive Nachvollziehbarkeit der qualitativen Interpretation gestärkt.
+<ul>
+<li>Ein Beispiel für eine ausführliche Dokumentation findet sich <a href="https://bachl.github.io/vaccine_discussions/topic-description.html">hier</a>.</li>
+<li>Die Dokumentation wurde größtenteils automatisch generiert. Nur die englischen Übersetzungen wurden aus einem manuell erstellten Word-Dokument eingelesen. Daten und Code zum Erstellen dieser Dokumentation sind <a href="https://mfr.de-1.osf.io/render?url=https://osf.io/zuh4t/?direct%26mode=render%26action=download%26mode=render">hier</a> und im assoziierten OSF-Repository.</li>
+</ul></li>
+</ul>
 </div>
 <div id="weitere-analysen-prädiktoren-der-topic-prävalenz-und-topic-cluster" class="section level2">
-<h2><span class="header-section-number">4.4</span> Weitere Analysen: Prädiktoren der Topic-Prävalenz und Topic-Cluster</h2>
+<h2><span class="header-section-number">4.3</span> Weitere Analysen: Prädiktoren der Topic-Prävalenz und Topic-Cluster</h2>
 <ul>
-<li>Schätzen der Veränderung der Topics über die Zeit</li>
-<li>Wichtig: Prädiktoren sollten bereits in der Spezifikation des Topic Modells (siehe Abschnitt 3.1) enthalten sein. Schätzung der Zusammenhänge mit anderen Prädiktoren zwar möglich, aber nicht ideal <span class="citation">(Roberts, Stewart, and Tingley <a href="#ref-robertsStmPackageStructural2019" role="doc-biblioref">2019</a>)</span>.</li>
-<li>Darstellung dieser Ergebnisse</li>
+<li>Ein zentraler Vorteil von <em>Structural</em> Topic Models und ihrer Implementierung in <code>stm</code> ist die Möglichkeit, Zusammenhänge von Kovariaten mit den latenten Topics direkt zu schätzen. Damit wird die latente Struktur der Topics und die darin enthaltene Unsicherheit bei der Schätzung berücksichtigt.</li>
+<li>Wichtig: Prädiktoren sollten bereits in der Spezifikation des Topic Model (siehe Abschnitt 3.1) enthalten sein. Schätzung der Zusammenhänge mit anderen Prädiktoren zwar möglich, aber nicht ideal <span class="citation">(Roberts, Stewart, and Tingley <a href="#ref-robertsStmPackageStructural2019" role="doc-biblioref">2019</a>)</span>.</li>
+<li>Hier betrachten wir eine typische Analyse: Wie haben sich die Prävalenzen der Topics über den Untersuchungszeitraum hinweg verändert?</li>
+<li>Das folgende Code-Snippet zeigt das Vorgehen bei der Analyse und mögliche Ergebnisdarstellungen:
+<ul>
+<li>Zuerst schätzen wir das Modell mit <span class="math inline">\(k = 37\)</span> noch einmal und spezifizieren dabei die Variable <code>date_num</code> (das Datum der Veröffentlichung eines Posts als numerische Variable in Tagen, 0 = aktuellster Post im Untersuchungszeitraum) als Kovariate</li>
+<li>Da wir nicht einfach nur einen linearen Trend schätzen wollen, schätzen wir den Zusammenhang als <em>spline</em> (<code>~s(date_num)</code>); siehe zu Details <code>?splines::bs</code>. Allgemein gesprochen schätzen wir nicht-lineare Veränderungen in den Topic-Prävalenzen.</li>
+<li>Mit der Funktion <code>estimateEffect()</code> schätzen wir die Zusammenhänge der Topic-Prävalenzen mit der Kovariate,
+<ul>
+<li>Vor der Tilde <code>~</code> geben wir an, für welche Topics wir die Zusammenhänge schätzen wollen. Hier schreiben wir <code>1:37</code>, da wir sie für alle 37 Topics erhalten wollen. <code>2:5</code> würde z.B. nur die Zusammenhänge für die Topics 2 bis 5 schätzen.</li>
+<li>Nach der Tilde geben wir die Formel für die Kovariaten an. Hier geben wir, wie empfohlen, die Formel genau so an, wie wir sie beim Schätzen des Modells spezifiziert haben. Es wäre auch möglich, hier eine andere funktionale Form (z.B. nur <code>~ date_num</code> für einen linearen Trend) oder andere Kovariaten aufzunehmen.</li>
+</ul></li>
+<li>Mit der Funktion <code>get_effects()</code> extrahieren wir einen <em>tidy data frame</em>, auf dessen Basis wir verschiedene Visualisierungen erstellen können. Hier fügen wir auch die Labels der Topics hinzu und formatieren die Datumsvariable wieder als Datum.</li>
+<li>Die beiden Abbildungen zeigen die Entwicklung der Topics über den Untersuchungszeitraum.</li>
+</ul></li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="modellinterpretation-und-darstellung.html#cb3-1"></a><span class="co"># Data</span></span>
-<span id="cb3-2"><a href="modellinterpretation-und-darstellung.html#cb3-2"></a>m37 =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/model37.rds&quot;</span>)</span>
-<span id="cb3-3"><a href="modellinterpretation-und-darstellung.html#cb3-3"></a>m37_labels =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;R/data/labels_k37.csv&quot;</span>)</span>
-<span id="cb3-4"><a href="modellinterpretation-und-darstellung.html#cb3-4"></a>m37_labels =<span class="st"> </span>m37_labels <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-5"><a href="modellinterpretation-und-darstellung.html#cb3-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">str_c</span>(topic, label, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>))</span>
-<span id="cb3-6"><a href="modellinterpretation-und-darstellung.html#cb3-6"></a>out =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/out.rds&quot;</span>)</span>
-<span id="cb3-7"><a href="modellinterpretation-und-darstellung.html#cb3-7"></a></span>
-<span id="cb3-8"><a href="modellinterpretation-und-darstellung.html#cb3-8"></a></span>
-<span id="cb3-9"><a href="modellinterpretation-und-darstellung.html#cb3-9"></a><span class="co"># Effect Objekt</span></span>
-<span id="cb3-10"><a href="modellinterpretation-und-darstellung.html#cb3-10"></a><span class="cf">if</span> (<span class="kw">file.exists</span>(<span class="st">&quot;R/data/m37_effects.rds&quot;</span>)) {</span>
-<span id="cb3-11"><a href="modellinterpretation-und-darstellung.html#cb3-11"></a>  <span class="co"># Laden der Effekt-Schätzung</span></span>
-<span id="cb3-12"><a href="modellinterpretation-und-darstellung.html#cb3-12"></a>  m37_effects =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/m37_effects.rds&quot;</span>)</span>
-<span id="cb3-13"><a href="modellinterpretation-und-darstellung.html#cb3-13"></a>} <span class="cf">else</span> {</span>
-<span id="cb3-14"><a href="modellinterpretation-und-darstellung.html#cb3-14"></a>  <span class="co"># Effekt-Schätzung</span></span>
-<span id="cb3-15"><a href="modellinterpretation-und-darstellung.html#cb3-15"></a>  m37_effects =<span class="st"> </span>m37 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-16"><a href="modellinterpretation-und-darstellung.html#cb3-16"></a><span class="st">    </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">37</span> <span class="op">~</span><span class="st"> </span><span class="kw">s</span>(date_num), <span class="dt">stmobj =</span> ., <span class="dt">metadata =</span> out<span class="op">$</span>meta)  </span>
-<span id="cb3-17"><a href="modellinterpretation-und-darstellung.html#cb3-17"></a>  <span class="kw">saveRDS</span>(m37_effects, <span class="st">&quot;R/data/m37_effects.rds&quot;</span>)</span>
-<span id="cb3-18"><a href="modellinterpretation-und-darstellung.html#cb3-18"></a>}</span>
-<span id="cb3-19"><a href="modellinterpretation-und-darstellung.html#cb3-19"></a></span>
-<span id="cb3-20"><a href="modellinterpretation-und-darstellung.html#cb3-20"></a><span class="co"># Daten für Plot</span></span>
-<span id="cb3-21"><a href="modellinterpretation-und-darstellung.html#cb3-21"></a>eff_plot_data =<span class="st"> </span>m37_effects <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-22"><a href="modellinterpretation-und-darstellung.html#cb3-22"></a><span class="st">  </span><span class="kw">get_effects</span>(<span class="dt">variable =</span> <span class="st">&quot;date_num&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;continuous&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-23"><a href="modellinterpretation-und-darstellung.html#cb3-23"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">topic =</span> <span class="kw">as.integer</span>(<span class="kw">as.character</span>(topic)),</span>
-<span id="cb3-24"><a href="modellinterpretation-und-darstellung.html#cb3-24"></a>         <span class="dt">date =</span> <span class="kw">as_date</span>(value <span class="op">+</span><span class="st"> </span><span class="kw">max</span>(<span class="kw">as.numeric</span>(out<span class="op">$</span>meta<span class="op">$</span>postdate)))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-25"><a href="modellinterpretation-und-darstellung.html#cb3-25"></a><span class="st">  </span><span class="kw">left_join</span>(m37_labels) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-26"><a href="modellinterpretation-und-darstellung.html#cb3-26"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">reorder</span>(label, topic, mean))</span>
-<span id="cb3-27"><a href="modellinterpretation-und-darstellung.html#cb3-27"></a></span>
-<span id="cb3-28"><a href="modellinterpretation-und-darstellung.html#cb3-28"></a><span class="co"># Plot: Alle Topics über die Zeit</span></span>
-<span id="cb3-29"><a href="modellinterpretation-und-darstellung.html#cb3-29"></a>plt1 =<span class="st"> </span>eff_plot_data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-30"><a href="modellinterpretation-und-darstellung.html#cb3-30"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, proportion, <span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="st">&quot;label&quot;</span>, <span class="dt">ncol =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">percent_format</span>(), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.08</span>))</span>
-<span id="cb3-31"><a href="modellinterpretation-und-darstellung.html#cb3-31"></a></span>
-<span id="cb3-32"><a href="modellinterpretation-und-darstellung.html#cb3-32"></a><span class="co"># Plot: Grippe und Evidenz</span></span>
-<span id="cb3-33"><a href="modellinterpretation-und-darstellung.html#cb3-33"></a>plt2 =<span class="st"> </span>eff_plot_data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-34"><a href="modellinterpretation-und-darstellung.html#cb3-34"></a><span class="st">  </span><span class="kw">filter</span>(topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">28</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-35"><a href="modellinterpretation-und-darstellung.html#cb3-35"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, proportion, <span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper, <span class="dt">group =</span> label)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> label)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">percent_format</span>(), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.08</span>))</span></code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-3"></span>
-<img src="workshop_topicmodels_files/figure-html/unnamed-chunk-3-1.png" alt="Zur vollen Ansicht in neuem Tab öffnen" width="672" />
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="modellinterpretation-und-darstellung.html#cb36-1"></a><span class="co"># Data</span></span>
+<span id="cb36-2"><a href="modellinterpretation-und-darstellung.html#cb36-2"></a>m37_labels =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;R/data/labels_k37.csv&quot;</span>)</span>
+<span id="cb36-3"><a href="modellinterpretation-und-darstellung.html#cb36-3"></a>m37_labels =<span class="st"> </span>m37_labels <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-4"><a href="modellinterpretation-und-darstellung.html#cb36-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">str_c</span>(topic, label, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>))</span>
+<span id="cb36-5"><a href="modellinterpretation-und-darstellung.html#cb36-5"></a>out =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/out.rds&quot;</span>)</span>
+<span id="cb36-6"><a href="modellinterpretation-und-darstellung.html#cb36-6"></a></span>
+<span id="cb36-7"><a href="modellinterpretation-und-darstellung.html#cb36-7"></a><span class="co"># Schätzen des Modells mit Kovariate</span></span>
+<span id="cb36-8"><a href="modellinterpretation-und-darstellung.html#cb36-8"></a><span class="cf">if</span> (<span class="kw">file.exists</span>(<span class="st">&quot;R/data/m37_we.rds&quot;</span>)) {</span>
+<span id="cb36-9"><a href="modellinterpretation-und-darstellung.html#cb36-9"></a>  <span class="co"># Laden des Modells mit Kovariate</span></span>
+<span id="cb36-10"><a href="modellinterpretation-und-darstellung.html#cb36-10"></a>  m37_we =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/m37_we.rds&quot;</span>)</span>
+<span id="cb36-11"><a href="modellinterpretation-und-darstellung.html#cb36-11"></a>} <span class="cf">else</span> {</span>
+<span id="cb36-12"><a href="modellinterpretation-und-darstellung.html#cb36-12"></a>  <span class="co"># Schätzen des Modells mit Kovariate</span></span>
+<span id="cb36-13"><a href="modellinterpretation-und-darstellung.html#cb36-13"></a>  m37_we =<span class="st"> </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </span>
+<span id="cb36-14"><a href="modellinterpretation-und-darstellung.html#cb36-14"></a>               <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</span>
+<span id="cb36-15"><a href="modellinterpretation-und-darstellung.html#cb36-15"></a>               <span class="dt">data =</span> out<span class="op">$</span>meta,</span>
+<span id="cb36-16"><a href="modellinterpretation-und-darstellung.html#cb36-16"></a>               <span class="dt">prevalence =</span> <span class="op">~</span><span class="kw">s</span>(date_num), <span class="co"># In dieser Zeile spezifizieren wir die Kovariate</span></span>
+<span id="cb36-17"><a href="modellinterpretation-und-darstellung.html#cb36-17"></a>               <span class="dt">init.type =</span> <span class="st">&quot;Spectral&quot;</span>,</span>
+<span id="cb36-18"><a href="modellinterpretation-und-darstellung.html#cb36-18"></a>               <span class="dt">K =</span> <span class="dv">37</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb36-19"><a href="modellinterpretation-und-darstellung.html#cb36-19"></a>  <span class="kw">saveRDS</span>(m37_we, <span class="st">&quot;R/data/m37_we.rds&quot;</span>)</span>
+<span id="cb36-20"><a href="modellinterpretation-und-darstellung.html#cb36-20"></a>}</span>
+<span id="cb36-21"><a href="modellinterpretation-und-darstellung.html#cb36-21"></a></span>
+<span id="cb36-22"><a href="modellinterpretation-und-darstellung.html#cb36-22"></a></span>
+<span id="cb36-23"><a href="modellinterpretation-und-darstellung.html#cb36-23"></a><span class="co"># Effect Objekt</span></span>
+<span id="cb36-24"><a href="modellinterpretation-und-darstellung.html#cb36-24"></a><span class="cf">if</span> (<span class="kw">file.exists</span>(<span class="st">&quot;R/data/m37_effects.rds&quot;</span>)) {</span>
+<span id="cb36-25"><a href="modellinterpretation-und-darstellung.html#cb36-25"></a>  <span class="co"># Laden der Effekt-Schätzung</span></span>
+<span id="cb36-26"><a href="modellinterpretation-und-darstellung.html#cb36-26"></a>  m37_effects =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/m37_effects.rds&quot;</span>)</span>
+<span id="cb36-27"><a href="modellinterpretation-und-darstellung.html#cb36-27"></a>} <span class="cf">else</span> {</span>
+<span id="cb36-28"><a href="modellinterpretation-und-darstellung.html#cb36-28"></a>  <span class="co"># Effekt-Schätzung</span></span>
+<span id="cb36-29"><a href="modellinterpretation-und-darstellung.html#cb36-29"></a>  m37_effects =<span class="st"> </span>m37_we <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-30"><a href="modellinterpretation-und-darstellung.html#cb36-30"></a><span class="st">    </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">37</span> <span class="op">~</span><span class="st"> </span><span class="kw">s</span>(date_num), <span class="dt">stmobj =</span> ., <span class="dt">metadata =</span> out<span class="op">$</span>meta)  </span>
+<span id="cb36-31"><a href="modellinterpretation-und-darstellung.html#cb36-31"></a>  <span class="kw">saveRDS</span>(m37_effects, <span class="st">&quot;R/data/m37_effects.rds&quot;</span>)</span>
+<span id="cb36-32"><a href="modellinterpretation-und-darstellung.html#cb36-32"></a>}</span>
+<span id="cb36-33"><a href="modellinterpretation-und-darstellung.html#cb36-33"></a></span>
+<span id="cb36-34"><a href="modellinterpretation-und-darstellung.html#cb36-34"></a><span class="co"># Daten für Plot</span></span>
+<span id="cb36-35"><a href="modellinterpretation-und-darstellung.html#cb36-35"></a>eff_plot_data =<span class="st"> </span>m37_effects <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-36"><a href="modellinterpretation-und-darstellung.html#cb36-36"></a><span class="st">  </span><span class="kw">get_effects</span>(<span class="dt">variable =</span> <span class="st">&quot;date_num&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;continuous&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-37"><a href="modellinterpretation-und-darstellung.html#cb36-37"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">topic =</span> <span class="kw">as.integer</span>(<span class="kw">as.character</span>(topic)),</span>
+<span id="cb36-38"><a href="modellinterpretation-und-darstellung.html#cb36-38"></a>         <span class="dt">date =</span> <span class="kw">as_date</span>(value <span class="op">+</span><span class="st"> </span><span class="kw">max</span>(<span class="kw">as.numeric</span>(out<span class="op">$</span>meta<span class="op">$</span>postdate)))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-39"><a href="modellinterpretation-und-darstellung.html#cb36-39"></a><span class="st">  </span><span class="kw">left_join</span>(m37_labels) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-40"><a href="modellinterpretation-und-darstellung.html#cb36-40"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">reorder</span>(label, topic, mean))</span>
+<span id="cb36-41"><a href="modellinterpretation-und-darstellung.html#cb36-41"></a></span>
+<span id="cb36-42"><a href="modellinterpretation-und-darstellung.html#cb36-42"></a><span class="co"># Plot: Alle Topics über die Zeit</span></span>
+<span id="cb36-43"><a href="modellinterpretation-und-darstellung.html#cb36-43"></a>plt1 =<span class="st"> </span>eff_plot_data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-44"><a href="modellinterpretation-und-darstellung.html#cb36-44"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, proportion, <span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="st">&quot;label&quot;</span>, <span class="dt">ncol =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">percent_format</span>(), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.08</span>))</span>
+<span id="cb36-45"><a href="modellinterpretation-und-darstellung.html#cb36-45"></a></span>
+<span id="cb36-46"><a href="modellinterpretation-und-darstellung.html#cb36-46"></a><span class="co"># Plot: Grippe und Evidenz</span></span>
+<span id="cb36-47"><a href="modellinterpretation-und-darstellung.html#cb36-47"></a>plt2 =<span class="st"> </span>eff_plot_data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-48"><a href="modellinterpretation-und-darstellung.html#cb36-48"></a><span class="st">  </span><span class="kw">filter</span>(topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">28</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-49"><a href="modellinterpretation-und-darstellung.html#cb36-49"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, proportion, <span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper, <span class="dt">group =</span> label)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> label)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">percent_format</span>(), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.08</span>))</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-11"></span>
+<img src="workshop_topicmodels_files/figure-html/unnamed-chunk-11-1.png" alt="Zur vollen Ansicht in neuem Tab öffnen" width="672" />
 <p class="caption">
 Figure 4.2: Zur vollen Ansicht in neuem Tab öffnen
 </p>
 </div>
-<div class="figure"><span id="fig:unnamed-chunk-4"></span>
-<img src="workshop_topicmodels_files/figure-html/unnamed-chunk-4-1.png" alt="Zur vollen Ansicht in neuem Tab öffnen" width="672" />
+<div class="figure"><span id="fig:unnamed-chunk-12"></span>
+<img src="workshop_topicmodels_files/figure-html/unnamed-chunk-12-1.png" alt="Zur vollen Ansicht in neuem Tab öffnen" width="672" />
 <p class="caption">
 Figure 4.3: Zur vollen Ansicht in neuem Tab öffnen
 </p>
 </div>
 <ul>
-<li>Cluster-Analyse des gemeinsamen Auftretens von Topics</li>
-<li>Darstellung dieser Ergebnisse</li>
+<li>Analysen von mittleren oder großen Korpora erfordern Topic Models mit einer recht großen Anzahl von Topics (siehe Abschnitt 3). Für ein besseres Verständnis der Inhalte im Korpus und für eine einfachere Ergebnispräsentation kann es manchmal sinnvoll sein, die Topics weiter zusammenzufassen. Eine Möglichkeit ist eine Betrachtung, welche Topics häufig gemeinsam in Dokumenten vorkommen. Es liegt nahe, dass solche Topics etwas miteinander zu tun haben.</li>
+<li>Eine hierarchische Cluster-Analyse des gemeinsamen Auftretens von Topics in Dokumenten erlaubt einen einfachen empirischen Zugang.</li>
+<li>Der folgende Code zeigt, wie wir eine solche Analyse für das Modell mit 37 Topics durchführen können.
+<ul>
+<li>Wir erstellen eine Distanzmatrix der Topics <code>m37_dist</code> aus der Dokument-Topic-Matrix <code>m37$theta</code>. Als Distanzmaß wählen wir die <a href="https://en.wikipedia.org/wiki/Hellinger_distance"><em>Hellinger’s Distance</em></a>, die im Paket <code>{textmineR}</code> implementiert ist.</li>
+<li>Die Cluster-Analyse führen wir mit der Funktion <code>hclust()</code> und dem Ward-Algorithmus durch.</li>
+<li>Aus dem Dendogramm leiten wir eine für unsere Zwecke nützliche Zahl von Clustern ab. In diesem Fall habe ich mich für 7 Cluster entschieden.</li>
+</ul></li>
+<li>Die Abbildung zur Prävalenz der Topics lässt sich nun nach der Zugehörigkeit der Topics zu den Clustern darstellen.</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="modellinterpretation-und-darstellung.html#cb4-1"></a><span class="co"># Data</span></span>
-<span id="cb4-2"><a href="modellinterpretation-und-darstellung.html#cb4-2"></a>m37 =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/model37.rds&quot;</span>)</span>
-<span id="cb4-3"><a href="modellinterpretation-und-darstellung.html#cb4-3"></a>m37_labels =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;R/data/labels_k37.csv&quot;</span>)</span>
-<span id="cb4-4"><a href="modellinterpretation-und-darstellung.html#cb4-4"></a>m37_labels =<span class="st"> </span>m37_labels <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-5"><a href="modellinterpretation-und-darstellung.html#cb4-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">str_c</span>(topic, label, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>))</span>
-<span id="cb4-6"><a href="modellinterpretation-und-darstellung.html#cb4-6"></a></span>
-<span id="cb4-7"><a href="modellinterpretation-und-darstellung.html#cb4-7"></a></span>
-<span id="cb4-8"><a href="modellinterpretation-und-darstellung.html#cb4-8"></a><span class="co"># Hierarchische CLusteranalyse des gemeinsamen Auftretens von Topics in Dokumenten</span></span>
-<span id="cb4-9"><a href="modellinterpretation-und-darstellung.html#cb4-9"></a>m37_dist =<span class="st"> </span>textmineR<span class="op">::</span><span class="kw">CalcHellingerDist</span>(m37<span class="op">$</span>theta, <span class="dt">by_rows =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb4-10"><a href="modellinterpretation-und-darstellung.html#cb4-10"></a>clusters =<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">as.dist</span>(m37_dist), <span class="st">&quot;ward.D2&quot;</span>)</span>
-<span id="cb4-11"><a href="modellinterpretation-und-darstellung.html#cb4-11"></a>clusters<span class="op">$</span>labels =<span class="st"> </span>m37_labels<span class="op">$</span>label</span>
-<span id="cb4-12"><a href="modellinterpretation-und-darstellung.html#cb4-12"></a><span class="co"># Dendogramm</span></span>
-<span id="cb4-13"><a href="modellinterpretation-und-darstellung.html#cb4-13"></a>ggdendro<span class="op">::</span><span class="kw">ggdendrogram</span>(clusters, <span class="dt">rotate =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">name =</span> <span class="st">&quot;Distanz&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>), <span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="modellinterpretation-und-darstellung.html#cb37-1"></a><span class="co"># Data</span></span>
+<span id="cb37-2"><a href="modellinterpretation-und-darstellung.html#cb37-2"></a>m37 =<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;R/data/model37.rds&quot;</span>)</span>
+<span id="cb37-3"><a href="modellinterpretation-und-darstellung.html#cb37-3"></a>m37_labels =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;R/data/labels_k37.csv&quot;</span>)</span>
+<span id="cb37-4"><a href="modellinterpretation-und-darstellung.html#cb37-4"></a>m37_labels =<span class="st"> </span>m37_labels <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-5"><a href="modellinterpretation-und-darstellung.html#cb37-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">str_c</span>(topic, label, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>))</span>
+<span id="cb37-6"><a href="modellinterpretation-und-darstellung.html#cb37-6"></a></span>
+<span id="cb37-7"><a href="modellinterpretation-und-darstellung.html#cb37-7"></a></span>
+<span id="cb37-8"><a href="modellinterpretation-und-darstellung.html#cb37-8"></a><span class="co"># Hierarchische CLusteranalyse des gemeinsamen Auftretens von Topics in Dokumenten</span></span>
+<span id="cb37-9"><a href="modellinterpretation-und-darstellung.html#cb37-9"></a>m37_dist =<span class="st"> </span>textmineR<span class="op">::</span><span class="kw">CalcHellingerDist</span>(m37<span class="op">$</span>theta, <span class="dt">by_rows =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb37-10"><a href="modellinterpretation-und-darstellung.html#cb37-10"></a>clusters =<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">as.dist</span>(m37_dist), <span class="st">&quot;ward.D2&quot;</span>)</span>
+<span id="cb37-11"><a href="modellinterpretation-und-darstellung.html#cb37-11"></a>clusters<span class="op">$</span>labels =<span class="st"> </span>m37_labels<span class="op">$</span>label</span>
+<span id="cb37-12"><a href="modellinterpretation-und-darstellung.html#cb37-12"></a><span class="co"># Dendogramm</span></span>
+<span id="cb37-13"><a href="modellinterpretation-und-darstellung.html#cb37-13"></a>ggdendro<span class="op">::</span><span class="kw">ggdendrogram</span>(clusters, <span class="dt">rotate =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">name =</span> <span class="st">&quot;Distanz&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>), <span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>)) </span></code></pre></div>
 <div class="figure"><span id="fig:topic-cluster1"></span>
 <img src="workshop_topicmodels_files/figure-html/topic-cluster-1.png" alt="Zur vollen Ansicht in neuem Tab öffnen" width="1536" />
 <p class="caption">
 Figure 4.4: Zur vollen Ansicht in neuem Tab öffnen
 </p>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="modellinterpretation-und-darstellung.html#cb5-1"></a><span class="co"># Plot mit 7 Topic-Clustern</span></span>
-<span id="cb5-2"><a href="modellinterpretation-und-darstellung.html#cb5-2"></a>m37_gamma <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-3"><a href="modellinterpretation-und-darstellung.html#cb5-3"></a><span class="st">  </span><span class="kw">group_by</span>(topic) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-4"><a href="modellinterpretation-und-darstellung.html#cb5-4"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">P =</span> <span class="kw">mean</span>(gamma),</span>
-<span id="cb5-5"><a href="modellinterpretation-und-darstellung.html#cb5-5"></a>            <span class="dt">n =</span> <span class="kw">sum</span>(gamma)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-6"><a href="modellinterpretation-und-darstellung.html#cb5-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">grp =</span> <span class="kw">case_when</span>(topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">7</span>, <span class="dv">16</span>) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,</span>
-<span id="cb5-7"><a href="modellinterpretation-und-darstellung.html#cb5-7"></a>                         topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">27</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">35</span>, <span class="dv">24</span>) <span class="op">~</span><span class="st"> </span><span class="dv">2</span>,</span>
-<span id="cb5-8"><a href="modellinterpretation-und-darstellung.html#cb5-8"></a>                         topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">31</span>, <span class="dv">8</span>, <span class="dv">19</span>) <span class="op">~</span><span class="st"> </span><span class="dv">3</span>,</span>
-<span id="cb5-9"><a href="modellinterpretation-und-darstellung.html#cb5-9"></a>                         topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">34</span>, <span class="dv">15</span>, <span class="dv">30</span>, <span class="dv">23</span>, <span class="dv">6</span>, <span class="dv">33</span>, <span class="dv">36</span>) <span class="op">~</span><span class="st"> </span><span class="dv">4</span>,</span>
-<span id="cb5-10"><a href="modellinterpretation-und-darstellung.html#cb5-10"></a>                         topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">17</span>, <span class="dv">12</span>, <span class="dv">9</span>, <span class="dv">18</span>) <span class="op">~</span><span class="st"> </span><span class="dv">5</span>,</span>
-<span id="cb5-11"><a href="modellinterpretation-und-darstellung.html#cb5-11"></a>                         topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">32</span>, <span class="dv">29</span>, <span class="dv">37</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">26</span>, <span class="dv">20</span>, <span class="dv">4</span>) <span class="op">~</span><span class="st"> </span><span class="dv">6</span>,</span>
-<span id="cb5-12"><a href="modellinterpretation-und-darstellung.html#cb5-12"></a>                         topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">22</span>) <span class="op">~</span><span class="st"> </span><span class="dv">7</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-13"><a href="modellinterpretation-und-darstellung.html#cb5-13"></a><span class="st">  </span><span class="kw">left_join</span>(m37_labels) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-14"><a href="modellinterpretation-und-darstellung.html#cb5-14"></a><span class="st">  </span><span class="kw">left_join</span>(m37_frex) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-15"><a href="modellinterpretation-und-darstellung.html#cb5-15"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">reorder</span>(label, P)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-16"><a href="modellinterpretation-und-darstellung.html#cb5-16"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(P, label, <span class="dt">label =</span> frex_terms, <span class="dt">fill =</span> <span class="kw">factor</span>(grp))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">percent_format</span>(<span class="dt">accuracy =</span> <span class="dv">1</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>(<span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">nudge_x =</span> <span class="fl">5e-04</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Anteil des Topics am gesamten Korpus&quot;</span>, <span class="dt">y =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(grp <span class="op">~</span><span class="st"> </span>., <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>, <span class="dt">space =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="modellinterpretation-und-darstellung.html#cb38-1"></a><span class="co"># Plot mit 7 Topic-Clustern</span></span>
+<span id="cb38-2"><a href="modellinterpretation-und-darstellung.html#cb38-2"></a>m37_gamma <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-3"><a href="modellinterpretation-und-darstellung.html#cb38-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">grp =</span> <span class="kw">case_when</span>(topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">7</span>, <span class="dv">16</span>) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,</span>
+<span id="cb38-4"><a href="modellinterpretation-und-darstellung.html#cb38-4"></a>                         topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">27</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">35</span>, <span class="dv">24</span>) <span class="op">~</span><span class="st"> </span><span class="dv">2</span>,</span>
+<span id="cb38-5"><a href="modellinterpretation-und-darstellung.html#cb38-5"></a>                         topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">31</span>, <span class="dv">8</span>, <span class="dv">19</span>) <span class="op">~</span><span class="st"> </span><span class="dv">3</span>,</span>
+<span id="cb38-6"><a href="modellinterpretation-und-darstellung.html#cb38-6"></a>                         topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">34</span>, <span class="dv">15</span>, <span class="dv">30</span>, <span class="dv">23</span>, <span class="dv">6</span>, <span class="dv">33</span>, <span class="dv">36</span>) <span class="op">~</span><span class="st"> </span><span class="dv">4</span>,</span>
+<span id="cb38-7"><a href="modellinterpretation-und-darstellung.html#cb38-7"></a>                         topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">17</span>, <span class="dv">12</span>, <span class="dv">9</span>, <span class="dv">18</span>) <span class="op">~</span><span class="st"> </span><span class="dv">5</span>,</span>
+<span id="cb38-8"><a href="modellinterpretation-und-darstellung.html#cb38-8"></a>                         topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">32</span>, <span class="dv">29</span>, <span class="dv">37</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">26</span>, <span class="dv">20</span>, <span class="dv">4</span>) <span class="op">~</span><span class="st"> </span><span class="dv">6</span>,</span>
+<span id="cb38-9"><a href="modellinterpretation-und-darstellung.html#cb38-9"></a>                         topic <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">22</span>) <span class="op">~</span><span class="st"> </span><span class="dv">7</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-10"><a href="modellinterpretation-und-darstellung.html#cb38-10"></a><span class="st">  </span><span class="kw">left_join</span>(m37_labels) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-11"><a href="modellinterpretation-und-darstellung.html#cb38-11"></a><span class="st">  </span><span class="kw">left_join</span>(m37_frex) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-12"><a href="modellinterpretation-und-darstellung.html#cb38-12"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">reorder</span>(label, P)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-13"><a href="modellinterpretation-und-darstellung.html#cb38-13"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(P, label, <span class="dt">label =</span> frex_terms, <span class="dt">fill =</span> <span class="kw">factor</span>(grp))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">percent_format</span>(<span class="dt">accuracy =</span> <span class="dv">1</span>), <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>(<span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">nudge_x =</span> <span class="fl">5e-04</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Anteil des Topics am gesamten Korpus&quot;</span>, <span class="dt">y =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(grp <span class="op">~</span><span class="st"> </span>., <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>, <span class="dt">space =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:topic-cluster2"></span>
 <img src="workshop_topicmodels_files/figure-html/topic-cluster-2.png" alt="Zur vollen Ansicht in neuem Tab öffnen" width="1536" />
 <p class="caption">

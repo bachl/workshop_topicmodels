@@ -155,9 +155,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html"><i class="fa fa-check"></i><b>4</b> Modellinterpretation und -darstellung</a><ul>
 <li class="chapter" data-level="4.1" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#test-der-modellqualität"><i class="fa fa-check"></i><b>4.1</b> Test der Modellqualität</a></li>
-<li class="chapter" data-level="4.2" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#interpretation-des-modells"><i class="fa fa-check"></i><b>4.2</b> Interpretation des Modells</a></li>
-<li class="chapter" data-level="4.3" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#darstellung-des-modells"><i class="fa fa-check"></i><b>4.3</b> Darstellung des Modells</a></li>
-<li class="chapter" data-level="4.4" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#weitere-analysen-prädiktoren-der-topic-prävalenz-und-topic-cluster"><i class="fa fa-check"></i><b>4.4</b> Weitere Analysen: Prädiktoren der Topic-Prävalenz und Topic-Cluster</a></li>
+<li class="chapter" data-level="4.2" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#darstellung-des-modells"><i class="fa fa-check"></i><b>4.2</b> Darstellung des Modells</a></li>
+<li class="chapter" data-level="4.3" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#weitere-analysen-prädiktoren-der-topic-prävalenz-und-topic-cluster"><i class="fa fa-check"></i><b>4.3</b> Weitere Analysen: Prädiktoren der Topic-Prävalenz und Topic-Cluster</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="literatur.html"><a href="literatur.html"><i class="fa fa-check"></i>Literatur</a></li>
 </ul>
@@ -191,18 +190,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Modellspezifikation</li>
 <li>Modellvergleich zur Auswahl eines geeigneten Modells</li>
-<li>Interpretation der Topics in einem ausgewählten Modell</li>
 <li>Darstellung der Ergebnisse</li>
 <li>Weitere Analysen
 <ul>
-<li>Identifikation verwandter Themen</li>
-<li>Zusammenhänge der Themenprävalenz mit Kovariaten.</li>
+<li>Zusammenhänge der Topic-Prävalenz mit Kovariaten</li>
+<li>Identifikation verwandter Topics</li>
 </ul></li>
 </ul></li>
 <li>Wir verwenden das Paket <code>{stm}</code> <span class="citation">(Roberts, Stewart, and Tingley <a href="#ref-robertsStmPackageStructural2019" role="doc-biblioref">2019</a>)</span> zum Schätzen von Topic Models. Für die Variante der <em>Structural</em> Topic Models und die Implementation in diesem Paket sprechen <em>für mich</em> die folgenden Gründe
 <ul>
 <li>Gute Integration mit <em>R</em> und Paketen, die ich für die Arbeit mit Text-Daten verwende (insbesondere <code>{quanteda}</code> und <code>{tidytext}</code>)</li>
-<li>Gute ergänzende Pakete zur Arbeit mit den Modellen (insbesondere <code>{stminsights}</code>)</li>
+<li>Gute ergänzende Pakete zur Arbeit mit den Modellen (insbesondere <code>{stminsights}</code> und <code>{oolong}</code>)</li>
 <li>Vergleichsweise schnelle Modellschätzung auch mit großen Datensätzen</li>
 <li>Direktes Schätzen von Zusammenhängen von Topics mit Kovariaten</li>
 <li>Initialisieren der Modellschätzung mit dem Spectral Algorithmus</li>
@@ -222,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Wir behandeln hier keine theoretischen, statistischen oder auf die Software-Implementierung der Modellschätzung bezogenen Fragen. Die Grundlagen dazu können aus den Texten im LMS entnommen werden <span class="citation">(Maier et al. <a href="#ref-maierApplyingLDATopic2018" role="doc-biblioref">2018</a>; Roberts, Stewart, and Tingley <a href="#ref-robertsStmPackageStructural2019" role="doc-biblioref">2019</a>)</span>.</p></li>
 <li><p>Es gibt neben <code>{stm}</code> viele andere Implementationen in <em>R</em> und ihn anderer Software. Gefühlt gibt es alle 6 Monate eine neue Variante von Topic Models, alle 3 Monate eine neue Implementierung und jeden Monat ein Paket mit zusätzlichen Tools für die Arbeit mit Topic Models. Meine Entscheidung für <code>{stm}</code> ist keine informierte Entscheidung gegen andere Varianten, Implementierungen und Tools. Dieser Workshop ist keine Aufforderung, ausschließlich <code>{stm}</code> zu nutzen. Informiert euch gegebenenfalls selbst über Software-Lösungen, die für eure Bedürfnisse geeignet sind.</p></li>
 <li><p>Dieser Mini-Workshop ist kein <em>R</em>-Tutorial. Wenn ihr Interesse habt, <em>R</em>-Kenntnisse zu erwerben und zu vertiefen, empfehle ich <a href="https://r4ds.had.co.nz/">R4DS</a>.</p></li>
-<li><p>Dieser Mini-Workshop ist keine allgemeine Einführung in die computergestützte Inhaltsanalyse. Wenn ihr allgemein mit <em>R</em> arbeiten möchtet, empfehle ich zu diesem Thema die <a href="http://inhaltsanalyse-mit-r.de/">Einführung von Cornelius Puschmann</a>.</p></li>
+<li><p>Dieser Mini-Workshop ist keine allgemeine Einführung in die computergestützte Inhaltsanalyse. Wenn ihr allgemein Textanalysen mit <em>R</em> durchführen möchtet, empfehle ich zu diesem Thema die <a href="http://inhaltsanalyse-mit-r.de/">Einführung von Cornelius Puschmann</a>.</p></li>
 </ul>
 </div>
 <div id="aufbau-des-workshops" class="section level2">
@@ -234,12 +232,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Material</h3>
 <ul>
 <li><p>Dieses Dokument + R Skripte: (Hoffentlich) mehr oder weniger selbsterklärendes Material</p></li>
-<li><p>Daten: Ein Ausschnitt auf den Daten der oben genannten Beispielstudie. Eine genauere Beschreibung folgt im nächsten Abschnitt.</p></li>
-<li><p>Screencast: Zu einigen Analyseschritten stelle ich Screencasts zur Verfügung. Diese sind größtenteils ergänzend gedacht. Bis auf wenige Ausnahmen sollte das schriftliche Material selbsterklärend sein.</p></li>
-<li><p>Übungen: Zu einigen Analysen gibt es Übungsaufgaben.</p>
-<ul>
-<li>XXX</li>
-</ul></li>
+<li><p>Daten: Ein Ausschnitt auf den Daten der oben genannten Beispielstudie. Eine genauere Beschreibung folgt im nächsten Abschnitt. Sie sind <em>nicht</em> auf GitHub, sondern nur im LMS verfügbar.</p></li>
+<li><p>Screencast: Zu einigen Analyseschritten stelle ich Screencasts zur Verfügung (siehe Anmerkungen im Text).</p></li>
+<li><p>Übungen: Zur Einübung der Inhalte empfehle ich, die in diesem Material dokumentierten Code-Auszüge auf dem eigenen Rechner auszuführen und anzupassen. Die inhaltliche Interpretation der Modelle wird im Material nur angedeutet. Ihr könnt diese selbst vertiefen.</p></li>
 </ul>
 </div>
 <div id="pakete" class="section level3 unnumbered">
@@ -247,7 +242,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Wir verwenden die folgenden Pakete</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
 <span id="cb1-2"><a href="index.html#cb1-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(tidyverse, stm, stminsights, tidytext, quanteda, lubridate, knitr, </span>
-<span id="cb1-3"><a href="index.html#cb1-3"></a>    tictoc, furrr, oolong)</span>
+<span id="cb1-3"><a href="index.html#cb1-3"></a>    tictoc, furrr, oolong, textmineR, ggdendro)</span>
 <span id="cb1-4"><a href="index.html#cb1-4"></a><span class="kw">theme_set</span>(<span class="kw">theme_bw</span>())  <span class="co"># ggplot theme</span></span>
 <span id="cb1-5"><a href="index.html#cb1-5"></a></span>
 <span id="cb1-6"><a href="index.html#cb1-6"></a><span class="kw">tibble</span>(<span class="dt">package =</span> <span class="kw">c</span>(<span class="st">&quot;R&quot;</span>, <span class="kw">sort</span>(pacman<span class="op">::</span><span class="kw">p_loaded</span>()))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">version =</span> <span class="kw">map_chr</span>(package, </span>
@@ -281,16 +276,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">1.16.0</td>
 </tr>
 <tr class="even">
+<td align="left">ggdendro</td>
+<td align="left">0.1.20</td>
+</tr>
+<tr class="odd">
 <td align="left">ggplot2</td>
 <td align="left">3.3.2</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">knitr</td>
 <td align="left">1.28</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">lubridate</td>
 <td align="left">1.7.4</td>
+</tr>
+<tr class="even">
+<td align="left">Matrix</td>
+<td align="left">1.2.18</td>
 </tr>
 <tr class="odd">
 <td align="left">oolong</td>
@@ -325,22 +328,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">1.4.0</td>
 </tr>
 <tr class="odd">
+<td align="left">textmineR</td>
+<td align="left">3.0.4</td>
+</tr>
+<tr class="even">
 <td align="left">tibble</td>
 <td align="left">3.0.1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">tictoc</td>
 <td align="left">1.0</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">tidyr</td>
 <td align="left">1.0.2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">tidytext</td>
 <td align="left">0.2.3</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">tidyverse</td>
 <td align="left">1.3.0</td>
 </tr>

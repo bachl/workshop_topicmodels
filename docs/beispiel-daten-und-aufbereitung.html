@@ -155,9 +155,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html"><i class="fa fa-check"></i><b>4</b> Modellinterpretation und -darstellung</a><ul>
 <li class="chapter" data-level="4.1" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#test-der-modellqualität"><i class="fa fa-check"></i><b>4.1</b> Test der Modellqualität</a></li>
-<li class="chapter" data-level="4.2" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#interpretation-des-modells"><i class="fa fa-check"></i><b>4.2</b> Interpretation des Modells</a></li>
-<li class="chapter" data-level="4.3" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#darstellung-des-modells"><i class="fa fa-check"></i><b>4.3</b> Darstellung des Modells</a></li>
-<li class="chapter" data-level="4.4" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#weitere-analysen-prädiktoren-der-topic-prävalenz-und-topic-cluster"><i class="fa fa-check"></i><b>4.4</b> Weitere Analysen: Prädiktoren der Topic-Prävalenz und Topic-Cluster</a></li>
+<li class="chapter" data-level="4.2" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#darstellung-des-modells"><i class="fa fa-check"></i><b>4.2</b> Darstellung des Modells</a></li>
+<li class="chapter" data-level="4.3" data-path="modellinterpretation-und-darstellung.html"><a href="modellinterpretation-und-darstellung.html#weitere-analysen-prädiktoren-der-topic-prävalenz-und-topic-cluster"><i class="fa fa-check"></i><b>4.3</b> Weitere Analysen: Prädiktoren der Topic-Prävalenz und Topic-Cluster</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="literatur.html"><a href="literatur.html"><i class="fa fa-check"></i>Literatur</a></li>
 </ul>
@@ -184,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Wir verwenden einen Ausschnitt der Daten aus der Beispielstudie. Konkret handelt es sich um Posts mit dem Suchwort <em>impf</em>, die zwischen dem 1. Mai 2016 und dem 8. Juli 2019 im Elternforum <a href="https://www.urbia.de/forum">Urbia</a> veröffentlicht wurden. Ausgeschlossen wurden unter anderem
 <ul>
-<li>sehr kurze Posts (weniger als 19 Wörter)</li>
+<li>sehr kurze Posts (weniger als 20 Wörter)</li>
 <li>Posts mit dem Wort <em>schimpf</em></li>
 <li>Posts zur Impfung von Haustieren (nach einem kurzen Diktionär)</li>
 </ul></li>
@@ -246,7 +245,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Der Argumentation und den empirischen Ergebnissen von <span class="citation">Schofield and Mimno (<a href="#ref-schofieldComparingApplesApple2016" role="doc-biblioref">2016</a>)</span> (deren Aufsatz übrigens einen großartigen Titel hat, großer NLP Nerd Humor) folgend habe ich auf Stemming oder Lemmatisierung verzichtet. In der Tat zeigt sich, dass Wörter mit dem gleichen Wortstamm, wie von <span class="citation">Schofield and Mimno (<a href="#ref-schofieldComparingApplesApple2016" role="doc-biblioref">2016</a>)</span> beschrieben, häufig im selben Topic landen.</li>
 <li>Üblichen Standards <span class="citation">(z.B. Maier et al. <a href="#ref-maierApplyingLDATopic2018" role="doc-biblioref">2018</a>)</span> folgend habe ich alle Wörter in Kleinschreibung umgewandelt, Satzzeichen entfernt und URL entfernt. Zahlen habe ich beibehalten, da sie (wie die Ergebnisse auch zeigen) typische Merkmale bestimmter Perspektiven auf das Thema Impfen sind.</li>
 <li>Da wir auch an der Veränderung der Topic-Häufigkeiten über die Zeit interessiert sind, wird die Variable mit dem Erscheinungstags des Posts in eine numerische Variable umgewandelt. Sie ist so skaliert, dass der aktuellste Post den Wert 0 hat. Diese Variable können wir dann als Prädiktor beim Schätzen des <em>Structural Topic Model</em> berücksichtigen.</li>
-<li>Unter <em>Pruning</em> versteht man das Entfernen von Features, die entweder in sehr weniger oder in sehr vielen Dokumenten vorkommen. Dadurch können die Größe des Datensatzes und in der Folge die zum Schätzen der Modelle nötigen Ressourcen wesentlich reduziert werden. Inhaltlich sollte das Entfernen dieser Features wenig ändern: Features, die in sehr vielen Dokumenten vorkommen, tragen nicht zur Differenzierung zwischen den Dokumenten bei. Features, die nur in sehr wenigen Dokumenten vorkommen, tragen nicht zur Definition von Topics bei, da diese durch das regelmäßige <em>gemeinsame</em> Vorkommen in Dokumenten identifiziert werden. Siehe ausführlich <span class="citation">Maier et al. (<a href="#ref-maierApplyingLDATopic2018" role="doc-biblioref">2018</a>)</span>.</li>
+<li>Unter <em>Pruning</em> versteht man das Entfernen von Features, die entweder in sehr wenigen oder in sehr vielen Dokumenten vorkommen. Dadurch können die Größe des Datensatzes und in der Folge die zum Schätzen der Modelle nötigen Ressourcen wesentlich reduziert werden. Inhaltlich sollte das Entfernen dieser Features wenig ändern: Features, die in sehr vielen Dokumenten vorkommen, tragen nicht zur Differenzierung zwischen den Dokumenten bei. Features, die nur in sehr wenigen Dokumenten vorkommen, tragen nicht zur Definition von Topics bei, da diese durch das regelmäßige <em>gemeinsame</em> Vorkommen in Dokumenten identifiziert werden. Siehe ausführlich <span class="citation">Maier et al. (<a href="#ref-maierApplyingLDATopic2018" role="doc-biblioref">2018</a>)</span>.</li>
 </ul></li>
 <li>Die Vorbereitung des Korpus und der Dokument-Feature-Matrix erfolgte mit Funktionen aus <code>{quanteda}</code>.
 <ul>
@@ -311,7 +310,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>##  ...found 12,369 documents, 41,638 features</code></pre>
 <pre><code>##  ...applying a dictionary consisting of 20 keys
 ##  ...removed 286 features
-##  ...complete, elapsed time:  2.44 seconds.
+##  ...complete, elapsed time:  3.2 seconds.
 ## Finished constructing a 12,369 x 41,372 sparse dfm.</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="beispiel-daten-und-aufbereitung.html#cb14-1"></a>impf_dfm</span></code></pre></div>
 <pre><code>## Document-feature matrix of: 12,369 documents, 41,372 features (99.9% sparse) and 6 docvars.
